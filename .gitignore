@@ -1,0 +1,8 @@
+node_modules
+lab3-data
+database
+build
+npm-debug.log
+.nyc
+.env
+.DS_Store

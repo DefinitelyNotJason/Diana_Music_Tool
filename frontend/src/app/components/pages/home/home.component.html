@@ -1,0 +1,24 @@
+<app-search></app-search>
+<ul>
+    <li *ngFor="let m of music">
+        <a routerLink = "/artist/{{m.artist_name}}">
+            <div class="content">
+                <div class="artist_name">
+                    artist_name : {{m.artist_name}}
+                </div>
+                <div class="album_title">
+                    album_title : {{m.album_title}}
+                </div>
+                <div class="album_id">
+                    album_id : {{m.album_id}}
+                </div>
+                <div class="tags">
+                    tags : {{m.tags}}
+                </div>
+                <div class="track_id">
+                    track_id : {{m.track_id}}
+                </div>
+            </div>
+        </a>
+    </li>
+</ul>

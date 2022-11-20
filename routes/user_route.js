@@ -1,7 +1,9 @@
 const express = require('express');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+const nodemailer = require("nodemailer");
 const User = require('../model/user.js');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -11,6 +13,15 @@ let router = express.Router();
 
 //JWT secret, DO NOT EDIT
 const SECRET = 'THISISECE9065GROUPPROJECTA_N_DTHISAPPISAWESOME!!!!';
+
+// Send e-mail when user signup
+let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: "wdtjx95@gmail.com",
+        pass: "ifvuwmtiplnlvcoh"
+    } 
+ });
 
 //Google API
 const GOOGLE_CLIENT_ID = '562162783163-ne8p8bem2hinu31e17o3j9a2lav5epbo.apps.googleusercontent.com';
@@ -49,13 +60,34 @@ router.post('/register', async function(req, res){
         const username = value.username;
         const email = value.email;
         const password = await bcrypt.hash(value.password, 10);
+        const isVerified = false;
         try {
-            const res = await User.create({
+            const user = new User({
                 username,
                 email,
-                password
+                password,
+                emailToken: crypto.randomBytes(64).toString('hex'),
+                isVerified
             });
-            console.log('User created successfully:', res);
+            const res = await user.save();
+            //sending varification email
+            let mailopt = {
+                from: '"Verify your email" <dianamusictool@gmail.com>',
+                to: user.email,
+                subject: 'Thank you for using Diana Music Tool!',
+                html: `Hello, ${user.username}
+                    <br>Thanks for using Diana Music Tool!</br>
+                    <br>Please click on the link below to verify your email.</br>
+                    <a href="http://${req.headers.host}/user/emailverify?token=${user.emailToken}">Click here to verify</a>`
+            };
+            transporter.sendMail(mailopt, function(err, res){
+                if (err){
+                    console.log(err);
+                } else {
+                    console.log('Email send success!');
+                }
+            });
+            console.log('User created successfully!');
         } catch(error){
             console.log(error.message);
             if (error.code === 11000){
@@ -65,6 +97,23 @@ router.post('/register', async function(req, res){
             throw error;
         };
         return res.json({success:true});
+    };
+});
+
+//email varification
+router.get('/emailverify', async function(req, res){
+    try {
+        const token = req.query.token;
+        const user = await User.findOne({ emailToken: token });
+        if (!user || user == null || user == undefined || user == {} || user == []){
+            return res.json({success:false, error:'User does not exist!'});
+        };
+        user.emailToken = null;
+        user.isVerified = true;
+        await user.save();
+        res.redirect('/');
+    } catch(error) {
+        console.log(error);
     };
 });
 
@@ -84,6 +133,11 @@ router.post('/login', async function(req, res){
         }
         //check if input password equals to hashed password
         if (await bcrypt.compare(password, user.password)){
+            //check if email is varified
+            if (!user.isVerified){
+                console.log('You have to verifiy your email before login!');
+                return res.json({success:false, error:'User is not varified!'});
+            }
             console.log('ok了家人们,登陆成功了家人们');
             const token = jwt.sign({
                 id: user._id, 

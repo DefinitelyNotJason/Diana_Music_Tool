@@ -4,10 +4,9 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
-const User = require('../model/user.js');
 const passport = require('passport');
-const { doesNotMatch } = require('assert');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const User = require('../model/user.js');
 
 "use strict";
 let router = express.Router();
@@ -51,7 +50,7 @@ passport.use(new GoogleStrategy({
                     password,
                     isVerified: isVerified
                 });
-                const res = await user.save();
+                await user.save();
                 cb(null, user);
             }
         } catch(error) {
@@ -91,25 +90,11 @@ router.post('/register', async function(req, res){
                 emailToken: crypto.randomBytes(64).toString('hex'),
                 isVerified
             });
-            const res = await user.save();
+            await user.save();
             //sending varification email
-            let mailopt = {
-                from: '"Verify your email" <dianamusictool@gmail.com>',
-                to: user.email,
-                subject: 'Thank you for using Diana Music Tool!',
-                html: `Hello, ${user.username}
-                    <br>Thanks for using Diana Music Tool!</br>
-                    <br>Please click on the link below to verify your email.</br>
-                    <a href="http://${req.headers.host}/user/emailverify?token=${user.emailToken}">Click here to verify</a>`
-            };
-            transporter.sendMail(mailopt, function(err, res){
-                if (err){
-                    console.log(err);
-                } else {
-                    console.log('Email send success!');
-                }
-            });
+            sendEmail(req.headers.host, user);
             console.log('User created successfully!');
+            return res.json({success:true});
         } catch(error){
             console.log(error.message);
             if (error.code === 11000){
@@ -118,7 +103,6 @@ router.post('/register', async function(req, res){
             }
             throw error;
         };
-        return res.json({success:true});
     };
 });
 
@@ -133,7 +117,7 @@ router.get('/emailverify', async function(req, res){
         user.emailToken = null;
         user.isVerified = true;
         await user.save();
-        res.redirect('/?token='+token);
+        res.redirect('/');
     } catch(error) {
         console.log(error);
     };
@@ -160,35 +144,54 @@ router.post('/login', async function(req, res){
             if (!user.isVerified){
                 console.log('Email needs to be varified! Varification email send again!');
                 //send the varification email again
-                let mailopt = {
-                    from: '"Verify your email" <dianamusictool@gmail.com>',
-                    to: user.email,
-                    subject: 'Thank you for using Diana Music Tool!',
-                    html: `Hello, ${user.username}
-                        <br>Thanks for using Diana Music Tool!</br>
-                        <br>Please click on the link below to verify your email.</br>
-                        <a href="http://${req.headers.host}/user/emailverify?token=${user.emailToken}">Click here to verify</a>`
-                };
-                transporter.sendMail(mailopt, function(err, res){
-                    if (err){
-                        console.log(err);
-                    } else {
-                        console.log('Email send success!');
-                    }
-                });
+                sendEmail(req.headers.host, user);
             }
-            console.log('ok了家人们,登陆成功了家人们');
-            const token = jwt.sign({
-                id: user._id, 
-                username: user.username,
-                email: user.email,
-                isVerified: user.isVerified
-            }, SECRET);
+            console.log('Login Success!');
+            const token = generateAccessToken(user);
             console.log(token);
             return res.json({success:true, data:token});
         } else {
             console.log('Password incorrect!');
             return res.status(401).send({'Error':'Password incorrect!'});
+        };
+    };
+});
+
+//check input password
+const passwordChange = Joi.object({
+    token: Joi.string().required(),
+    newpassword: Joi.string().trim().min(1).max(30).required().regex(/[$\(\)<>]/, { invert: true })
+});
+//user password change
+router.post('/password-change', async function(req, res){
+    let { error, value } = passwordChange.validate(req.body);
+    if (error){
+        //invalid input
+        console.log(error.message);
+        return res.status(400).send({'Error':error.message});
+    } else {
+        const token = value.token;
+        const newpassword = value.newpassword;
+        try {
+            const user = jwt.verify(token, SECRET);
+            console.log(user);
+            if (!user || user == null || user == undefined || user == {} || user == []){
+                console.log('User error!');
+                return res.json({success:false, error:'User error!'});
+            }
+            const _id = user.user._id;
+            const password = await bcrypt.hash(newpassword, 10);
+            await User.updateOne(
+                { _id },
+                {
+                    $set: { password }
+                }
+            );
+            console.log("Password update success!");
+            return res.json({success:true});
+        } catch(error){
+            console.log(error.message);
+            return res.json({success:false, error:error.message});
         };
     };
 });
@@ -200,15 +203,35 @@ router.get('/auth/google',
 router.get('/auth/google/callback', 
     passport.authenticate('google', { session: false, failureRedirect: '/' }),
     function(req, res) {
-        const token = jwt.sign({
-            id: req.user._id, 
-            username: req.user.username,
-            email: req.user.email,
-            isVerified: req.user.isVerified
-        }, SECRET);
+        const token = generateAccessToken(req.user);
         console.log('Google login success!');
         // Successful authentication, redirect home.
         res.redirect('/?token='+token);
     });
+
+//function that generate access token
+function generateAccessToken(user) {
+    return jwt.sign({user}, SECRET, { expiresIn: '1h' });
+};
+
+//function that send email
+function sendEmail(host, user) {
+    let mailopt = {
+        from: '"Verify your email" <dianamusictool@gmail.com>',
+        to: user.email,
+        subject: 'Thank you for using Diana Music Tool!',
+        html: `Hello, ${user.username}
+            <br>Thanks for using Diana Music Tool!</br>
+            <br>Please click on the link below to verify your email.</br>
+            <a href="http://${host}/user/emailverify?token=${user.emailToken}">Click here to verify</a>`
+    };
+    transporter.sendMail(mailopt, function(err, res){
+        if (err){
+            console.log(err);
+        } else {
+            console.log('Email send success!');
+        }
+    });
+};
 
 module.exports = router;

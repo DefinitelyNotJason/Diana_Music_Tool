@@ -1,8 +1,9 @@
 node_modules
-lab3-data
+data
 database
 build
 npm-debug.log
 .nyc
 .env
 .DS_Store
+*.rest

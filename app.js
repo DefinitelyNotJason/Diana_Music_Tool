@@ -26,6 +26,8 @@ app.use('/track', track_route);
 
 app.get('/', function(req, res){
     let token = req.query.token;
-    console.log(token);
+    if (token){
+        console.log(token);
+    }
     console.log("Hello World!");
 });

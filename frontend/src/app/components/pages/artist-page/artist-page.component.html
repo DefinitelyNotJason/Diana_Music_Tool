@@ -1,18 +1,39 @@
 <div class="content">
     <div class="artist_name">
-        artist_name : {{artist.artist_name}}
+        artist_name : {{artist._id}}
     </div>
     <div class="album_title">
-        album_title : {{artist.album_title}}
+        album_title : {{artist.name}}
     </div>
     <div class="album_id">
-        album_id : {{artist.album_id}}
+        album_id : {{artist.creator}}
     </div>
     <div class="tags">
-        tags : {{artist.tags}}
+        tags : {{artist.number_tracks}}
     </div>
     <div class="track_id">
-        track_id : {{artist.track_id}}
+        track_id : {{artist.tracks}}
+    </div>
+    <div class="playtime">
+        playtime : {{artist.playtime}}
+    </div>
+    <div class="total_review_score">
+        total_review_score : {{artist.total_review_score}}
+    </div>
+    <div class="total_review_time">
+        total_review_time : {{artist.total_review_time}}
+    </div>
+    <div class="review_score">
+        review_score : {{artist.review_score}}
+    </div>
+    <div class="public">
+        public : {{artist.public}}
+    </div>
+    <div class="edit_date">
+        edit_date : {{artist.edit_date}}
+    </div>
+    <div class="__v">
+        __v : {{artist.__v}}
     </div>
     <button (click) = "addToFavorites()">Add to favorite</button>
 </div>

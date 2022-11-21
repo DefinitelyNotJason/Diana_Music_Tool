@@ -1,0 +1,15 @@
+<div class="container">
+    <ul>
+        <li *ngFor="let item of music">
+            <div class="musicName">
+                {{item.name}}
+            </div>
+            <div class="address">
+                <a href="{{item.address}}">{{item.address}}</a>
+            </div>
+            <div class="add-button">
+                <button>Add to Favorite</button>
+            </div>
+        </li>
+    </ul>  
+</div>

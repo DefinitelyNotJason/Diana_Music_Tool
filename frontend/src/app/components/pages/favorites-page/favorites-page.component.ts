@@ -16,7 +16,7 @@ export class FavoritesPageComponent {
   } 
 
   removeFromFavorites(favoriteartist:FavoriteArtist){
-    this.favoritesService.removeFromFavorites(favoriteartist.music.artist_name);
+    this.favoritesService.removeFromFavorites(favoriteartist.music._id);
   }
 
 }

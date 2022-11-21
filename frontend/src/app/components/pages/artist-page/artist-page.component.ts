@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FavoritesService } from 'src/app/services/favorites.service';
 import { MusicService } from 'src/app/services/music.service';
-import { Music } from 'src/app/shared/models/music';
+import { PlayList } from 'src/app/shared/models/playlist';
 
 @Component({
   selector: 'app-artist-page',
@@ -10,7 +10,7 @@ import { Music } from 'src/app/shared/models/music';
   styleUrls: ['./artist-page.component.css']
 })
 export class ArtistPageComponent {
-  artist!: Music;
+  artist!: PlayList;
   constructor(activatedRoute:ActivatedRoute, musicService:MusicService,
     private favoritesService:FavoritesService, private router: Router){
     activatedRoute.params.subscribe((params)=>{

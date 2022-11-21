@@ -1,6 +1,6 @@
-import { Music } from "./music";
+import { PlayList } from "./playlist";
 
 export class FavoriteArtist{
-    constructor(public music:Music){}
+    constructor(public music:PlayList){}
     quantity:number = 1;
 }

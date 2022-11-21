@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FavoriteArtist } from '../shared/models/favoriteartist';
 import { Favorites } from '../shared/models/favorites';
-import { Music } from '../shared/models/music';
+import { PlayList } from '../shared/models/playlist';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,8 @@ export class FavoritesService {
 
   constructor() { }
 
-  addToFavorites(music:Music):void{
-    let favoriteartist = this.favorites.artists.find(i => i.music.artist_name === music.artist_name);
+  addToFavorites(music:PlayList):void{
+    let favoriteartist = this.favorites.artists.find(i => i.music._id === music._id);
     if(favoriteartist)
       return;
 
@@ -22,8 +22,8 @@ export class FavoritesService {
     this.setFavoritesToLocalStorage();
   }
 
-  removeFromFavorites(artist_name:string):void{
-    this.favorites.artists = this.favorites.artists.filter(i => i.music.artist_name != artist_name);
+  removeFromFavorites(_id:string):void{
+    this.favorites.artists = this.favorites.artists.filter(i => i.music._id != _id);
     this.setFavoritesToLocalStorage();
   }
 

@@ -3,22 +3,43 @@
 <div class="container">
     <ul>
         <li *ngFor="let item of favorites.artists">
-            <a routerLink = "/artist/{{item.music.artist_name}}">
+            <a routerLink = "/artist/{{item.music._id}}">
                 <div class="content">
                     <div class="artist_name">
-                        artist_name : {{item.music.artist_name}}
+                        _id : {{item.music._id}}
                     </div>
-                    <div class="album_title">
-                        album_title : {{item.music.album_title}}
+                    <div class="name">
+                        name : {{item.music.name}}
                     </div>
-                    <div class="album_id">
-                        album_id : {{item.music.album_id}}
+                    <div class="creator">
+                        creator : {{item.music.creator}}
                     </div>
-                    <div class="tags">
-                        tags : {{item.music.tags}}
+                    <div class="number_tracks">
+                        number_tracks : {{item.music.number_tracks}}
                     </div>
-                    <div class="track_id">
-                        track_id : {{item.music.track_id}}
+                    <div class="tracks">
+                        tracks : {{item.music.tracks}}
+                    </div>
+                    <div class="playtime">
+                        playtime : {{item.music.playtime}}
+                    </div>
+                    <div class="total_review_score">
+                        total_review_score : {{item.music.total_review_score}}
+                    </div>
+                    <div class="total_review_time">
+                        total_review_time : {{item.music.total_review_time}}
+                    </div>
+                    <div class="review_score">
+                        review_score : {{item.music.review_score}}
+                    </div>
+                    <div class="public">
+                        public : {{item.music.public}}
+                    </div>
+                    <div class="edit_date">
+                        edit_date : {{item.music.edit_date}}
+                    </div>
+                    <div class="__v">
+                        __v : {{item.music.__v}}
                     </div>
                 </div>
             </a>

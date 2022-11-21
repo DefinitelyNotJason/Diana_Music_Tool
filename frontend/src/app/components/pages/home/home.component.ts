@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MusicService } from 'src/app/services/music.service';
-import { Music } from 'src/app/shared/models/music';
+import { PlayList } from 'src/app/shared/models/playlist';
 
 @Component({
   selector: 'app-home',
@@ -9,15 +9,15 @@ import { Music } from 'src/app/shared/models/music';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  music:Music[] = [];
+  playlist:PlayList[] = [];
 
   constructor(private musicService:MusicService , activatedRoute:ActivatedRoute){
     activatedRoute.params.subscribe((params)=>{
-      if(params['search']){
-        this.music = musicService.getAllByArtistName(params['search']);
-      }else{
-        this.music = musicService.getAll();
-      }
+      // if(params['search']){
+      //   this.playlist = musicService.getAllByArtistName(params['search']);
+      // }else{
+        this.playlist = musicService.getAll();
+      // }
     })
   }
 

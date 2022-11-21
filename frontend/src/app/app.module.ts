@@ -9,6 +9,9 @@ import { SearchComponent } from './components/partials/search/search.component';
 import { ArtistPageComponent } from './components/pages/artist-page/artist-page.component';
 import { FavoritesPageComponent } from './components/pages/favorites-page/favorites-page.component';
 import { TitleComponent } from './components/partials/title/title.component';
+import { LoginPageComponent } from './components/pages/login-page/login-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PlayPageComponent } from './components/pages/play-page/play-page.component';
 
 @NgModule({
   declarations: [
@@ -18,11 +21,14 @@ import { TitleComponent } from './components/partials/title/title.component';
     SearchComponent,
     ArtistPageComponent,
     FavoritesPageComponent,
-    TitleComponent
+    TitleComponent,
+    LoginPageComponent,
+    PlayPageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

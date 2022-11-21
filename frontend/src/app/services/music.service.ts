@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { smaple_music } from 'src/data';
+import { sample_music, smaple_playlist } from 'src/data';
 import { Music } from '../shared/models/music';
+import { PlayList } from '../shared/models/playlist';
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +10,19 @@ export class MusicService {
 
   constructor() { }
 
-  getAll():Music[]{
-    return smaple_music;
+  getAll():PlayList[]{
+    return smaple_playlist;
   }
 
-  getAllByArtistName(search:string){
-    return this.getAll().filter(music=>music.artist_name.toLowerCase().includes(search.toLowerCase()));
+  getMusic():Music[]{
+    return sample_music;
   }
 
-  getArtistByName(ArtName:string):Music{
-    return this.getAll().find(music => music.artist_name === ArtName) ?? new Music();
+  searchByMusicName(search:string){
+    return this.getMusic().filter(music=>music.name.toLowerCase().includes(search.toLowerCase()));
+  }
+
+  getArtistByName(ArtName:string):PlayList{
+    return this.getAll().find(music => music._id === ArtName) ?? new PlayList();
   }
 }

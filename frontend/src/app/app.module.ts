@@ -7,6 +7,8 @@ import { HeaderComponent } from './components/partials/header/header.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { SearchComponent } from './components/partials/search/search.component';
 import { ArtistPageComponent } from './components/pages/artist-page/artist-page.component';
+import { FavoritesPageComponent } from './components/pages/favorites-page/favorites-page.component';
+import { TitleComponent } from './components/partials/title/title.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { ArtistPageComponent } from './components/pages/artist-page/artist-page.
     HeaderComponent,
     HomeComponent,
     SearchComponent,
-    ArtistPageComponent
+    ArtistPageComponent,
+    FavoritesPageComponent,
+    TitleComponent
   ],
   imports: [
     BrowserModule,

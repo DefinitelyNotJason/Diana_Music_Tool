@@ -16,8 +16,8 @@
                     </div>
                 </li>
                 <li>
-                    <a routerLink="/cart-page">
-                        Favorite <span>3</span>
+                    <a routerLink="/favorites-page">
+                        Favorite <span *ngIf="favoritesQuantity">{{favoritesQuantity}}</span>
                     </a>
                 </li>
             </ul>

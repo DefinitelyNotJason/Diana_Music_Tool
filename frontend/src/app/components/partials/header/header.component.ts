@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FavoritesService } from 'src/app/services/favorites.service';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-
+  favoritesQuantity = 0;
+  constructor(favoritesService:FavoritesService){
+    favoritesService.getFavoritesObservable().subscribe((newFavorites) => {
+      this.favoritesQuantity = newFavorites.totalCount;
+    })
+  }
 }

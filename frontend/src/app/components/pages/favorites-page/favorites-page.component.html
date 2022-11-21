@@ -1,0 +1,33 @@
+<app-title title="Favorites Page" margin="1.5rem 0 0 2,5rem"></app-title>
+
+<div class="container">
+    <ul>
+        <li *ngFor="let item of favorites.artists">
+            <a routerLink = "/artist/{{item.music.artist_name}}">
+                <div class="content">
+                    <div class="artist_name">
+                        artist_name : {{item.music.artist_name}}
+                    </div>
+                    <div class="album_title">
+                        album_title : {{item.music.album_title}}
+                    </div>
+                    <div class="album_id">
+                        album_id : {{item.music.album_id}}
+                    </div>
+                    <div class="tags">
+                        tags : {{item.music.tags}}
+                    </div>
+                    <div class="track_id">
+                        track_id : {{item.music.track_id}}
+                    </div>
+                </div>
+            </a>
+            <div>
+                <button class="remove-button" (click) = "removeFromFavorites(item)">
+                    Remove
+                </button>
+            </div>
+        </li>
+    </ul>
+
+</div>

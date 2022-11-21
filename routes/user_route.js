@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
 const User = require('../model/user.js');
 const passport = require('passport');
+const { doesNotMatch } = require('assert');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 "use strict";
@@ -32,10 +33,31 @@ passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/user/auth/google/callback"
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    return cb(profile);
-  }
+},
+    async function(accessToken, refreshToken, profile, cb) {
+        try {
+            console.log(profile);
+            const user = await User.findOne({ username: profile.id });
+            if (user){
+                cb(null, user);
+            } else {
+                const username = profile.id;
+                const email = profile.emails[0].value;
+                const password = 'google_user';
+                const isVerified = true;
+                const user = new User({
+                    username,
+                    email,
+                    password,
+                    isVerified: isVerified
+                });
+                const res = await user.save();
+                cb(null, user);
+            }
+        } catch(error) {
+            cb(error, null);
+        };
+    }
 ));
 
 //validating input of user info
@@ -111,7 +133,7 @@ router.get('/emailverify', async function(req, res){
         user.emailToken = null;
         user.isVerified = true;
         await user.save();
-        res.redirect('/');
+        res.redirect('/?token='+token);
     } catch(error) {
         console.log(error);
     };
@@ -129,19 +151,38 @@ router.post('/login', async function(req, res){
         const password = value.password;
         const user = await User.findOne({ email }).lean();
         if (!user || user == null || user == undefined || user == {} || user == []){
+            console.log('User does not exist!');
             return res.json({success:false, error:'User does not exist!'});
         }
         //check if input password equals to hashed password
         if (await bcrypt.compare(password, user.password)){
             //check if email is varified
             if (!user.isVerified){
-                console.log('You have to verifiy your email before login!');
-                return res.json({success:false, error:'User is not varified!'});
+                console.log('Email needs to be varified! Varification email send again!');
+                //send the varification email again
+                let mailopt = {
+                    from: '"Verify your email" <dianamusictool@gmail.com>',
+                    to: user.email,
+                    subject: 'Thank you for using Diana Music Tool!',
+                    html: `Hello, ${user.username}
+                        <br>Thanks for using Diana Music Tool!</br>
+                        <br>Please click on the link below to verify your email.</br>
+                        <a href="http://${req.headers.host}/user/emailverify?token=${user.emailToken}">Click here to verify</a>`
+                };
+                transporter.sendMail(mailopt, function(err, res){
+                    if (err){
+                        console.log(err);
+                    } else {
+                        console.log('Email send success!');
+                    }
+                });
             }
             console.log('ok了家人们,登陆成功了家人们');
             const token = jwt.sign({
                 id: user._id, 
-                username: user.username
+                username: user.username,
+                email: user.email,
+                isVerified: user.isVerified
             }, SECRET);
             console.log(token);
             return res.json({success:true, data:token});
@@ -154,14 +195,20 @@ router.post('/login', async function(req, res){
 
 //google auth
 router.get('/auth/google',
-    passport.authenticate('google', { scope: ['profile'] }));
+    passport.authenticate('google', { session: false, scope: ['profile', 'email'] }));
 
 router.get('/auth/google/callback', 
-    passport.authenticate('google', { failureRedirect: '/login' }),
+    passport.authenticate('google', { session: false, failureRedirect: '/' }),
     function(req, res) {
-        console.log('Google success!');
+        const token = jwt.sign({
+            id: req.user._id, 
+            username: req.user.username,
+            email: req.user.email,
+            isVerified: req.user.isVerified
+        }, SECRET);
+        console.log('Google login success!');
         // Successful authentication, redirect home.
-        res.redirect('/');
+        res.redirect('/?token='+token);
     });
 
 module.exports = router;

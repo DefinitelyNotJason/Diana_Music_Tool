@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const user_admin = require('./routes/user_route.js');
+const user_route = require('./routes/user_route.js');
+const track_route = require('./routes/track_route.js');
 
 "use strict";
 const app = express();
@@ -9,7 +10,7 @@ const PORT = 3000;
 app.use(bodyParser.json());
 
 //connect to MongoDB Atlas
-mongoose.connect('mongodb+srv://jasontan:AfYbKb2nuLTdSGsa@lab4db.tm9ypoe.mongodb.net/Lab4_DB?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://jasontan:atEKKPPMzudbMNad@lab4db.tm9ypoe.mongodb.net/Lab4_DB?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true })
     .then(()=>app.listen(PORT, ()=>{
         console.log('MongoDB connected!');
@@ -17,9 +18,14 @@ mongoose.connect('mongodb+srv://jasontan:AfYbKb2nuLTdSGsa@lab4db.tm9ypoe.mongodb
     }))
     .catch((err)=>console.log(err));
 
-//user router
-app.use('/user', user_admin);
+//user route
+app.use('/user', user_route);
+
+//track route
+app.use('/track', track_route);
 
 app.get('/', function(req, res){
+    let token = req.query.token;
+    console.log(token);
     console.log("Hello World!");
 });

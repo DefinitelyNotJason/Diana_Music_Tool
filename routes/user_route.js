@@ -76,7 +76,7 @@ router.post('/register', async function(req, res){
     if (error){
         //invalid input
         console.log(error.message);
-        return res.status(400).send({'Error':error.message});
+        return res.status(400).send({error: error.message});
     } else {
         const username = value.username;
         const email = value.email;
@@ -94,14 +94,14 @@ router.post('/register', async function(req, res){
             //sending varification email
             sendEmail(req.headers.host, user);
             console.log('User created successfully!');
-            return res.json({success:true});
+            return res.json({success: true});
         } catch(error){
             console.log(error.message);
             if (error.code === 11000){
                 //duplicate username or email
-                return res.json({success:false, error:'Username or email already exists!'});
+                return res.status(409).send({error: error.message});
             }
-            throw error;
+            return res.json({success:false, error: error.message});
         };
     };
 });
@@ -129,14 +129,14 @@ router.post('/login', async function(req, res){
     if (error){
         //invalid input
         console.log(error.message);
-        return res.status(400).send({'Error':error.message});
+        return res.status(400).send({error: error.message});
     } else {
         const email = value.email;
         const password = value.password;
         const user = await User.findOne({ email }).lean();
         if (!user || user == null || user == undefined || user == {} || user == []){
             console.log('User does not exist!');
-            return res.json({success:false, error:'User does not exist!'});
+            return res.status(404).send({error: 'User does not exist!'});
         }
         //check if input password equals to hashed password
         if (await bcrypt.compare(password, user.password)){
@@ -148,10 +148,10 @@ router.post('/login', async function(req, res){
             }
             console.log('Login Success!');
             const token = generateAccessToken(user);
-            return res.json({success:true, data:token});
+            return res.json({success: true, data: token});
         } else {
             console.log('Password incorrect!');
-            return res.status(401).send({'Error':'Password incorrect!'});
+            return res.status(401).send({error: 'Password incorrect!'});
         };
     };
 });
@@ -166,7 +166,7 @@ router.post('/password-change', authenticateToken, async function(req, res){
     if (error){
         //invalid input
         console.log(error.message);
-        return res.status(400).send({'Error':error.message});
+        return res.status(400).send({error: error.message});
     } else {
         const newpassword = value.newpassword;
         try {
@@ -181,10 +181,10 @@ router.post('/password-change', authenticateToken, async function(req, res){
                 }
             );
             console.log("Password update success!");
-            return res.json({success:true});
+            return res.json({success: true});
         } catch(error){
             console.log(error.message);
-            return res.json({success:false, error:error.message});
+            return res.json({success: false, error: error.message});
         };
     };
 });
@@ -193,13 +193,13 @@ router.post('/password-change', authenticateToken, async function(req, res){
 router.get('/auth/google',
     passport.authenticate('google', { session: false, scope: ['profile', 'email'] }));
 
-router.get('/auth/google/callback', 
+router.post('/auth/google/callback', 
     passport.authenticate('google', { session: false, failureRedirect: '/' }),
     function(req, res) {
         const token = generateAccessToken(req.user);
         console.log('Google login success!');
         // Successful authentication, redirect home.
-        res.redirect('/?token='+token);
+        return res.json({success: true, data: token});
     });
 
 //function that generate access token
@@ -214,12 +214,12 @@ function authenticateToken(req, res, next) {
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null){
         console.log('No token!');
-        return res.sendStatus(401);
+        return res.status(401).send({error: 'No token!'});
     }
     jwt.verify(token, SECRET, (err, user) => {
         if (err) {
             console.log('With token but no access!');
-            return res.sendStatus(403);
+            return res.status(403).send({error: 'Token expired or not valid!'});
         }
         req.user = user;
         next();

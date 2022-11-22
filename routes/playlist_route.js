@@ -24,17 +24,18 @@ router.get('/getlist', async function(req, res){
 //check input for list name
 const nameCheck = Joi.object({
     name: Joi.string().trim().min(1).max(30).required().regex(/[$\(\)<>]/, { invert: true }),
-    description: Joi.string()
+    description: Joi.string().max(500).optional().allow(null)
 });
 //save playlist
 router.post('/savelist', authenticateToken, async function(req, res){
     let { error, value } = nameCheck.validate(req.body);
     if (error){
-        return res.status(400).send({'Error':'Invalid playlist name!'});
+        console.log(error.message);
+        return res.status(400).send({error: error.message});
     } else {
         const lists = await Playlist.find({ creator: req.user.user.username });
         if (lists.length >= 20){
-            return res.status(400).send({'Error':'Already created 20 playlists!'});
+            return res.status(403).send({error: 'Already created 20 playlists!'});
         }
         const name = value.name.replace(/^\s*|\s*$/g,"");
         const description = value.description;
@@ -55,10 +56,10 @@ router.post('/savelist', authenticateToken, async function(req, res){
             });
             await playlist.save();
             console.log('Playlist created successfully!');
-            return res.json({success:true});            
+            return res.json({success: true});            
         } catch(error){
             console.log(error.message);
-            return res.json({success:false, error:error.message});
+            return res.json({success: false, error: error.message});
         };
     };
 });
@@ -71,21 +72,21 @@ router.get('/getallplaylists', authenticateToken, async function(req, res){
         return res.send(lists);           
     } catch(error){
         console.log(error.message);
-        return res.json({success:false, error:error.message});
+        return res.json({success: false, error: error.message});
     };
 });
 
 //check input for desc update
 const updateCheck = Joi.object({
     name: Joi.string().trim().min(1).max(30).required().regex(/[$\(\)<>]/, { invert: true }),
-    description: Joi.string().optional().allow(null),
+    description: Joi.string().max(500).optional().allow(null),
     public: Joi.boolean().required()
 });
 //update playlist
 router.post('/updateplaylist', authenticateToken, async function(req, res){
     let { error, value } = updateCheck.validate(req.body);
     if (error){
-        return res.status(400).send({'Error':'Invalid input!'});
+        return res.status(400).send({error: error.message});
     } else {
         const name = value.name;
         const description = value.description;
@@ -94,20 +95,20 @@ router.post('/updateplaylist', authenticateToken, async function(req, res){
         try {
             const playlist = await Playlist.findOne({ name: name });
             if (!playlist || playlist == null || playlist == undefined || playlist == {} || playlist == []){
-                return res.json({success:false, error:'Playlist does not exist!'});
+                return res.status(404).send({error: 'Playlist does not exist!'});
             };
             if (playlist.creator != creator){
-                return res.status(403).send({'Error':'No access to this playlist!'});
+                return res.status(403).send({error: 'No access to this playlist!'});
             }
             playlist.description = description;
             playlist.public = public;
             playlist.edit_date = Date.now();
             await playlist.save();
             console.log('Description update success!');
-            return res.json({success:true}); 
+            return res.json({success: true}); 
         } catch(error){
             console.log(error.message);
-            return res.json({success:false, error:error.message});
+            return res.json({success: false, error: error.message});
         };
     };
 });
@@ -121,26 +122,18 @@ const listUpdateCheck = Joi.object({
 router.post('/updatelist', authenticateToken, async function(req, res){
     let { error, value } = listUpdateCheck.validate(req.body);
     if (error){
-        return res.status(400).send({'Error':'Invalid input!'});
+        return res.status(400).send({error: error.message});
     } else {
         const name = value.name;
         const list = value.list;
-        // //实验
-        // const tracks = await Track.find().limit(2);
-        // const list = [];
-        // tracks.forEach((e)=>{
-        //     list.push(e._id);
-        // });
-        // console.log(list);
-
         const creator = req.user.user.username;
         try {
             const playlist = await Playlist.findOne({ name: name });
             if (!playlist || playlist == null || playlist == undefined || playlist == {} || playlist == []){
-                return res.json({success:false, error:'Playlist does not exist!'});
+                return res.status(404).send({error: 'Playlist does not exist!'});
             };
             if (playlist.creator != creator){
-                return res.status(403).send({'Error':'No access to this playlist!'});
+                return res.status(403).send({error: 'No access to this playlist!'});
             }
             //update total playtime
             let total_time = [];
@@ -170,10 +163,10 @@ router.post('/updatelist', authenticateToken, async function(req, res){
             playlist.edit_date = Date.now();
             await playlist.save();
             console.log('List update success!');
-            return res.json({success:true}); 
+            return res.json({success: true}); 
         } catch(error){
             console.log(error.message);
-            return res.json({success:false, error:error.message});
+            return res.json({success: false, error: error.message});
         };
     };
 });
@@ -186,24 +179,24 @@ const deleteCheck = Joi.object({
 router.post('/deletelist', authenticateToken, async function(req, res){
     let { error, value } = deleteCheck.validate(req.body);
     if (error){
-        return res.status(400).send({'Error':'Invalid input!'});
+        return res.status(400).send({error: error.message});
     } else {
         const name = value.name;
         const creator = req.user.user.username;
         try {
             const playlist = await Playlist.findOne({ name: name });
             if (!playlist || playlist == null || playlist == undefined || playlist == {} || playlist == []){
-                return res.json({success:false, error:'Playlist does not exist!'});
+                return res.status(404).send({error: 'Playlist does not exist!'});
             };
             if (playlist.creator != creator){
-                return res.status(403).send({'Error':'No access to this playlist!'});
+                return res.status(403).send({error: 'No access to this playlist!'});
             }
             await playlist.remove();
             console.log('Playlist deleted success!');
-            return res.json({success:true}); 
+            return res.json({success: true}); 
         } catch(error){
             console.log(error.message);
-            return res.json({success:false, error:error.message});
+            return res.json({success: false, error: error.message});
         };
     };
 });
@@ -218,7 +211,7 @@ const reviewCheck = Joi.object({
 router.post('/addreview', authenticateToken, async function(req, res){
     let { error, value } = reviewCheck.validate(req.body);
     if (error){
-        return res.status(400).send({'Error':'Invalid input!'});
+        return res.status(400).send({error: error.message});
     } else {
         const name = value.name;
         const review = value.review;
@@ -226,7 +219,7 @@ router.post('/addreview', authenticateToken, async function(req, res){
         try {
             const playlist = await Playlist.findOne({ name: name });
             if (!playlist || playlist == null || playlist == undefined || playlist == {} || playlist == []){
-                return res.json({success:false, error:'Playlist does not exist!'});
+                return res.status(404).send({error: 'Playlist does not exist!'});
             };
             console.log(playlist);
             const new_total_score = playlist.total_review_score + score;
@@ -240,10 +233,10 @@ router.post('/addreview', authenticateToken, async function(req, res){
             playlist.review_list = new_list;
             await playlist.save();
             console.log('Review added success!');
-            return res.json({success:true}); 
+            return res.json({success: true}); 
         } catch(error){
             console.log(error.message);
-            return res.json({success:false, error:error.message});
+            return res.json({success: false, error: error.message});
         };
     };
 });

@@ -9,12 +9,12 @@ let router = express.Router();
 const nameCheck = Joi.object({
     name: Joi.string().trim().min(1).max(30).required().regex(/[$\(\)<>]/, { invert: true })
 });
-
 //search tracks
 router.get('/search/:name', async function(req, res){
     let { error, value } = nameCheck.validate(req.params);
     if (error){
-        return res.status(400).send({'Error':'Invalid input name!'});
+        console.log(error.message);
+        return res.status(400).send({error: error.message});
     } else {
         const name = value.name.replace(/\s+/g, '').toLowerCase();
         try{
@@ -29,7 +29,7 @@ router.get('/search/:name', async function(req, res){
             return res.send(tracks);
         } catch(error){
             console.log(error.message);
-            return res.json({success:false, error:error.message});
+            return res.json({success: false, error: error.message});
         };
     };
 });
@@ -42,7 +42,7 @@ router.get('/getbyid/:id', async function(req, res){
         return res.send(track);
     } catch(error){
         console.log(error.message);
-        return res.json({success:false, error:error.message});
+        return res.json({success: false, error: error.message});
     };
 });
 

@@ -7,8 +7,13 @@
             <div class="address">
                 <a href="{{item.address}}">{{item.address}}</a>
             </div>
+            <div>
+                <select #listSelect>
+                    <option *ngFor="let item of length">{{item}}</option>
+                </select>
+            </div>
             <div class="add-button">
-                <button>Add to Favorite</button>
+                <button (click) = "addToFavorites(item,listSelect.value)">Add to Favorite</button>
             </div>
         </li>
     </ul>  

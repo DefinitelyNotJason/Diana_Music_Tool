@@ -2,7 +2,7 @@ import {PlayList} from './app/shared/models/playlist';
 
 export const smaple_playlist: PlayList[] = [
     {
-        "_id": "637bd5e8c650675e9352e6f5",
+        "_id": "637bd5e8c650",
         "name": "Jason's fav11",
         "creator": "Jason",
         "number_tracks": 0,

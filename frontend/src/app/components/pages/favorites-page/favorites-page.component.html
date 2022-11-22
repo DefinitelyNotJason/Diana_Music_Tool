@@ -1,6 +1,7 @@
 <app-title title="Favorites Page" margin="1.5rem 0 0 2,5rem"></app-title>
 
 <div class="container">
+    <button class="addFavoritesList" (click) = "addEmptyList()">AddList</button>
     <ul>
         <li *ngFor="let item of favorites.artists">
             <a routerLink = "/artist/{{item.music._id}}">

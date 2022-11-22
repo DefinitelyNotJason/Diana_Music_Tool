@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { FavoriteArtist } from '../shared/models/favoriteartist';
+import { FavoriteList } from '../shared/models/favoritelist';
 import { Favorites } from '../shared/models/favorites';
+import { Music } from '../shared/models/music';
 import { PlayList } from '../shared/models/playlist';
 
 @Injectable({
@@ -13,12 +14,28 @@ export class FavoritesService {
 
   constructor() { }
 
+  getFavoritesLen():number{
+    return this.favorites.artists.length;
+  }
+
+  addEmptyList():void{
+    if(this.favorites.artists.length < 20){
+      this.favorites.artists.push(new FavoriteList(new PlayList()));
+      this.setFavoritesToLocalStorage();
+    }
+  }
+
+  addMusicToList(music:Music,list:number):void{
+    this.favorites.artists[list].music._id = music.name;
+    this.setFavoritesToLocalStorage();
+  }
+
   addToFavorites(music:PlayList):void{
-    let favoriteartist = this.favorites.artists.find(i => i.music._id === music._id);
-    if(favoriteartist)
+    let favoritelist = this.favorites.artists.find(i => i.music._id === music._id);
+    if(favoritelist)
       return;
 
-    this.favorites.artists.push(new FavoriteArtist(music));
+    this.favorites.artists.push(new FavoriteList(music));
     this.setFavoritesToLocalStorage();
   }
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FavoritesService } from 'src/app/services/favorites.service';
-import { FavoriteArtist } from 'src/app/shared/models/favoriteartist';
+import { FavoriteList } from 'src/app/shared/models/favoritelist';
 import { Favorites } from 'src/app/shared/models/favorites';
 
 @Component({
@@ -15,8 +15,12 @@ export class FavoritesPageComponent {
     .subscribe((favorites)=> (this.favorites = favorites));
   } 
 
-  removeFromFavorites(favoriteartist:FavoriteArtist){
-    this.favoritesService.removeFromFavorites(favoriteartist.music._id);
+  removeFromFavorites(favoritelist:FavoriteList){
+    this.favoritesService.removeFromFavorites(favoritelist.music._id);
+  }
+
+  addEmptyList(){
+    this.favoritesService.addEmptyList();
   }
 
 }

@@ -1,6 +1,6 @@
-import { FavoriteArtist } from "./favoriteartist";
+import { FavoriteList } from "./favoritelist";
 
 export class Favorites{
-    artists : FavoriteArtist[] = [];
+    artists : FavoriteList[] = [];
     totalCount:number = 0;
 }

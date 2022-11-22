@@ -1,0 +1,7 @@
+<div>
+    <input #s type="text" placeholder="Search Artist Name" 
+    (keyup.enter) = "searchterm(s.value)" 
+    [value] = "search" 
+    onfocus="this.value=''"/>
+    <button (click) = "searchterm(s.value)">Search</button>
+</div>

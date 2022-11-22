@@ -1,0 +1,20 @@
+<div class="container">
+    <ul>
+        <li *ngFor="let item of music">
+            <div class="musicName">
+                {{item.name}}
+            </div>
+            <div class="address">
+                <a href="{{item.address}}">{{item.address}}</a>
+            </div>
+            <div>
+                <select #listSelect>
+                    <option *ngFor="let item of length">{{item}}</option>
+                </select>
+            </div>
+            <div class="add-button">
+                <button (click) = "addToFavorites(item,listSelect.value)">Add to Favorite</button>
+            </div>
+        </li>
+    </ul>  
+</div>

@@ -148,7 +148,6 @@ router.post('/login', async function(req, res){
             }
             console.log('Login Success!');
             const token = generateAccessToken(user);
-            console.log(token);
             return res.json({success:true, data:token});
         } else {
             console.log('Password incorrect!');
@@ -159,26 +158,20 @@ router.post('/login', async function(req, res){
 
 //check input password
 const passwordChange = Joi.object({
-    token: Joi.string().required(),
     newpassword: Joi.string().trim().min(1).max(30).required().regex(/[$\(\)<>]/, { invert: true })
 });
 //user password change
-router.post('/password-change', async function(req, res){
+router.post('/password-change', authenticateToken, async function(req, res){
     let { error, value } = passwordChange.validate(req.body);
     if (error){
         //invalid input
         console.log(error.message);
         return res.status(400).send({'Error':error.message});
     } else {
-        const token = value.token;
         const newpassword = value.newpassword;
         try {
-            const user = jwt.verify(token, SECRET);
+            const user = req.user;
             console.log(user);
-            if (!user || user == null || user == undefined || user == {} || user == []){
-                console.log('User error!');
-                return res.json({success:false, error:'User error!'});
-            }
             const _id = user.user._id;
             const password = await bcrypt.hash(newpassword, 10);
             await User.updateOne(
@@ -212,6 +205,25 @@ router.get('/auth/google/callback',
 //function that generate access token
 function generateAccessToken(user) {
     return jwt.sign({user}, SECRET, { expiresIn: '1h' });
+};
+
+//check user login
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    console.log(authHeader);
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token == null){
+        console.log('No token!');
+        return res.sendStatus(401);
+    }
+    jwt.verify(token, SECRET, (err, user) => {
+        if (err) {
+            console.log('With token but no access!');
+            return res.sendStatus(403);
+        }
+        req.user = user;
+        next();
+    });
 };
 
 //function that send email

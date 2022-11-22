@@ -1,14 +1,9 @@
 const express = require('express');
 const Joi = require('joi');
-const jwt = require('jsonwebtoken');
 const Track = require('../model/track.js');
-const Playlist = require('../model/playlist.js');
 
 "use strict";
 let router = express.Router();
-
-//JWT secret, DO NOT EDIT
-const SECRET = 'THISISECE9065GROUPPROJECTA_N_DTHISAPPISAWESOME!!!!';
 
 //check input for track searching
 const nameCheck = Joi.object({
@@ -33,61 +28,22 @@ router.get('/search/:name', async function(req, res){
             console.log(tracks[0]);
             return res.send(tracks);
         } catch(error){
-            throw error;
-        };
-    };
-});
-
-//save playlist
-router.post('/savelist', async function(req, res){
-    let { error, value } = nameCheck.validate(req.body);
-    if (error){
-        return res.status(400).send({'Error':'Invalid playlist name!'});
-    } else {
-        const name = value.name.replace(/^\s*|\s*$/g,"");
-        const tracks = [];
-        try{
-            const playlist = new Playlist({
-                name,
-                creator: "Jason",
-                number_tracks: "0",
-                tracks,
-                playtime: "0",
-                total_review_score: 0,
-                total_review_time: 0,
-                review_score: 0
-            });
-            await playlist.save();
-            console.log('Playlist created successfully!');
-            return res.json({success:true});            
-        } catch(error){
             console.log(error.message);
-            if (error.code === 11000){
-                //duplicate username or email
-                return res.json({success:false, error:'Username or email already exists!'});
-            }
-            throw error;
+            return res.json({success:false, error:error.message});
         };
     };
 });
 
-//check if user login or not
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    console.log(authHeader);
-    const token = authHeader && authHeader.split(' ')[1];
-    if (token == null){
-        console.log('No token!');
-        return res.sendStatus(401);
-    }
-    jwt.verify(token, SECRET, (err, user) => {
-        if (err) {
-            console.log('With token but no access!');
-            return res.sendStatus(403);
-        }
-        req.user = user;
-        next();
-    });
-};
+//get track from input id
+router.get('/getbyid/:id', async function(req, res){
+    try{
+        const track = await Track.findOne({ _id: req.params.id });
+        console.log(track);
+        return res.send(track);
+    } catch(error){
+        console.log(error.message);
+        return res.json({success:false, error:error.message});
+    };
+});
 
 module.exports = router;

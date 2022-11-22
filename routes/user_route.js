@@ -145,6 +145,7 @@ router.post('/login', async function(req, res){
                 console.log('Email needs to be varified! Varification email send again!');
                 //send the varification email again
                 sendEmail(req.headers.host, user);
+                return res.status(401).send({error: 'Please verify your email!'});
             }
             console.log('Login Success!');
             const token = generateAccessToken(user);
@@ -193,18 +194,18 @@ router.post('/password-change', authenticateToken, async function(req, res){
 router.get('/auth/google',
     passport.authenticate('google', { session: false, scope: ['profile', 'email'] }));
 
-router.post('/auth/google/callback', 
+router.get('/auth/google/callback', 
     passport.authenticate('google', { session: false, failureRedirect: '/' }),
     function(req, res) {
         const token = generateAccessToken(req.user);
         console.log('Google login success!');
         // Successful authentication, redirect home.
-        return res.json({success: true, data: token});
+        res.send(token);
     });
 
 //function that generate access token
 function generateAccessToken(user) {
-    return jwt.sign({user}, SECRET, { expiresIn: '1h' });
+    return jwt.sign({user}, SECRET, { expiresIn: '2h' });
 };
 
 //check user login

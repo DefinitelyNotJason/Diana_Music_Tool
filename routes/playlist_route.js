@@ -224,7 +224,7 @@ router.post('/addreview', authenticateToken, async function(req, res){
             console.log(playlist);
             const new_total_score = playlist.total_review_score + score;
             const new_total_time = playlist.total_review_time + 1;
-            const new_score = new_total_score/new_total_time;
+            const new_score = parseInt(new_total_score/new_total_time);
             let new_list = playlist.review_list;
             new_list.push(review);
             playlist.total_review_score = new_total_score;

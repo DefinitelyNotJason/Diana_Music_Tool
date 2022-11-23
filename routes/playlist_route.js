@@ -3,6 +3,7 @@ const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const Playlist = require('../model/playlist.js');
 const Track = require('../model/track.js');
+const Review = require('../model/review.js');
 
 "use strict";
 let router = express.Router();
@@ -49,9 +50,6 @@ router.post('/savelist', authenticateToken, async function(req, res){
                 number_tracks: "0",
                 tracks,
                 playtime: "0",
-                total_review_score: 0,
-                total_review_time: 0,
-                review_score: 0,
                 public: false
             });
             await playlist.save();
@@ -203,9 +201,8 @@ router.post('/deletelist', authenticateToken, async function(req, res){
 
 //check review input
 const reviewCheck = Joi.object({
-    name: Joi.string().trim().min(1).max(30).required().regex(/[$\(\)<>]/, { invert: true }),
-    review: Joi.string().trim().min(1).max(500).required().regex(/[$\(\)<>]/, { invert: true }),
-    score: Joi.number().integer().min(1).max(5).required()
+    list_name: Joi.string().trim().min(1).max(30).required().regex(/[$\(\)<>]/, { invert: true }),
+    content: Joi.string().trim().min(1).max(500).required().regex(/[$\(\)<>]/, { invert: true })
 });
 //add review
 router.post('/addreview', authenticateToken, async function(req, res){
@@ -213,27 +210,44 @@ router.post('/addreview', authenticateToken, async function(req, res){
     if (error){
         return res.status(400).send({error: error.message});
     } else {
-        const name = value.name;
-        const review = value.review;
-        const score = value.score;
+        const list_name = value.list_name;
+        const content = value.content;
+        const creator = req.user.user.username;
         try {
-            const playlist = await Playlist.findOne({ name: name });
+            const playlist = await Playlist.findOne({ name: list_name });
             if (!playlist || playlist == null || playlist == undefined || playlist == {} || playlist == []){
                 return res.status(404).send({error: 'Playlist does not exist!'});
             };
-            console.log(playlist);
-            const new_total_score = playlist.total_review_score + score;
-            const new_total_time = playlist.total_review_time + 1;
-            const new_score = parseInt(new_total_score/new_total_time);
-            let new_list = playlist.review_list;
-            new_list.push(review);
-            playlist.total_review_score = new_total_score;
-            playlist.total_review_time = new_total_time;
-            playlist.review_score = new_score;
-            playlist.review_list = new_list;
-            await playlist.save();
+            const review = new Review({
+                list_name,
+                creator,
+                content
+            });
+            await review.save();
             console.log('Review added success!');
             return res.json({success: true}); 
+        } catch(error){
+            console.log(error.message);
+            return res.json({success: false, error: error.message});
+        };
+    };
+});
+
+//check review input
+const reviewNameCheck = Joi.object({
+    list_name: Joi.string().trim().min(1).max(30).required().regex(/[$\(\)<>]/, { invert: true })
+});
+//get review
+router.get('/getreview/:list_name', async function(req, res){
+    let { error, value } = reviewNameCheck.validate(req.params);
+    if (error){
+        return res.status(400).send({error: error.message});
+    } else {
+        const list_name = value.list_name;
+        try {
+            const reviews = await Review.find({ list_name: list_name }).sort({ create_date: -1 });
+            console.log(reviews);
+            return res.send(reviews);  
         } catch(error){
             console.log(error.message);
             return res.json({success: false, error: error.message});

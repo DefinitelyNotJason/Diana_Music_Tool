@@ -10,10 +10,6 @@ const PlaylistSchema = new Schema({
     number_tracks: { type: Number, required: true },
     tracks: [mongoose.ObjectId],
     playtime: { type: String, required: true },
-    total_review_score: { type: Number },
-    total_review_time: { type: Number },
-    review_score: { type: Number },
-    review_list: { type: [String], default: [] },
     public: { type: Boolean, required: true },
     edit_date: { type: Date, default: Date.now, required: true }
 },

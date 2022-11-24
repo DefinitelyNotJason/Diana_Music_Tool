@@ -1,39 +1,24 @@
 <div class="content">
-    <div class="artist_name">
-        artist_name : {{artist._id}}
-    </div>
-    <div class="album_title">
-        album_title : {{artist.name}}
-    </div>
-    <div class="album_id">
-        album_id : {{artist.creator}}
-    </div>
-    <div class="tags">
-        tags : {{artist.number_tracks}}
-    </div>
-    <div class="track_id">
-        track_id : {{artist.tracks}}
-    </div>
-    <div class="playtime">
-        playtime : {{artist.playtime}}
-    </div>
-    <div class="total_review_score">
-        total_review_score : {{artist.total_review_score}}
-    </div>
-    <div class="total_review_time">
-        total_review_time : {{artist.total_review_time}}
-    </div>
-    <div class="review_score">
-        review_score : {{artist.review_score}}
-    </div>
-    <div class="public">
-        public : {{artist.public}}
-    </div>
-    <div class="edit_date">
-        edit_date : {{artist.edit_date}}
-    </div>
-    <div class="__v">
-        __v : {{artist.__v}}
-    </div>
-    <button (click) = "addToFavorites()">Add to favorite</button>
+    <ul>
+        <li *ngFor="let item of music">
+            <div class="musicTrackId">
+                {{item.tracks}}
+            </div>
+            <div class="musicName">
+                {{item.name}}
+            </div>
+            <div class="address">
+                <a href="{{item.address}}">{{item.address}}</a>
+            </div>
+            <div>
+                <select #listSelect>
+                    <option *ngFor="let index of length">{{index}}</option>
+                </select>
+            </div>
+            <div class="add-button">
+                <button (click) = "addMusicToList(item,listSelect.value)">Add to Favorite</button>
+            </div>
+        </li>
+    </ul>
+    <button (click) = "addToFavorites()">Add whole to favorite</button>
 </div>

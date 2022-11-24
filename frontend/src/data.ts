@@ -6,7 +6,7 @@ export const smaple_playlist: PlayList[] = [
         "name": "Jason's fav11",
         "creator": "Jason",
         "number_tracks": 0,
-        "tracks": [],
+        "tracks": [1,2,3,4,5],
         "playtime": "0",
         "total_review_score": 0,
         "total_review_time": 0,
@@ -20,7 +20,7 @@ export const smaple_playlist: PlayList[] = [
         "name": "Jason's fav11",
         "creator": "Jason",
         "number_tracks": 0,
-        "tracks": [],
+        "tracks": [1,2,3,4,5],
         "playtime": "0",
         "total_review_score": 0,
         "total_review_time": 0,
@@ -34,7 +34,7 @@ export const smaple_playlist: PlayList[] = [
         "name": "Jason's fav11",
         "creator": "Jason",
         "number_tracks": 0,
-        "tracks": [],
+        "tracks": [1,2,3,4,5],
         "playtime": "0",
         "total_review_score": 0,
         "total_review_time": 0,
@@ -48,7 +48,7 @@ export const smaple_playlist: PlayList[] = [
         "name": "Jason's fav11",
         "creator": "Jason",
         "number_tracks": 0,
-        "tracks": [],
+        "tracks": [1,2,3,4,5],
         "playtime": "0",
         "total_review_score": 0,
         "total_review_time": 0,
@@ -62,7 +62,7 @@ export const smaple_playlist: PlayList[] = [
         "name": "Jason's fav11",
         "creator": "Jason",
         "number_tracks": 0,
-        "tracks": [],
+        "tracks": [1,2,3,4,5],
         "playtime": "0",
         "total_review_score": 0,
         "total_review_time": 0,
@@ -76,7 +76,7 @@ export const smaple_playlist: PlayList[] = [
         "name": "Jason's fav11",
         "creator": "Jason",
         "number_tracks": 0,
-        "tracks": [],
+        "tracks": [1,2,3,4,5],
         "playtime": "0",
         "total_review_score": 0,
         "total_review_time": 0,
@@ -90,7 +90,7 @@ export const smaple_playlist: PlayList[] = [
         "name": "Jason's fav11",
         "creator": "Jason",
         "number_tracks": 0,
-        "tracks": [],
+        "tracks": [1,2,3,4,5],
         "playtime": "0",
         "total_review_score": 0,
         "total_review_time": 0,
@@ -104,7 +104,7 @@ export const smaple_playlist: PlayList[] = [
         "name": "Jason's fav11",
         "creator": "Jason",
         "number_tracks": 0,
-        "tracks": [],
+        "tracks": [1,2,3,4,5],
         "playtime": "0",
         "total_review_score": 0,
         "total_review_time": 0,
@@ -118,7 +118,7 @@ export const smaple_playlist: PlayList[] = [
         "name": "Jason's fav11",
         "creator": "Jason",
         "number_tracks": 0,
-        "tracks": [],
+        "tracks": [1,2,3,4,5],
         "playtime": "0",
         "total_review_score": 0,
         "total_review_time": 0,
@@ -132,7 +132,7 @@ export const smaple_playlist: PlayList[] = [
         "name": "Jason's fav11",
         "creator": "Jason",
         "number_tracks": 0,
-        "tracks": [],
+        "tracks": [1,2,3,4,5],
         "playtime": "0",
         "total_review_score": 0,
         "total_review_time": 0,
@@ -145,7 +145,28 @@ export const smaple_playlist: PlayList[] = [
 
 export const sample_music = [
   {
+    "tracks":1,
     "name" : "STAR WALKIN",
     "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
-  }
+  },
+  {
+    "tracks":2,
+    "name" : "STAR WALKIN",
+    "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+  },
+  {
+    "tracks":3,
+    "name" : "STAR WALKIN",
+    "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+  },
+  {
+    "tracks":4,
+    "name" : "STAR WALKIN",
+    "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+  },
+  {
+    "tracks":5,
+    "name" : "STAR WALKIN",
+    "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+  },
 ]

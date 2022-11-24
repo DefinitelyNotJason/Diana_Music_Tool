@@ -8,6 +8,7 @@ import { FavoritesService } from 'src/app/services/favorites.service';
 })
 export class HeaderComponent {
   favoritesQuantity = 0;
+  userNanme = "";
   constructor(favoritesService:FavoritesService){
     favoritesService.getFavoritesObservable().subscribe((newFavorites) => {
       this.favoritesQuantity = newFavorites.totalCount;

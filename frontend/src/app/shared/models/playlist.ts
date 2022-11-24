@@ -3,7 +3,7 @@ export class PlayList{
     name!:string;
     creator!:string;
     number_tracks!:number;
-    tracks!:string[];
+    tracks!:number[];
     playtime!:string;
     total_review_score!:number;
     total_review_time!:number;

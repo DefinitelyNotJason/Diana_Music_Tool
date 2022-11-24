@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FavoritesService } from 'src/app/services/favorites.service';
 import { MusicService } from 'src/app/services/music.service';
+import { Music } from 'src/app/shared/models/music';
 import { PlayList } from 'src/app/shared/models/playlist';
 
 @Component({
@@ -10,18 +11,29 @@ import { PlayList } from 'src/app/shared/models/playlist';
   styleUrls: ['./artist-page.component.css']
 })
 export class ArtistPageComponent {
-  artist!: PlayList;
+  playlist!: PlayList;
+  tracks!: number[];
+  music!: Music[];
+  length!:Number[];
   constructor(activatedRoute:ActivatedRoute, musicService:MusicService,
     private favoritesService:FavoritesService, private router: Router){
+      this.music = [];
+      this.length = Array(favoritesService.getFavoritesLen()).fill(1).map((x,i)=>i+1);
     activatedRoute.params.subscribe((params)=>{
       if(params['artist']) {
-        this.artist = musicService.getArtistByName(params['artist']);
+        this.playlist = musicService.getArtistByName(params['artist']);
+        this.tracks = this.playlist.tracks;
+        this.tracks.forEach(trackid => {
+          this.music.push(musicService.getPlaylistByTracksId(trackid));   
+        });
       }
     })
   }
-
+  addMusicToList(music: Music, index:string){
+    this.favoritesService.addMusicToList(music,Number(index));
+  }
   addToFavorites(){
-    this.favoritesService.addToFavorites(this.artist);
+    this.favoritesService.addToFavorites(this.playlist);
     this.router.navigateByUrl('/favorites-page');
   }
 

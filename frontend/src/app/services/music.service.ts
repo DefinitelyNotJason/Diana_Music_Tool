@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { find } from 'rxjs';
 import { sample_music, smaple_playlist } from 'src/data';
 import { Music } from '../shared/models/music';
 import { PlayList } from '../shared/models/playlist';
@@ -24,5 +25,9 @@ export class MusicService {
 
   getArtistByName(ArtName:string):PlayList{
     return this.getAll().find(music => music._id === ArtName) ?? new PlayList();
+  }
+
+  getPlaylistByTracksId(trackid:number):Music{
+    return this.getMusic().find(music => music.tracks === trackid) ?? new Music();
   }
 }

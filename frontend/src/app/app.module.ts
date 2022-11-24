@@ -12,6 +12,7 @@ import { TitleComponent } from './components/partials/title/title.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PlayPageComponent } from './components/pages/play-page/play-page.component';
+import { AdminPageComponent } from './components/pages/admin-page/admin-page.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PlayPageComponent } from './components/pages/play-page/play-page.compon
     FavoritesPageComponent,
     TitleComponent,
     LoginPageComponent,
-    PlayPageComponent
+    PlayPageComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,

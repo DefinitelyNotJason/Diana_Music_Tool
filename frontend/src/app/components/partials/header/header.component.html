@@ -11,6 +11,7 @@
                     <a routerLink="/dashboard" *ngIf="userNanme">{{userNanme}}</a>
                     <div class="menu">
                         <a routerLink="/profile">Profile</a>
+                        <a routerLink="/admin" *ngIf="isAdmin">Admin</a>
                         <a>LogOut</a>
                     </div>
                 </li>

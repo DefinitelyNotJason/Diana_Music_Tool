@@ -3,6 +3,7 @@ const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const User = require('../model/user.js');
 const Review = require('../model/review.js');
+const Policy = require('../model/policy.js');
 
 "use strict";
 let router = express.Router();
@@ -61,7 +62,7 @@ router.get('/getallreview', authenticateToken, async function(req, res){
         console.log(error.message);
         return res.json({success: false, error: error.message});
     };
-})
+});
 
 //hidden review
 router.post('/hiddenreview', authenticateToken, async function(req, res){
@@ -151,6 +152,75 @@ router.post('/activateuser', authenticateToken, async function(req, res){
             user.isActive = true;
             await user.save();
             console.log("Active user success!");
+            return res.json({success: true});
+        } catch(error){
+            console.log(error.message);
+            return res.json({success: false, error: error.message});
+        };
+    };
+});
+
+//check policy input
+const policyCheck = Joi.object({
+    content: Joi.string().min(1).max(5000).required(),
+    type: Joi.string().min(1).max(10).required()
+});
+//create policy
+router.post('/createpolicy', authenticateToken, async function(req, res){
+    let { error, value } = policyCheck.validate(req.body); 
+    if (error){
+        console.log(error.message);
+        return res.status(400).send({error: error.message});
+    } else {
+        const content = value.content;
+        const type = value.type;
+        try {
+            const exist_policy = await Policy.findOne({ type: type });
+            if (exist_policy){
+                console.log("Policy already exists!");
+                return res.status(400).send({error: "Policy already exists!"});
+            };
+            const policy = new Policy({
+                content: content,
+                type: type
+            });
+            await policy.save();
+            console.log("Create policy success!");
+            return res.json({success: true});
+        } catch(error){
+            console.log(error.message);
+            return res.json({success: false, error: error.message});
+        };
+    };
+});
+
+//get policy
+router.get('/getpolicy', authenticateToken, async function(req, res){
+    const type = req.params.type;
+    try {
+        const policy = await Policy.findOne({ type: type });
+        console.log("Policy get success!");
+        return res.send(policy);
+    } catch(error){
+        console.log(error.message);
+        return res.json({success: false, error: error.message});
+    };
+});
+
+//update policy
+router.post('/updatepolicy', authenticateToken, async function(req, res){
+    let { error, value } = policyCheck.validate(req.body); 
+    if (error){
+        console.log(error.message);
+        return res.status(400).send({error: error.message});
+    } else {
+        const content = value.content;
+        const type = value.type;
+        try {
+            const policy = await Policy.findOne({ type: type });
+            policy.content = content;
+            await policy.save();
+            console.log("Update policy success!");
             return res.json({success: true});
         } catch(error){
             console.log(error.message);

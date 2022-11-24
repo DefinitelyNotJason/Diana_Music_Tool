@@ -6,7 +6,7 @@ export const smaple_playlist: PlayList[] = [
         "name": "Jason's fav11",
         "creator": "Jason",
         "number_tracks": 0,
-        "tracks": [1,2,3,4,5],
+        "tracks": [1,2,3,4,5,6],
         "playtime": "0",
         "total_review_score": 0,
         "total_review_time": 0,
@@ -166,6 +166,11 @@ export const sample_music = [
   },
   {
     "tracks":5,
+    "name" : "STAR WALKIN",
+    "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+  },
+  {
+    "tracks":6,
     "name" : "STAR WALKIN",
     "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
   },

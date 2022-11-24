@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const Playlist = require('../model/playlist.js');
 const Track = require('../model/track.js');
 const Review = require('../model/review.js');
+const User = require('../model/user.js');
 
 "use strict";
 let router = express.Router();
@@ -34,15 +35,15 @@ router.post('/savelist', authenticateToken, async function(req, res){
         console.log(error.message);
         return res.status(400).send({error: error.message});
     } else {
-        const lists = await Playlist.find({ creator: req.user.user.username });
-        if (lists.length >= 20){
-            return res.status(403).send({error: 'Already created 20 playlists!'});
-        }
         const name = value.name.replace(/^\s*|\s*$/g,"");
         const description = value.description;
-        const creator = req.user.user.username;
+        const creator = req.user.username;
         const tracks = [];
         try{
+            const lists = await Playlist.find({ creator: creator });
+            if (lists.length >= 20){
+                return res.status(403).send({error: 'Already created 20 playlists!'});
+            }
             const playlist = new Playlist({
                 name,
                 creator,
@@ -64,7 +65,7 @@ router.post('/savelist', authenticateToken, async function(req, res){
 
 //get user's playlists
 router.get('/getallplaylists', authenticateToken, async function(req, res){
-    const creator = req.user.user.username;
+    const creator = req.user.username;
     try{
         const lists = await Playlist.find({ creator: creator }).sort({ edit_date: -1 });
         return res.send(lists);           
@@ -88,7 +89,7 @@ router.post('/updateplaylist', authenticateToken, async function(req, res){
     } else {
         const name = value.name;
         const description = value.description;
-        const creator = req.user.user.username;
+        const creator = req.user.username;
         const public = value.public;
         try {
             const playlist = await Playlist.findOne({ name: name });
@@ -124,7 +125,7 @@ router.post('/updatelist', authenticateToken, async function(req, res){
     } else {
         const name = value.name;
         const list = value.list;
-        const creator = req.user.user.username;
+        const creator = req.user.username;
         try {
             const playlist = await Playlist.findOne({ name: name });
             if (!playlist || playlist == null || playlist == undefined || playlist == {} || playlist == []){
@@ -180,7 +181,7 @@ router.post('/deletelist', authenticateToken, async function(req, res){
         return res.status(400).send({error: error.message});
     } else {
         const name = value.name;
-        const creator = req.user.user.username;
+        const creator = req.user.username;
         try {
             const playlist = await Playlist.findOne({ name: name });
             if (!playlist || playlist == null || playlist == undefined || playlist == {} || playlist == []){
@@ -212,7 +213,7 @@ router.post('/addreview', authenticateToken, async function(req, res){
     } else {
         const list_name = value.list_name;
         const content = value.content;
-        const creator = req.user.user.username;
+        const creator = req.user.username;
         try {
             const playlist = await Playlist.findOne({ name: list_name });
             if (!playlist || playlist == null || playlist == undefined || playlist == {} || playlist == []){
@@ -245,7 +246,7 @@ router.get('/getreview/:list_name', async function(req, res){
     } else {
         const list_name = value.list_name;
         try {
-            const reviews = await Review.find({ list_name: list_name }).sort({ create_date: -1 });
+            const reviews = await Review.find({ list_name: list_name, public: true }).sort({ create_date: -1 });
             console.log(reviews);
             return res.send(reviews);  
         } catch(error){
@@ -261,15 +262,30 @@ function authenticateToken(req, res, next) {
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null){
         console.log('No token!');
-        return res.sendStatus(401);
+        return res.status(401).send({error: 'No token!'});
     }
-    jwt.verify(token, SECRET, (err, user) => {
+    jwt.verify(token, SECRET, async (err, user) => {
         if (err) {
             console.log('With token but no access!');
-            return res.sendStatus(403);
+            return res.status(403).send({error: 'Token expired or not valid!'});
         }
-        req.user = user;
-        next();
+        const cur_user = user.user;
+        try {
+            const user = await User.findOne({ username: cur_user.username });
+            if (!user.isVerified){
+                console.log('User email is not verified!');
+                return res.status(403).send({error: 'User email is not verified!'});
+            }
+            if (!user.isActive){
+                console.log('User is deactivated!');
+                return res.status(403).send({error: 'Account is deactivated! Please contact web admin: wdtjx95@gmail.com.'});
+            }
+            req.user = user;
+            next();
+        } catch (error){
+            console.log(error.message);
+            return res.json({success: false, error: error.message});
+        }
     });
 };
 

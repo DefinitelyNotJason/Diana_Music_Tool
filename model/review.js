@@ -7,7 +7,8 @@ const ReviewSchema = new Schema({
     list_name: { type: String, required: true },
     creator: { type: String, required: true },
     content: { type: String, required: true },
-    create_date: { type: Date, default: Date.now, required: true }
+    create_date: { type: Date, default: Date.now, required: true },
+    public: { type: Boolean, default: true, required: true }
 },
 {
     collection: 'review'

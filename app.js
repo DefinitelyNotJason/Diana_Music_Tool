@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const user_route = require('./routes/user_route.js');
 const track_route = require('./routes/track_route.js');
 const playlist_route = require('./routes/playlist_route.js');
+const admin_route = require('./routes/admin_route.js');
 
 "use strict";
 const app = express();
@@ -27,6 +28,9 @@ app.use('/track', track_route);
 
 //playlist route
 app.use('/playlist', playlist_route);
+
+//admin route
+app.use('/admin', admin_route)
 
 app.get('/', function(req, res){
     let token = req.query.token;

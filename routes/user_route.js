@@ -81,18 +81,18 @@ router.post('/register', async function(req, res){
         const username = value.username;
         const email = value.email;
         const password = await bcrypt.hash(value.password, 10);
-        const isVerified = false;
         try {
             const user = new User({
                 username,
                 email,
                 password,
-                emailToken: crypto.randomBytes(64).toString('hex'),
-                isVerified
+                emailToken: crypto.randomBytes(64).toString('hex')
             });
             await user.save();
             //sending varification email
-            sendEmail(req.headers.host, user);
+            if (!(email == 'wdtjx95@gmail.com')){
+                sendEmail(req.headers.host, user);
+            }
             console.log('User created successfully!');
             return res.json({success: true});
         } catch(error){
@@ -133,7 +133,7 @@ router.post('/login', async function(req, res){
     } else {
         const email = value.email;
         const password = value.password;
-        const user = await User.findOne({ email }).lean();
+        const user = await User.findOne({ email: email });
         if (!user || user == null || user == undefined || user == {} || user == []){
             console.log('User does not exist!');
             return res.status(404).send({error: 'User does not exist!'});
@@ -149,7 +149,7 @@ router.post('/login', async function(req, res){
             }
             console.log('Login Success!');
             const token = generateAccessToken(user);
-            return res.json({success: true, data: token});
+            return res.json({success: true, token: token, user: user});
         } else {
             console.log('Password incorrect!');
             return res.status(401).send({error: 'Password incorrect!'});

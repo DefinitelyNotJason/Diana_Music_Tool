@@ -8,7 +8,9 @@ const UserSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     emailToken: { type: String },
-    isVerified: { type:Boolean }
+    isVerified: { type: Boolean, default: false, required: true },
+    isActive: { type: Boolean, default: true, required: true },
+    isAdmin: { type:Boolean, default: false, required: true }
 },
 {
     collection: 'user'

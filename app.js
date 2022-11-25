@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const user_route = require('./routes/user_route.js');
 const track_route = require('./routes/track_route.js');
@@ -9,6 +10,7 @@ const admin_route = require('./routes/admin_route.js');
 "use strict";
 const app = express();
 const PORT = 3000;
+app.use(cors());
 app.use(bodyParser.json());
 
 //connect to MongoDB Atlas
@@ -38,4 +40,5 @@ app.get('/', function(req, res){
     //     console.log(token);
     // }
     console.log("Hello World!");
+    res.send("hello world");
 });

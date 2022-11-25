@@ -6,6 +6,7 @@ import { FavoritesPageComponent } from './components/pages/favorites-page/favori
 import { HomeComponent } from './components/pages/home/home.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { PlayPageComponent } from './components/pages/play-page/play-page.component';
+import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path:'artist/:artist',component:ArtistPageComponent},
   {path:'favorites-page',component:FavoritesPageComponent},
   {path:'login',component:LoginPageComponent},
-  {path:'admin',component:AdminPageComponent}
+  {path:'admin',component:AdminPageComponent},
+  {path:'register',component:RegisterPageComponent}
 ];
 
 @NgModule({

@@ -13,6 +13,7 @@ import { LoginPageComponent } from './components/pages/login-page/login-page.com
 import { ReactiveFormsModule } from '@angular/forms';
 import { PlayPageComponent } from './components/pages/play-page/play-page.component';
 import { AdminPageComponent } from './components/pages/admin-page/admin-page.component';
+import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AdminPageComponent } from './components/pages/admin-page/admin-page.com
     TitleComponent,
     LoginPageComponent,
     PlayPageComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,

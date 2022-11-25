@@ -22,6 +22,6 @@ export class PlayPageComponent {
     })
   }
   addToFavorites(music:Music,list:string):void{
-    this.favoritesService.addMusicToList(music,Number(list)+1);
+    this.favoritesService.addMusicToList(music,Number(list));
   }
 }

@@ -26,7 +26,8 @@ export class FavoritesService {
   }
 
   addMusicToList(music:Music,list:number):void{
-    this.favorites.artists[list].music._id = music.name;
+    if(!this.favorites.artists[list-1].music.tracks.find(index => index === music.tracks))
+    this.favorites.artists[list-1].music.tracks.push(music.tracks);
     this.setFavoritesToLocalStorage();
   }
 

@@ -24,10 +24,19 @@ export class LoginPageComponent {
   }
 
   submit(){
+    let url = "http://localhost:3000/"
+    let request = new Request(url, {
+    method: 'GET'
+      });
+      fetch(request)
+    .then(response => {
+      console.log("hello");
+    })
+
     this.isSubmitted = true;
     if(this.loginForm.invalid) return;
 
     alert(`email: ${this.fc['email'].value} ,
-      password: ${this.fc['password'].value}`)
+    password: ${this.fc['password'].value}`)
   }
 }

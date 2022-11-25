@@ -145,7 +145,33 @@ export const smaple_playlist: PlayList[] = [
 
 export const sample_music = [
   {
+    "tracks":1,
     "name" : "STAR WALKIN",
     "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
-  }
+  },
+  {
+    "tracks":2,
+    "name" : "STAR WALKIN",
+    "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+  },
+  {
+    "tracks":3,
+    "name" : "STAR WALKIN",
+    "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+  },
+  {
+    "tracks":4,
+    "name" : "STAR WALKIN",
+    "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+  },
+  {
+    "tracks":5,
+    "name" : "STAR WALKIN",
+    "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+  },
+  {
+    "tracks":6,
+    "name" : "STAR WALKIN",
+    "address" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+  },
 ]

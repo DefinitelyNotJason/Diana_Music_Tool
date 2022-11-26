@@ -1,11 +1,12 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <div class="container">
     <ul>
         <li *ngFor="let item of music">
             <div class="musicName">
                 {{item.name}}
-            </div>
-            <div class="address">
-                <a href="{{item.address}}">{{item.address}}</a>
+                <a href="{{item.address}}"><span class="material-symbols-outlined">
+                    play_circle
+                    </span></a>
             </div>
             <div>
                 <select #listSelect>

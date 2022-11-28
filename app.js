@@ -39,6 +39,5 @@ app.get('/', function(req, res){
     // if (token){
     //     console.log(token);
     // }
-    console.log("Hello World!");
-    res.send("hello world");
+    res.send("Hello World!");
 });

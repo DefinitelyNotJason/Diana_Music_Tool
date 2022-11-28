@@ -117,7 +117,7 @@ router.get('/emailverify', async function(req, res){
         user.emailToken = null;
         user.isVerified = true;
         await user.save();
-        res.redirect('/');
+        res.redirect('http://localhost:4200');
     } catch(error) {
         console.log(error);
     };

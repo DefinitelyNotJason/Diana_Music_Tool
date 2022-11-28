@@ -24,14 +24,39 @@ export class LoginPageComponent {
   }
 
   submit(){
-    let url = "http://localhost:3000/"
+    let url = "http://localhost:3000/user/login";
+    const fv = this.loginForm.value;
+    const user = {
+      email:fv.email,
+      password:fv.password
+    };
     let request = new Request(url, {
-    method: 'GET'
-      });
-      fetch(request)
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+      body: JSON.stringify(user)
+    });
+
+    fetch(request)
     .then((response) => {
-      console.log(response);
+      if (response.ok){
+        alert('Registration success!');
+        response.json()
+        .then(data => {
+          alert(data.token);
+          console.log(data);
+        })
+      } else {
+        response.json()
+        .then(data => {
+          alert(data.error);
+        })
+      }
     })
+    .catch((e) => {
+      throw e;
+    });
 
     // this.isSubmitted = true;
     // if(this.loginForm.invalid) return;

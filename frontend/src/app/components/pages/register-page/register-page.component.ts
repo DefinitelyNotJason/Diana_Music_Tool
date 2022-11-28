@@ -33,18 +33,46 @@ export class RegisterPageComponent {
   }
 
   submit(){
-    this.isSubmitted = true;
-    if(this.registerForm.invalid) return;
-
+    let url = "http://localhost:3000/user/register";
     const fv = this.registerForm.value;
     const user:IUserRegister = {
       username:fv.username,
       email:fv.email,
       password:fv.password
     };
+    let request = new Request(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+      body: JSON.stringify(user)
+    });
 
-    // this.userService.register(user).subscribe(_=>{
-    //   this.router.navigateByUrl(this.returnUrl);
-    // })
-  }
+    fetch(request)
+    .then((response) => {
+      if (response.ok){
+        alert('Registration success!');
+      } else {
+        response.json()
+        .then(data => {
+          alert(data.error);
+        })
+      }
+    })
+    .catch((e) => {
+      throw e;
+    });
+  };
+  //   this.isSubmitted = true;
+  //   if(this.registerForm.invalid) return;
+  //   const user:IUserRegister = {
+  //     username:fv.username,
+  //     email:fv.email,
+  //     password:fv.password
+  //   };
+
+  //   this.userService.register(user).subscribe(_=>{
+  //     this.router.navigateByUrl(this.returnUrl);
+  //   })
+  // }
 }

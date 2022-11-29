@@ -70,6 +70,18 @@ const userLogin = Joi.object({
     password: Joi.string().trim().min(1).max(30).required().regex(/[$\(\)<>]/, { invert: true })
 });
 
+//get user
+router.get('/getuser', async function(req, res){
+    const username = req.user.username;
+    try {
+        const user = await User.findOne({ username: username });
+        return res.send(user);
+    } catch(error){
+        console.log(error.message);
+        return res.json({success:false, error: error.message});
+    };
+});
+
 //user register
 router.post('/register', async function(req, res){
     let { error, value } = userRegister.validate(req.body); 

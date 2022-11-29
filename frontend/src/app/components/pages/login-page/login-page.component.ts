@@ -44,11 +44,9 @@ export class LoginPageComponent {
     fetch(request)
     .then((response) => {
       if (response.ok){
-        // alert('Registration success!');
         response.json()
         .then(data => {
-          // alert(data.token);
-          localStorage.setItem('Token',data.user.username);
+          localStorage.setItem('Token',data.token);
           window.location.href="/";
           this.router.navigateByUrl('/');
         })

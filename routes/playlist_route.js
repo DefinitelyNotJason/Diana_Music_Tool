@@ -203,6 +203,7 @@ router.post('/deletelist', authenticateToken, async function(req, res){
 //check review input
 const reviewCheck = Joi.object({
     list_name: Joi.string().trim().min(1).max(30).required().regex(/[$\(\)<>]/, { invert: true }),
+    rating: Joi.number().min(1).max(5),
     content: Joi.string().trim().min(1).max(500).required().regex(/[$\(\)<>]/, { invert: true })
 });
 //add review
@@ -212,6 +213,7 @@ router.post('/addreview', authenticateToken, async function(req, res){
         return res.status(400).send({error: error.message});
     } else {
         const list_name = value.list_name;
+        const rating = value.rating;
         const content = value.content;
         const creator = req.user.username;
         try {
@@ -221,10 +223,18 @@ router.post('/addreview', authenticateToken, async function(req, res){
             };
             const review = new Review({
                 list_name,
+                rating,
                 creator,
                 content
             });
             await review.save();
+            const trr = playlist.total_review_rating+rating;
+            const trt = playlist.total_review_time+1;
+            const rr = Math.floor(trr/trt);
+            playlist.total_review_rating = trr;
+            playlist.total_review_time = trt;
+            playlist.review_rating = rr;
+            await playlist.save();
             console.log('Review added success!');
             return res.json({success: true}); 
         } catch(error){

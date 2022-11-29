@@ -12,15 +12,20 @@ import { Music } from 'src/app/shared/models/music';
 export class PlayPageComponent {
   music!: Music[];
   length!:Number[];
+
   constructor(activatedRoute:ActivatedRoute, musicService:MusicService
     ,private favoritesService : FavoritesService){
       this.length = Array(favoritesService.getFavoritesLen()).fill(1).map((x,i)=>i+1);
     activatedRoute.params.subscribe((params)=>{
       if(params['search']) {
-        this.music = musicService.searchByMusicName(params['search']);
+       let musicjson = musicService.searchByMusicName(params['search']);
+       console.log(musicjson);
       }
     })
   }
+
+
+
   addToFavorites(music:Music,list:string):void{
     this.favoritesService.addMusicToList(music,Number(list));
   }

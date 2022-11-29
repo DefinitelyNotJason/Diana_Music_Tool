@@ -19,8 +19,37 @@ export class MusicService {
     return sample_music;
   }
 
-  searchByMusicName(search:string){
-    return this.getMusic().filter(music=>music.name.toLowerCase().includes(search.toLowerCase()));
+ searchByMusicName(search:string){
+
+    let url = "http://localhost:3000/track/search/"+ search;
+    let request = new Request(url, {
+      method: 'GET',
+    });
+    return fetch(request)
+    .then(response => {
+      if (response.ok){
+         //alert('search success!');
+         return  response.json()
+        .then(data => {
+           // alert(data);
+           //console.log(data); // get all the parameters from user
+
+           return data;
+        })
+      } else {
+       return response.json()
+        .then(data => {
+          alert(data.error);
+          return data.error;
+        })
+      }
+    })
+    .catch((e) => {
+      throw e;
+    });
+
+
+    //return this.getMusic().filter(music=>music.name.toLowerCase().includes(search.toLowerCase()));
   }
 
   getArtistByName(ArtName:string):PlayList{

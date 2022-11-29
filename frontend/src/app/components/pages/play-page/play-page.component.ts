@@ -18,8 +18,24 @@ export class PlayPageComponent {
       this.length = Array(favoritesService.getFavoritesLen()).fill(1).map((x,i)=>i+1);
     activatedRoute.params.subscribe((params)=>{
       if(params['search']) {
-       let musicjson = musicService.searchByMusicName(params['search']);
-       console.log(musicjson);
+       musicService.searchByMusicName(params['search'])
+       .then(response =>{
+          //console.log(response);
+          //console.log(response[0].track_id, response[0].track_title, response[0].license_url);
+          const a: Music[] =[];
+          response.forEach((element: { track_id: number; track_title: string; license_url: string; }) => {
+
+            const singlemusic:Music = {
+              tracks: element.track_id,
+              name:element.track_title,
+              address:element.license_url
+            };
+            a.push(singlemusic);
+          });
+          console.log(a);
+          this.music = a;
+       });
+
       }
     })
   }

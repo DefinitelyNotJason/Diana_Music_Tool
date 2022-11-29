@@ -32,7 +32,6 @@ export class MusicService {
          return  response.json()
         .then(data => {
            // alert(data);
-           //console.log(data); // get all the parameters from user
 
            return data;
         })

@@ -12,7 +12,7 @@
                     <div class="menu">
                         <a routerLink="/profile">Profile</a>
                         <a routerLink="/admin" *ngIf="isAdmin">Admin</a>
-                        <a>LogOut</a>
+                        <a routerLink="/" (click) = "logout()">LogOut</a>
                     </div>
                 </li>
                 <li>

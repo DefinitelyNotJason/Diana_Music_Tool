@@ -47,4 +47,8 @@ export class HeaderComponent {
       this.isLogin = true;
     }
   }
+  logout():void{
+    localStorage.removeItem("Token");
+    window.location.href="/";
+  }
 }

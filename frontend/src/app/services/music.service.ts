@@ -11,8 +11,24 @@ export class MusicService {
 
   constructor() { }
 
-  getAll():PlayList[]{
-    return smaple_playlist;
+  async getAll():Promise<PlayList[]>{
+    let r_data:PlayList[] = [];
+    let url = "http://localhost:3000/playlist/getlist";
+    let request = new Request(url, {
+      method: 'GET',
+    });
+    return fetch(request)
+    .then(response => {
+      if (response.ok){
+        return response.json()
+        .then(data => {
+          r_data = data;
+          return r_data;
+        })
+      } else {
+        return r_data;
+      }
+    })
   }
 
   getMusic():Music[]{
@@ -20,39 +36,39 @@ export class MusicService {
   }
 
  searchByMusicName(search:string){
+  let url = "http://localhost:3000/track/search/"+ search;
+  let request = new Request(url, {
+    method: 'GET',
+  });
+  return fetch(request)
+  .then(response => {
+    if (response.ok){
+        //alert('search success!');
+        return  response.json()
+      .then(data => {
+          // alert(data);
 
-    let url = "http://localhost:3000/track/search/"+ search;
-    let request = new Request(url, {
-      method: 'GET',
-    });
-    return fetch(request)
-    .then(response => {
-      if (response.ok){
-         //alert('search success!');
-         return  response.json()
-        .then(data => {
-           // alert(data);
-
-           return data;
-        })
-      } else {
-       return response.json()
-        .then(data => {
-          alert(data.error);
-          return data.error;
-        })
-      }
-    })
-    .catch((e) => {
-      throw e;
-    });
-
-
+          return data;
+      })
+    } else {
+      return response.json()
+      .then(data => {
+        alert(data.error);
+        return data.error;
+      })
+    }
+  })
+  .catch((e) => {
+    throw e;
+  });
     //return this.getMusic().filter(music=>music.name.toLowerCase().includes(search.toLowerCase()));
   }
 
-  getArtistByName(ArtName:string):PlayList{
-    return this.getAll().find(music => music._id === ArtName) ?? new PlayList();
+  async getArtistByName(ArtName:string):Promise<PlayList>{
+    return await this.getAll()
+      .then(response => {
+        return response.find(music => music._id === ArtName) ?? new PlayList();
+      });
   }
 
   getPlaylistByTracksId(trackid:number):Music{

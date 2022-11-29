@@ -16,7 +16,10 @@ export class HomeComponent {
       // if(params['search']){
       //   this.playlist = musicService.getAllByArtistName(params['search']);
       // }else{
-        this.playlist = musicService.getAll();
+        musicService.getAll()
+        .then(response =>{
+          this.playlist = response;
+        })
       // }
     })
   }

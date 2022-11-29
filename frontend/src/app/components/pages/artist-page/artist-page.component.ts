@@ -19,13 +19,18 @@ export class ArtistPageComponent {
     private favoritesService:FavoritesService, private router: Router){
       this.music = [];
       this.length = Array(favoritesService.getFavoritesLen()).fill(1).map((x,i)=>i+1);
-    activatedRoute.params.subscribe((params)=>{
+    activatedRoute.params.subscribe(async (params)=>{
       if(params['artist']) {
-        this.playlist = musicService.getArtistByName(params['artist']);
-        this.tracks = this.playlist.tracks;
-        this.tracks.forEach(trackid => {
-          this.music.push(musicService.getPlaylistByTracksId(trackid));   
+        await musicService.getArtistByName(params['artist'])
+        .then(response => {
+          this.playlist = response;
+          this.tracks = this.playlist.tracks;
         });
+        if (this.tracks.length > 0){
+          this.tracks.forEach(trackid => {
+            this.music.push(musicService.getPlaylistByTracksId(trackid));   
+          });
+        }
       }
     })
   }

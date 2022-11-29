@@ -17,7 +17,6 @@ export class HeaderComponent {
     favoritesService.getFavoritesObservable().subscribe((newFavorites) => {
       this.favoritesQuantity = newFavorites.totalCount;
     });
-    console.log(localStorage.getItem('Token'));
     if(localStorage.getItem('Token')){
       const token = localStorage.getItem('Token');
       let url = "http://localhost:3000/user/getuser";
@@ -28,7 +27,6 @@ export class HeaderComponent {
           'Authorization': 'Bearer '+token
         }
       });
-      console.log(request);
       fetch(request)
       .then((response) => {
         if (response.ok){

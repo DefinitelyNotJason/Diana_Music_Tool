@@ -10,15 +10,42 @@ import { LoginPageComponent } from '../../pages/login-page/login-page.component'
 })
 export class HeaderComponent {
   favoritesQuantity = 0;
-  userNanme;
+  userName:String = "";
   isLogin = false;
   isAdmin = true;
   constructor(activatedRoute :ActivatedRoute ,favoritesService:FavoritesService){
     favoritesService.getFavoritesObservable().subscribe((newFavorites) => {
       this.favoritesQuantity = newFavorites.totalCount;
     });
+    console.log(localStorage.getItem('Token'));
     if(localStorage.getItem('Token')){
-      this.userNanme = localStorage.getItem('Token');
+      const token = localStorage.getItem('Token');
+      let url = "http://localhost:3000/user/getuser";
+      let request = new Request(url, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer '+token
+        }
+      });
+      console.log(request);
+      fetch(request)
+      .then((response) => {
+        if (response.ok){
+          response.json()
+          .then(data => {
+            this.userName = data.username;
+          })
+        } else {
+          response.json()
+          .then(data => {
+            alert(data.error);
+          })
+        }
+      })
+      .catch((e) => {
+        throw e;
+      });
       this.isLogin = true;
     }
   }

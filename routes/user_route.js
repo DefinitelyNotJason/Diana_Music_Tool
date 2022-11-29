@@ -71,8 +71,9 @@ const userLogin = Joi.object({
 });
 
 //get user
-router.get('/getuser', async function(req, res){
-    const username = req.user.username;
+router.get('/getuser', authenticateToken, async function(req, res){
+    const username = req.user.user.username;
+    console.log(username);
     try {
         const user = await User.findOne({ username: username });
         return res.send(user);

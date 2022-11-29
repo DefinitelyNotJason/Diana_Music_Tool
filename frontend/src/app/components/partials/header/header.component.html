@@ -8,7 +8,7 @@
                     <a routerLink="/login" *ngIf="isLogin == false">Login</a>
                 </li>
                 <li class="menu-container">
-                    <a routerLink="/dashboard" *ngIf="userNanme">{{userNanme}}</a>
+                    <a routerLink="/dashboard" *ngIf="userName">{{userName}}</a>
                     <div class="menu">
                         <a routerLink="/profile">Profile</a>
                         <a routerLink="/admin" *ngIf="isAdmin">Admin</a>

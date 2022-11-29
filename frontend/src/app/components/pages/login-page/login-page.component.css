@@ -55,6 +55,16 @@ input:focus{
     border-width: 2.9px;
 }
 
+.material-icons.md-72 { font-size: 72px; }
+
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+
+.googlelogin{
+    position: relative;
+    display: flex;
+    justify-content: left;
+}
+
 button{
     background-color: #e72929;
     color: white;

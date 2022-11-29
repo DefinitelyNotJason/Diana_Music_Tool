@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { IUserRegister } from 'src/app/shared/interfaces/IUserRegister';
 
@@ -16,7 +16,7 @@ export class RegisterPageComponent {
   returnUrl = '';
 
   constructor(private formBuilder: FormBuilder, private userService: UserService,
-    private activatedRoute: ActivatedRoute){}
+    private activatedRoute: ActivatedRoute,private router:Router){}
 
   ngOnInit():void{
     this.registerForm = this.formBuilder.group({
@@ -52,6 +52,7 @@ export class RegisterPageComponent {
     .then((response) => {
       if (response.ok){
         alert('Registration success!');
+        this.router.navigateByUrl('/login');
       } else {
         response.json()
         .then(data => {

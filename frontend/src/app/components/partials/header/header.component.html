@@ -5,7 +5,7 @@
         <nav>
             <ul>
                 <li>
-                    <a routerLink="/login">Login</a>
+                    <a routerLink="/login" *ngIf="isLogin == false">Login</a>
                 </li>
                 <li class="menu-container">
                     <a routerLink="/dashboard" *ngIf="userNanme">{{userNanme}}</a>
@@ -16,7 +16,7 @@
                     </div>
                 </li>
                 <li>
-                    <a routerLink="/favorites-page">
+                    <a routerLink="/favorites-page" *ngIf="isLogin == true">
                         Favorite <span *ngIf="favoritesQuantity">{{favoritesQuantity}}</span>
                     </a>
                 </li>

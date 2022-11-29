@@ -10,6 +10,7 @@ import { RegisterPageComponent } from './components/pages/register-page/register
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
+  // {path:'/:username',component:HomeComponent},
   {path:'search/:search',component:PlayPageComponent},
   {path:'artist/:artist',component:ArtistPageComponent},
   {path:'favorites-page',component:FavoritesPageComponent},

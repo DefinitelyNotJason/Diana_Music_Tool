@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login-page',
@@ -9,8 +11,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginPageComponent {
   loginForm!:FormGroup;
   isSubmitted = false;
+  // static token: string;
 
-  constructor(private formBuilder:FormBuilder){}
+  constructor(private formBuilder:FormBuilder,private router:Router,userService:UserService){}
 
   ngOnInit(): void{
     this.loginForm = this.formBuilder.group({
@@ -41,11 +44,13 @@ export class LoginPageComponent {
     fetch(request)
     .then((response) => {
       if (response.ok){
-        alert('Registration success!');
+        // alert('Registration success!');
         response.json()
         .then(data => {
-          alert(data.token);
-          console.log(data);
+          // alert(data.token);
+          localStorage.setItem('Token',data.user.username);
+          window.location.href="/";
+          this.router.navigateByUrl('/');
         })
       } else {
         response.json()

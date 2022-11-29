@@ -11,5 +11,4 @@ export class UserService {
   constructor() { 
     this.userObservable = this.userSubject.asObservable();
   }
-  
 }

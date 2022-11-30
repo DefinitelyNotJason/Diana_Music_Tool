@@ -1,8 +1,8 @@
 export class User{
-    id!:string;
+    username!:string;
     email!:string;
-    name!:string;
-    address!:string;
-    token!:string;
+    password!:string;
+    isVerified!:boolean;
+    isActive!:boolean;
     isAdmin!:boolean;
 }

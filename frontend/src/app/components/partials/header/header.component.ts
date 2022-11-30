@@ -17,6 +17,7 @@ export class HeaderComponent {
     favoritesService.getFavoritesObservable().subscribe((newFavorites) => {
       this.favoritesQuantity = newFavorites.totalCount;
     });
+    console.log(localStorage.getItem('Token'));
     if(localStorage.getItem('Token')){
       const token = localStorage.getItem('Token');
       let url = "http://localhost:3000/user/getuser";
@@ -38,6 +39,8 @@ export class HeaderComponent {
           response.json()
           .then(data => {
             alert(data.error);
+            this.logout();
+            this.isLogin = false;
           })
         }
       })

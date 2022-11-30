@@ -1,11 +1,8 @@
 <app-search></app-search>
 <ul>
     <li *ngFor="let m of playlist">
-        <a routerLink = "/artist/{{m._id}}">
+        <a routerLink = "/artist/{{m.name}}">
             <div class="content">
-                <div class="artist_name">
-                    _id : {{m._id}}
-                </div>
                 <div class="name">
                     name : {{m.name}}
                 </div>
@@ -22,22 +19,16 @@
                     playtime : {{m.playtime}}
                 </div>
                 <div class="total_review_score">
-                    total_review_score : {{m.total_review_score}}
+                    total_review_rating : {{m.total_review_rating}}
                 </div>
                 <div class="total_review_time">
                     total_review_time : {{m.total_review_time}}
                 </div>
                 <div class="review_score">
-                    review_score : {{m.review_score}}
-                </div>
-                <div class="public">
-                    public : {{m.public}}
+                    review_rating : {{m.review_rating}}
                 </div>
                 <div class="edit_date">
                     edit_date : {{m.edit_date}}
-                </div>
-                <div class="__v">
-                    __v : {{m.__v}}
                 </div>
             </div>
         </a>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { find } from 'rxjs';
-import { sample_music, smaple_playlist } from 'src/data';
+import { sample_music } from 'src/data';
 import { Music } from '../shared/models/music';
 import { PlayList } from '../shared/models/playlist';
 
@@ -67,11 +67,11 @@ export class MusicService {
   async getArtistByName(ArtName:string):Promise<PlayList>{
     return await this.getAll()
       .then(response => {
-        return response.find(music => music._id === ArtName) ?? new PlayList();
+        return response.find(music => music.name === ArtName) ?? new PlayList();
       });
   }
 
-  getPlaylistByTracksId(trackid:number):Music{
-    return this.getMusic().find(music => music.tracks === trackid) ?? new Music();
+  getPlaylistByTracksId(trackid:string):Music{
+    return this.getMusic().find(music => music.track_id === trackid) ?? new Music();
   }
 }

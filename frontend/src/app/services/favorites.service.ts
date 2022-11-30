@@ -26,13 +26,13 @@ export class FavoritesService {
   }
 
   addMusicToList(music:Music,list:number):void{
-    if(!this.favorites.artists[list-1].music.tracks.find(index => index === music.tracks))
-    this.favorites.artists[list-1].music.tracks.push(music.tracks);
-    this.setFavoritesToLocalStorage();
+    // if(!this.favorites.artists[list-1].music.tracks.find(index => index === music.tracks))
+    // this.favorites.artists[list-1].music.tracks.push(music.tracks);
+    // this.setFavoritesToLocalStorage();
   }
 
   addToFavorites(music:PlayList):void{
-    let favoritelist = this.favorites.artists.find(i => i.music._id === music._id);
+    let favoritelist = this.favorites.artists.find(i => i.music.name === music.name);
     if(favoritelist)
       return;
 
@@ -40,8 +40,8 @@ export class FavoritesService {
     this.setFavoritesToLocalStorage();
   }
 
-  removeFromFavorites(_id:string):void{
-    this.favorites.artists = this.favorites.artists.filter(i => i.music._id != _id);
+  removeFromFavorites(name:string):void{
+    this.favorites.artists = this.favorites.artists.filter(i => i.music.name != name);
     this.setFavoritesToLocalStorage();
   }
 

@@ -16,7 +16,7 @@ export class FavoritesPageComponent {
   } 
 
   removeFromFavorites(favoritelist:FavoriteList){
-    this.favoritesService.removeFromFavorites(favoritelist.music._id);
+    this.favoritesService.removeFromFavorites(favoritelist.music.name);
   }
 
   addEmptyList(){

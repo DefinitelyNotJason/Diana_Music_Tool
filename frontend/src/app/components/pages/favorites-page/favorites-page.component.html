@@ -4,11 +4,8 @@
     <button class="addFavoritesList" (click) = "addEmptyList()">AddList</button>
     <ul>
         <li *ngFor="let item of favorites.artists">
-            <a routerLink = "/artist/{{item.music._id}}">
+            <a routerLink = "/artist/{{item.music.name}}">
                 <div class="content">
-                    <div class="artist_name">
-                        _id : {{item.music._id}}
-                    </div>
                     <div class="name">
                         name : {{item.music.name}}
                     </div>
@@ -25,22 +22,16 @@
                         playtime : {{item.music.playtime}}
                     </div>
                     <div class="total_review_score">
-                        total_review_score : {{item.music.total_review_score}}
+                        total_review_score : {{item.music.total_review_rating}}
                     </div>
                     <div class="total_review_time">
                         total_review_time : {{item.music.total_review_time}}
                     </div>
                     <div class="review_score">
-                        review_score : {{item.music.review_score}}
-                    </div>
-                    <div class="public">
-                        public : {{item.music.public}}
+                        review_score : {{item.music.review_rating}}
                     </div>
                     <div class="edit_date">
                         edit_date : {{item.music.edit_date}}
-                    </div>
-                    <div class="__v">
-                        __v : {{item.music.__v}}
                     </div>
                 </div>
             </a>

@@ -12,9 +12,10 @@ import { PlayList } from 'src/app/shared/models/playlist';
 })
 export class ArtistPageComponent {
   playlist!: PlayList;
-  tracks!: number[];
+  tracks!: string[];
   music!: Music[];
   length!:Number[];
+  rating:number = 0;
   constructor(activatedRoute:ActivatedRoute, musicService:MusicService,
     private favoritesService:FavoritesService, private router: Router){
       this.music = [];
@@ -28,7 +29,7 @@ export class ArtistPageComponent {
         });
         if (this.tracks.length > 0){
           this.tracks.forEach(trackid => {
-            this.music.push(musicService.getPlaylistByTracksId(trackid));   
+            this.music.push(musicService.getPlaylistByTracksId(trackid));
           });
         }
       }
@@ -42,4 +43,7 @@ export class ArtistPageComponent {
     this.router.navigateByUrl('/favorites-page');
   }
 
+  onSubmit(stars: Number, review: string){
+    console.log(stars,review);
+  }
 }

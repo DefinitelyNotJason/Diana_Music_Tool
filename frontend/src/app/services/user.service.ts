@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Review } from '../shared/models/review';
 import { User } from '../shared/models/user';
 
 @Injectable({
@@ -10,5 +11,56 @@ export class UserService {
   public userObservable:Observable<User>;
   constructor() { 
     this.userObservable = this.userSubject.asObservable();
+  }
+
+  getUserInAdmin(){
+    let allUser:User[] = [];
+    const token = localStorage.getItem('Token');
+    let url = "http://localhost:3000/admin/getallusers";
+    let request = new Request(url, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+ token
+      }
+    });
+    return fetch(request)
+    .then(response => {
+      if (response.ok){
+        return response.json()
+        .then(data => {
+          allUser = data;
+          return allUser;
+        })
+      } else {
+        return allUser;
+      }
+    })
+  }
+
+  getUserReview(){
+    let getReview:Review[] = [];
+
+    const token = localStorage.getItem('Token');
+    let url = "http://localhost:3000/admin/getallreview";
+    let request = new Request(url, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+ token
+      }
+    });
+    return fetch(request)
+    .then(response => {
+      if (response.ok){
+        return response.json()
+        .then(data => {
+          getReview = data;
+          return getReview;
+        })
+      } else {
+        return getReview;
+      }
+    })
   }
 }

@@ -45,8 +45,8 @@
   </div> -->
 
     <div class="input-container">
-      <input type="text" id="listName" placeholder="input the list name">
-      <input type="text" id="Decription" placeholder="add decription">
+      <input type="text" id="listName" placeholder="input the list name" title="input the list name">
+      <input type="text" id="Description" placeholder="add description" title="add description">
       <button class="addFavoritesList" (click) = "addNewList()">AddNewList</button>
       <ul>
         <li *ngFor="let item of favorites.artists">
@@ -84,11 +84,26 @@
                   </div>
                 </div>
             </a>
+
             <div>
                 <button class="remove-button" (click) = "removeFromFavorites(item)">Remove</button>
             </div>
-        </li>
-    </ul>
+            <div class="input-container">
+              <input type="text" id="editDescription" placeholder="edit description" title="edit description">
+              <button class="remove-button" (click) = "editDescription(item)">edit description</button>
+            </div>
+            <div>
+               <button class="remove-button" (click) = "removeFromFavorites(item)">public or not</button>
+            </div>
+            <div>
+              <button class="remove-button" (click) = "removeFromFavorites(item)">delete track</button>
+            </div>
+            <div>
+              <button class="remove-button" (click) = "removeFromFavorites(item)">delete playlist</button>
+            </div>
+             </li>
+             </ul>
+
     </div>
 
 

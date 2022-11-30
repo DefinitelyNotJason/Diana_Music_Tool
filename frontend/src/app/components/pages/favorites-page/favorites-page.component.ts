@@ -33,5 +33,8 @@ export class FavoritesPageComponent {
     //const inputDecription: HTMLElement = document.getElementById('Decription') as HTMLElement;
     this.favoritesService.addNewList();
   }
+  editDescription(favoritelist:FavoriteList){
+    this.favoritesService.editDescription(favoritelist.music);
 
+}
 }

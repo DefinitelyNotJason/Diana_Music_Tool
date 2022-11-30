@@ -27,9 +27,9 @@ export class FavoritesService {
 
   addNewList():void{
     let inputName !: string;
-    let inputDecription !: string;
+    let inputDescription !: string;
     const a = document.getElementById('listName') as HTMLInputElement | null;
-    const b = document.getElementById('Decription') as HTMLInputElement | null;
+    const b = document.getElementById('Description') as HTMLInputElement | null;
     if (a != null) {
       inputName = a.value;
       }
@@ -38,17 +38,17 @@ export class FavoritesService {
         return;
       }
     if (b != null) {
-      inputDecription = b.value;
+      inputDescription = b.value;
       }
 
-    console.log(inputName);
-    console.log(inputDecription);
+    //console.log(inputName);
+    //console.log(inputDecription);
 
 
       if(this.favorites.artists.length < 20){
         let newList = new FavoriteList(new PlayList());
         newList.music.name = inputName;
-        newList.music.description = inputDecription;
+        newList.music.description = inputDescription;
         console.log(newList);
         this.favorites.artists.push(newList);
         this.setFavoritesToLocalStorage();
@@ -79,6 +79,24 @@ export class FavoritesService {
     this.setFavoritesToLocalStorage();
   }
 
+  editDescription(music:PlayList):void{
+    const b = document.getElementById('editDescription') as HTMLInputElement | null;
+    let inputDescription !: string;
+    if (b != null) {
+      inputDescription = b.value;
+      }
+      console.log(inputDescription);
+    let favoritelist = this.favorites.artists.find(i => i.music.name === music.name);
+    //console.log(favoritelist);
+    //console.log(favoritelist?.music.description);
+    //console.log(inputDescription);
+    if(favoritelist){
+    favoritelist.music.description = inputDescription;
+  //  console.log(favoritelist);
+     // let a =favoritelist.music.name;
+    this.setFavoritesToLocalStorage();
+    }
+  }
   // changeQuantity(artist_name:string, quantity:number){
   //   let favoriteartist = this.favorites.artists.find(i => i.music.artist_name === artist_name);
   //   if(!favoriteartist) return;

@@ -65,13 +65,52 @@ export class MusicService {
   }
 
   async getArtistByName(ArtName:string):Promise<PlayList>{
-    return await this.getAll()
-      .then(response => {
-        return response.find(music => music.name === ArtName) ?? new PlayList();
-      });
+    let url = "http://localhost:3000/playlist/searchlist/"+ArtName;
+    let request = new Request(url, {
+      method: 'GET',
+    });
+    return await fetch(request)
+    .then(async response => {
+      if (response.ok){
+          return response.json()
+        .then(data => {
+            return data;
+        })
+      } else {
+        return response.json()
+        .then(data => {
+          alert(data.error);
+          return data.error;
+        })
+      }
+    })
+    .catch((e) => {
+      throw e;
+    });
   }
 
-  getPlaylistByTracksId(trackid:string):Music{
-    return this.getMusic().find(music => music.track_id === trackid) ?? new Music();
+  async getPlaylistByTracksId(trackid:string):Promise<Music>{
+    let url = "http://localhost:3000/track/getbyid/"+trackid;
+    let request = new Request(url, {
+      method: 'GET',
+    });
+    return await fetch(request)
+    .then(async response => {
+      if (response.ok){
+          return response.json()
+        .then(data => {
+          return data;
+        })
+      } else {
+        return response.json()
+        .then(data => {
+          alert(data.error);
+          return [];
+        })
+      }
+    })
+    .catch((e) => {
+      throw e;
+    });
   }
 }

@@ -23,6 +23,17 @@ router.get('/getlist', async function(req, res){
     };
 });
 
+//get playlist by name
+router.get('/searchlist/:name', async function(req, res){
+    const name = req.params.name;
+    try {
+        const list = await Playlist.findOne({ name: name });
+        return res.send(list);
+    } catch(error){
+        return res.json({success:false, error:error.message});
+    };
+});
+
 //check input for list name
 const nameCheck = Joi.object({
     name: Joi.string().trim().min(1).max(30).required().regex(/[$\(\)<>]/, { invert: true }),

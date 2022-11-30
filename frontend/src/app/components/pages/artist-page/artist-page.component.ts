@@ -23,13 +23,19 @@ export class ArtistPageComponent {
     activatedRoute.params.subscribe(async (params)=>{
       if(params['artist']) {
         await musicService.getArtistByName(params['artist'])
-        .then(response => {
+        .then(async response => {
           this.playlist = response;
           this.tracks = this.playlist.tracks;
         });
         if (this.tracks.length > 0){
-          this.tracks.forEach(trackid => {
-            this.music.push(musicService.getPlaylistByTracksId(trackid));
+          this.tracks.forEach(async trackid => {
+            await musicService.getPlaylistByTracksId(trackid)
+            .then(response =>{
+              //在这加上youtube链接
+              response.track_url = 'https://www.youtube.com/watch?v=fjFV4PQqS_I&list=RDEMY16mrgAz0nmiD2DAKY-YSg&start_radio=1';
+              console.log(response);
+              this.music.push(response);
+            })
           });
         }
       }

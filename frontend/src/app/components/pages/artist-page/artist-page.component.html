@@ -1,16 +1,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <div class="content">
     <div class="display">
-        <p>Playlist Name:</p>
-        <p>Album Name:</p>
-        <p>Tracks:</p>
-        <p>Total Play Time:</p>
+        <p>Playlist Name: {{playlist.name}}</p>
+        <p>Creator: {{playlist.creator}}</p>
+        <p>Description: {{playlist.description}}</p>
+        <p>Number of Tracks: {{playlist.number_tracks}}</p>
+        <p>Rating: {{playlist.review_rating}}</p>
+        <p>Total Play Time: {{playlist.playtime}}</p>
     </div>
     <ul>
         <li *ngFor="let item of music">
-            <div class="musicTrackId">
-                {{item.track_id}}
-            </div>
             <div class="musicName">
                 {{item.track_title}}
                 <a href="{{item.track_url}}"><span class="material-symbols-outlined">

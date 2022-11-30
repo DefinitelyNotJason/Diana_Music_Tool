@@ -147,31 +147,33 @@ export const sample_music = [
   {
     "track_id":"1",
     "name" : "STAR WALKIN",
-    "track_url" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+    "track_url" : "https://www.youtube.com/watch?v=HYsz1hP0BFo",
+    "track_title": "hihihi",
+    "artist_name": "hihihi",
+    "track_banner": "hihihihi"
   },
   {
     "track_id":"2",
     "name" : "STAR WALKIN",
-    "track_url" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+    "track_url" : "https://www.youtube.com/watch?v=HYsz1hP0BFo",
+    "track_title": "hihihi",
+    "artist_name": "hihihi",
+    "track_banner": "hihihihi"
   },
   {
     "track_id":"2",
     "name" : "STAR WALKIN",
-    "track_url" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
+    "track_url" : "https://www.youtube.com/watch?v=HYsz1hP0BFo",
+    "track_title": "hihihi",
+    "artist_name": "hihihi",
+    "track_banner": "hihihihi"
   },
   {
     "track_id":"2",
     "name" : "STAR WALKIN",
-    "track_url" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
-  },
-  {
-    "track_id":"2",
-    "name" : "STAR WALKIN",
-    "track_url" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
-  },
-  {
-    "track_id":"2",
-    "name" : "STAR WALKIN",
-    "track_url" : "https://www.youtube.com/watch?v=HYsz1hP0BFo"
-  },
+    "track_url" : "https://www.youtube.com/watch?v=HYsz1hP0BFo",
+    "track_title": "hihihi",
+    "artist_name": "hihihi",
+    "track_banner": "hihihihi"
+  }
 ]

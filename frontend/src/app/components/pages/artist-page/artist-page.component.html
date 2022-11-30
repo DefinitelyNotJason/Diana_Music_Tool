@@ -12,7 +12,7 @@
         <li *ngFor="let item of music">
             <div class="musicName">
                 {{item.track_title}}
-                <a href="{{item.track_url}}"><span class="material-symbols-outlined">
+                <a href="{{item.track_url}}" target="_blank"><span class="material-symbols-outlined">
                     play_circle
                     </span></a>
             </div>
@@ -23,6 +23,9 @@
             </div>
             <div class="add-button">
                 <button (click) = "addMusicToList(item,listSelect.value)">Add to Favorite</button>
+            </div>
+            <div>
+                <a href="{{item.track_url}}" target="_blank"><img src="{{item.track_banner}}"></a>
             </div>
         </li>
     </ul>

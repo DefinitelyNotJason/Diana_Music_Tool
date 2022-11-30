@@ -23,12 +23,14 @@ export class PlayPageComponent {
           //console.log(response);
           //console.log(response[0].track_id, response[0].track_title, response[0].license_url);
           const a: Music[] =[];
-          response.forEach((element: { track_id: string; track_title: string; license_url: string; }) => {
+          response.forEach((element: { track_banner: string; artist_name: string; track_id: string; track_title: string; license_url: string; }) => {
 
             const singlemusic:Music = {
               track_id: element.track_id,
               track_title: element.track_title,
-              track_url: element.license_url
+              track_url: element.license_url,
+              artist_name: element.artist_name,
+              track_banner: element.track_banner
             };
             a.push(singlemusic);
           });

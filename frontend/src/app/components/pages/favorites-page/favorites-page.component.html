@@ -1,6 +1,6 @@
 <app-title title="Favorites Page" margin="1.5rem 0 0 2,5rem"></app-title>
 
-<div class="container">
+<!-- <div class="container">
     <button class="addFavoritesList" (click) = "addEmptyList()">AddList</button>
     <ul>
         <li *ngFor="let item of favorites.artists">
@@ -42,5 +42,54 @@
             </div>
         </li>
     </ul>
+  </div> -->
 
-</div>
+    <div class="input-container">
+      <input type="text" id="listName" placeholder="input the list name">
+      <input type="text" id="Decription" placeholder="add decription">
+      <button class="addFavoritesList" (click) = "addNewList()">AddNewList</button>
+      <ul>
+        <li *ngFor="let item of favorites.artists">
+            <a routerLink = "/artist/{{item.music.name}}">
+                <div class="content">
+                    <div class="name">
+                        name : {{item.music.name}}
+                    </div>
+                    <div class="creator">
+                        creator : {{item.music.creator}}
+                    </div>
+                    <div class="number_tracks">
+                        number_tracks : {{item.music.number_tracks}}
+                    </div>
+                    <div class="tracks">
+                        tracks : {{item.music.tracks}}
+                    </div>
+                    <div class="playtime">
+                        playtime : {{item.music.playtime}}
+                    </div>
+                    <div class="total_review_score">
+                        total_review_score : {{item.music.total_review_rating}}
+                    </div>
+                    <div class="total_review_time">
+                        total_review_time : {{item.music.total_review_time}}
+                    </div>
+                    <div class="review_score">
+                        review_score : {{item.music.review_rating}}
+                    </div>
+                    <div class="edit_date">
+                        edit_date : {{item.music.edit_date}}
+                    </div>
+                    <div class="description">
+                      description : {{item.music.description}}
+                  </div>
+                </div>
+            </a>
+            <div>
+                <button class="remove-button" (click) = "removeFromFavorites(item)">Remove</button>
+            </div>
+        </li>
+    </ul>
+    </div>
+
+
+

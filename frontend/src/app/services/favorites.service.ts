@@ -18,12 +18,46 @@ export class FavoritesService {
     return this.favorites.artists.length;
   }
 
-  addEmptyList():void{
-    if(this.favorites.artists.length < 20){
-      this.favorites.artists.push(new FavoriteList(new PlayList()));
-      this.setFavoritesToLocalStorage();
-    }
+  // addEmptyList():void{
+  //   if(this.favorites.artists.length < 20){
+  //     this.favorites.artists.push(new FavoriteList(new PlayList()));
+  //     this.setFavoritesToLocalStorage();
+  //   }
+  // }
+
+  addNewList():void{
+    let inputName !: string;
+    let inputDecription !: string;
+    const a = document.getElementById('listName') as HTMLInputElement | null;
+    const b = document.getElementById('Decription') as HTMLInputElement | null;
+    if (a != null) {
+      inputName = a.value;
+      }
+     if(inputName.length == 0){
+        alert("list name cannot be null");
+        return;
+      }
+    if (b != null) {
+      inputDecription = b.value;
+      }
+
+    console.log(inputName);
+    console.log(inputDecription);
+
+
+      if(this.favorites.artists.length < 20){
+        let newList = new FavoriteList(new PlayList());
+        newList.music.name = inputName;
+        newList.music.description = inputDecription;
+        console.log(newList);
+        this.favorites.artists.push(newList);
+        this.setFavoritesToLocalStorage();
+      }
+
   }
+
+
+
 
   addMusicToList(music:Music,list:number):void{
     // if(!this.favorites.artists[list-1].music.tracks.find(index => index === music.tracks))

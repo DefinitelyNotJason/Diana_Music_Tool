@@ -19,6 +19,7 @@ export class HomeComponent {
         musicService.getAll()
         .then(response =>{
           this.playlist = response;
+
         })
       // }
     })

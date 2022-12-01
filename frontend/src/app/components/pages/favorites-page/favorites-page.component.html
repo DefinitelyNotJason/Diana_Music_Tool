@@ -69,7 +69,7 @@
                     </select>
                     <div>
                         Track Name
-                        <button style="margin-left: 20px;" >Delete Track</button>
+                        <button style="margin-left: 20px;" (click)="deleteTrack(item.name, item.tracks, track_select.value)">Delete Track</button>
                     </div>
                     <!-- (click)="function(track_select)" -->
                 </div>

@@ -91,6 +91,81 @@ export class FavoritesService {
     })
   };
 
+  updateList(playlist_name:string, public_selection:string, description:string){
+    if (description == ""){
+      description = " ";
+    }
+    let url = "http://localhost:3000/playlist/updateplaylist";
+    let token = localStorage.getItem('Token');
+    let data = {
+      "name":playlist_name,
+      "description":description,
+      "public":JSON.parse(public_selection)
+    }
+    let request = new Request(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+token
+      },
+      body: JSON.stringify(data)
+    });
+    fetch(request)
+    .then(response => {
+      response.json()
+      .then(data=>{
+        if(data.success){
+          alert('Playlist update success!');
+          window.location.reload();
+        } else {
+          alert(data.error);
+        }
+      })
+      .catch(err=>{
+        alert(err);
+      })
+    })
+    .catch(err =>{
+      alert(err);
+    });
+  };
+
+  deleteTrack(listname:string, tracks:string[], track_select:string){
+    tracks = tracks.filter(e => e !== track_select);
+    let url = "http://localhost:3000/playlist/updatelist";
+    let token = localStorage.getItem('Token');
+    let data = {
+      "name":listname,
+      "list":tracks
+    }
+    let request = new Request(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+token
+      },
+      body: JSON.stringify(data)
+    });
+    fetch(request)
+    .then(response => {
+      response.json()
+      .then(data=>{
+        if(data.success){
+          alert('Track delete success!');
+          window.location.reload();
+        } else {
+          alert(data.error);
+        }
+      })
+      .catch(err=>{
+        alert(err);
+      })
+    })
+    .catch(err =>{
+      alert(err);
+    });
+  };
+
   addMusicToList(music:Music,list:number):void{
     // if(!this.favorites.artists[list-1].music.tracks.find(index => index === music.tracks))
     // this.favorites.artists[list-1].music.tracks.push(music.tracks);
@@ -179,10 +254,6 @@ export class FavoritesService {
   }
 
   }
-  deleteTrack(music:PlayList):void{
-
-  }
-
 
 
 

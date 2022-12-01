@@ -19,33 +19,23 @@ export class FavoritesPageComponent {
     })
   }
 
-  updateList(playlist_name:string, public_selection:string, description:string){
-    let url = "http://localhost:3000/playlist/updateplaylist";
-    let token = localStorage.getItem('Token');
-    let data = {
-      "name":playlist_name,
-      "description":description,
-      "public":JSON.parse(public_selection)
-    }
-    let request = new Request(url, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer '+token
-      },
-      body: JSON.stringify(data)
-    });
-    fetch(request)
-    .then(response => {
-      if (response.ok){
-        alert('Playlist update success!');
-        window.location.reload();
-      }
-    })
-    .catch(err =>{
-      alert(err);
-    })
+  addNewList(new_listname:string, new_description:string){
+    this.favoritesService.addNewList(new_listname, new_description);
   };
+
+  updateList(playlist_name:string, public_selection:string, description:string){
+    this.favoritesService.updateList(playlist_name, public_selection, description);
+  };
+
+  deleteList(listname:string){
+    if (window.confirm("Please confirm if you want to delte playlist "+listname)){
+      this.favoritesService.deleteList(listname);
+    };
+  };
+
+  deleteTrack(listname:string, tracks:string[], track_select:string){
+    this.favoritesService.deleteTrack(listname, tracks, track_select);
+  }
   // removeFromFavorites(favoritelist:FavoriteList){
   //   this.favoritesService.removeFromFavorites(favoritelist.music.name);
   // }
@@ -54,18 +44,6 @@ export class FavoritesPageComponent {
   // //   this.favoritesService.addEmptyList();
   // // }
 
-  addNewList(new_listname:string, new_description:string){
-    //let name = document.getElementById(: "listName").value;
-  //  const inputName: HTMLElement = document.getElementById('listName') as HTMLElement;
-    //const inputDecription: HTMLElement = document.getElementById('Decription') as HTMLElement;
-    this.favoritesService.addNewList(new_listname, new_description);
-  }
-
-  deleteList(listname:string){
-    if (window.confirm("Please confirm if you want to delte playlist "+listname)){
-      this.favoritesService.deleteList(listname);
-    };
-  }
   // editDescription(playlist:PlayList, edit:string ){
   //   this.favoritesService.editDescription(favoritelist.music, edit);
   // }

@@ -104,16 +104,19 @@
 
 
 
-
+            <ul>
+              <li *ngFor="let item of favorites.artists">
+                <li *ngFor="let element of item.music.tracks">
 
             <a routerLink = "/artist/{{item.music.name}}">
                 <div class="tracks">
-                  tracks : {{item.music.tracks}}
+                  tracks : {{element}}
                 </div>
 
                 <!-- create table -->
               </a>
-
+            </li>
+          </ul>
 
 
 

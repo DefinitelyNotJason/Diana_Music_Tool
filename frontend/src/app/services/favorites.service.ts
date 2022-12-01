@@ -101,8 +101,50 @@ export class FavoritesService {
   publicOrNot(music:PlayList, TorF: string):void{
     let result = TorF;
     console.log(TorF);
+    const token = localStorage.getItem('Token');
+
+    let favoritelist = this.favorites.artists.find(i => i.music.name === music.name);
+    if(favoritelist){
+    let url = "http://localhost:3000/playlist/updateplaylist";
+
+    console.log(favoritelist.music.name);
+    console.log(favoritelist.music.description);
+    console.log(result);
+    const user = {
+      name:favoritelist.music.name,
+      description:favoritelist.music.description,
+      public: result
+    };
+    let request = new Request(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+ token
+      },
+      body: JSON.stringify(user)
+    });
+
+    fetch(request)
+    .then((response) => {
+      if (response.ok){
+        response.json()
+        .then(data => {
+          alert('hidden success!');
+
+        })
+      } else {
+        response.json()
+        .then(data => {
+          alert(data.error);
+        })
+      }
+    })
+    .catch((e) => {
+      throw e;
+    });
 
 
+  }
 
   }
   deleteTrack(music:PlayList):void{

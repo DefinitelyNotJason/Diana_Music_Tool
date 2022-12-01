@@ -10,4 +10,5 @@ export class PlayList{
     review_rating!:number;
     public!:boolean;
     edit_date!:string;
+    banner_url?:string;
 }

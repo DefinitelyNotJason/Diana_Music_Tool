@@ -24,7 +24,7 @@ div button{
     font-size: 1rem;
     border-radius: 0 10rem 10rem 0;
     border: none;
-    background-color: #e72929;
+    background-color: #FF1493;
     color: white;
     opacity: 0.8;
     outline: none;
@@ -32,5 +32,6 @@ div button{
 
 div button:hover{
     cursor: pointer;
+    background-color: #FF69B4;
     opacity: 1;
 }

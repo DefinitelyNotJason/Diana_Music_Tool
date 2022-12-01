@@ -1,7 +1,8 @@
 
 <header>
     <div class="container">
-        <a routerLink="/" class="logo"> MUSIC </a>
+        <a routerLink="/" class="logo"> DIANA MUSIC TOOL</a>
+        <img src="assets/Images/diana.jpg" style="width:60px; height:100%;">
         <nav>
             <ul>
                 <li>
@@ -17,7 +18,7 @@
                 </li>
                 <li>
                     <a routerLink="/favorites-page" *ngIf="isLogin == true">
-                        Favorite <span *ngIf="favoritesQuantity">{{favoritesQuantity}}</span>
+                        My Playlists <span *ngIf="favoritesQuantity">{{favoritesQuantity}}</span>
                     </a>
                 </li>
             </ul>

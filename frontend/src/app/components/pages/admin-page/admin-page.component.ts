@@ -36,7 +36,7 @@ export class AdminPageComponent {
     fetch(request)
     .then((response) => {
       if (response.ok){
-        alert('disable success!');
+        alert('User deactivate success!');
         window.location.reload();
 
       } else {
@@ -50,8 +50,6 @@ export class AdminPageComponent {
       throw e;
     });
   };
-
-
 
   enableActive(email:string){
     let url = "http://localhost:3000/admin/activateuser";
@@ -71,7 +69,7 @@ export class AdminPageComponent {
     fetch(request)
     .then((response) => {
       if (response.ok){
-        alert('enable success!');
+        alert('User activate success!');
         window.location.reload();
 
       } else {

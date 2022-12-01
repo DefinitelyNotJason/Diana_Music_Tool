@@ -1,57 +1,13 @@
-<app-title title="Favorites Page" margin="1.5rem 0 0 2,5rem"></app-title>
-
-<!-- <div class="container">
-    <button class="addFavoritesList" (click) = "addEmptyList()">AddList</button>
-    <ul>
-        <li *ngFor="let item of favorites.artists">
-            <a routerLink = "/artist/{{item.music.name}}">
-                <div class="content">
-                    <div class="name">
-                        name : {{item.music.name}}
-                    </div>
-                    <div class="creator">
-                        creator : {{item.music.creator}}
-                    </div>
-                    <div class="number_tracks">
-                        number_tracks : {{item.music.number_tracks}}
-                    </div>
-                    <div class="tracks">
-                        tracks : {{item.music.tracks}}
-                    </div>
-                    <div class="playtime">
-                        playtime : {{item.music.playtime}}
-                    </div>
-                    <div class="total_review_score">
-                        total_review_score : {{item.music.total_review_rating}}
-                    </div>
-                    <div class="total_review_time">
-                        total_review_time : {{item.music.total_review_time}}
-                    </div>
-                    <div class="review_score">
-                        review_score : {{item.music.review_rating}}
-                    </div>
-                    <div class="edit_date">
-                        edit_date : {{item.music.edit_date}}
-                    </div>
-                </div>
-            </a>
-            <div>
-                <button class="remove-button" (click) = "removeFromFavorites(item)">
-                    Remove
-                </button>
-            </div>
-        </li>
-    </ul>
-  </div> -->
+<app-title title="My Playlists" margin="1.5rem 0 0 2,5rem"></app-title>
 
     <div class="input-container">
-      <div style="display:block; position:relative; height:250px; width: 500px; margin-left: 20px;">
-        <input #new_listname type="text" style="display:block; height: 50px; width: 400px; margin-bottom: 30px; border-radius: 5%; border: solid 2px; border-color: gray;" id="listName" placeholder="input the list name" title="input the list name">
-        <input #new_description type="text" style="display:block; height: 100px; width: 400px; border-radius: 3%; margin-bottom: 20px; border: solid 2px; border-color: gray;" id="Description" placeholder="add description" title="add description">
-        <button class="addFavoritesList" style="margin-bottom: 50px;" (click) = "addNewList(new_listname.value, new_description.value)">AddNewList</button>
+      <div style="display:block; position:relative; height:250px; width:700px; margin: 0 auto;">
+        <input #new_listname type="text" style="display:block; height: 50px; width: 700px; margin-bottom: 30px; border-radius: 5%; border: solid 2px; border-color: gray;" id="listName" placeholder="Enter playlist name" title="input the list name">
+        <input #new_description type="text" style="display:block; height: 100px; width: 700px; border-radius: 3%; margin-bottom: 20px; border: solid 2px; border-color: gray;" id="Description" placeholder="Add description" title="add description">
+        <button class="addFavoritesList" style="margin-bottom: 50px;" (click) = "addNewList(new_listname.value, new_description.value)">Create New PlayList</button>
       </div>
       <ul>
-        <li *ngFor="let item of playlists" style="margin-top: 20px;">
+        <li *ngFor="let item of playlists; let i = index" style="margin-top: 20px; align-items: flex-start;">
             <div class="content">
                 <div class="name">
                     Playlist Name : {{item.name}}
@@ -60,24 +16,13 @@
                     Creator : {{item.creator}}
                 </div>
                 <div class="number_tracks">
-                    #Tracks : {{item.number_tracks}}
-                </div>
-                <div class="tracks">
-                    <!-- tracks : {{item.tracks}} -->
-                    <div><a>Tracks:</a></div>
-                    <select #track_select>
-                        <option *ngFor="let track of item.tracks">{{track}}</option>
-                    </select>
-                    <div>
-                        <button style="margin-left: 20px;" (click)="deleteTrack(item.name, item.tracks, track_select.value)">Delete Track</button>
-                    </div>
-                    <!-- (click)="function(track_select)" -->
+                    Number of Tracks : {{item.number_tracks}}
                 </div>
                 <div class="playtime">
                     Total Playtime : {{item.playtime}}
                 </div>
                 <div class="review_score">
-                    Review Score : {{item.review_rating}}
+                    Rating : {{item.review_rating}}
                 </div>
                 <div class="edit_date">
                     Edit Date : {{item.edit_date}}
@@ -99,61 +44,55 @@
                 </div>
                 <div style="width:auto; height:50px; margin-top:20px;">
                     <div>
-                        <a style="float:left; display:block; width:75px; height:25px; border:solid 2px; border-color:black; border-radius:10%; margin-right:30px;" routerLink = "/artist/{{item.name}}">Details</a>
-                        <a (click)="updateList(item.name, public_selection.value, description.value)" style="float:left; display:block; width:75px; height:25px; border:solid 2px; border-color:black; border-radius:10%; margin-right:30px;">Update</a>
-                        <a (click)="deleteList(item.name)" style="float:left; display:block; width:113px; height:25px; border:solid 2px; border-color:black; border-radius:10%; margin-right:30px;">Delete List</a>
+                        <a style="color:#FF69B4; float:left; display:block; width:75px; height:25px; border:solid 2px; border-color:black; border-radius:10%; margin-right:30px;" routerLink = "/artist/{{item.name}}">Details</a>
+                        <a (click)="updateList(item.name, public_selection.value, description.value)" style="color:#FF69B4; float:left; display:block; width:75px; height:25px; border:solid 2px; border-color:black; border-radius:10%; margin-right:30px;">Update</a>
+                        <a (click)="deleteList(item.name)" style="color:#FF69B4; float:left; display:block; width:113px; height:25px; border:solid 2px; border-color:black; border-radius:10%; margin-right:30px;">Delete List</a>
                     </div>
                 </div>
-
-
-              <!-- <div class="input-container">
-                <input #edit type="text"  placeholder="edit description" title="edit description">
-                <button class="remove-button" (click) = "editDescription(item, edit.value)">edit description</button>
-              </div>
-              <div>
-                <label for="lang">public or not</label>
-                  <select #TorF name="languages" id="lang">
-                    <option value="TRUE">TRUE</option>
-                    <option value="FALSE">FALSE</option>
-                  </select>
-                  <input class="remove-button" type="submit" value="Submit" (click) = "publicOrNot(item, TorF.value)"/> -->
-                 <!-- <button class="remove-button" (click) = "removeFromFavorites(item)">public or not</button> -->
-              <!-- </div> -->
             </div>
 
+            <div style="height:390px; width:500px; max-height:400px;">
+                Tracks
+                <style>
+                    table {
+                      font-family: arial, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                      min-width: 500px;
+                    }
+                    
+                    td, th {
+                      border: 1px solid #dddddd;
+                      text-align: left;
+                      padding: 8px;
+                      font-weight: 200;
+                      max-width:500px;
+                    }
 
-            <!-- <a routerLink = "/artist/{{item.music.name}}">
-                <div class="tracks">
-                  tracks : {{item.music.tracks}}
-                </div> -->
-
-                <!-- create table -->
-              <!-- </a> -->
-
-            <!-- <ul>
-              <li>
-            <div>
-                <button class="remove-button" (click) = "removeFromFavorites(item)">Remove</button>
+                    th {
+                        max-width: 100px;
+                        overflow: auto;
+                    }
+                    
+                    tr:nth-child(even) {
+                      background-color: #dddddd;
+                    }
+                </style>
+                <table style="overflow:auto;">
+                    <tr>
+                        <th>Track ID</th>
+                        <th>Track Name</th>
+                        <th>Artist Name</th>
+                        <th>Delete</th>
+                      </tr>
+                    <tr *ngFor="let music of all_tracks[i]">
+                        <th>{{music.track_id}}</th>
+                        <th>{{music.track_title}}</th>
+                        <th>{{music.artist_name}}</th>
+                        <th><button style="margin-left: 20px;" (click)="deleteTrack(item.name, item.tracks, music.track_id)">Delete Track</button></th>
+                    </tr>
+                </table>
             </div>
-            <div class="input-container">
-              <input #edit type="text"  placeholder="edit description" title="edit description">
-              <button class="remove-button" (click) = "editDescription(item, edit.value)">edit description</button>
-            </div>
-            <div>
-              <label for="lang">public or not</label>
-                <select #TorF name="languages" id="lang">
-                  <option value="TRUE">TRUE</option>
-                  <option value="FALSE">FALSE</option>
-                </select>
-                <input class="remove-button" type="submit" value="Submit" (click) = "publicOrNot(item, TorF.value)"/>
-               <button class="remove-button" (click) = "removeFromFavorites(item)">public or not</button>
-            </div>
-            <div>
-              <button class="remove-button" (click) = "deleteTrack(item)">delete track</button>
-            </div>
-
-            </li>
-            </ul> -->
         </li>
     </ul>
 </div>

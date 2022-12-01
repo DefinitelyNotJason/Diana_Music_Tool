@@ -268,7 +268,7 @@ export class FavoritesService {
   //   this.setFavoritesToLocalStorage();
   // }
 
-  getAllPlaylist():Promise<PlayList[]>{
+  async getAllPlaylist():Promise<PlayList[]>{
     let r_data:PlayList[] = [];
     let url = "http://localhost:3000/playlist/getallplaylists";
     let token = localStorage.getItem('Token');
@@ -279,18 +279,16 @@ export class FavoritesService {
         'Authorization': 'Bearer '+token
       }
     });
-    return fetch(request)
-    .then(response => {
-      if (response.ok){
-        return response.json()
+    const response = await fetch(request);
+    if (response.ok) {
+      return response.json()
         .then(data => {
           r_data = data;
           return r_data;
-        })
-      } else {
-        return r_data;
-      }
-    })
+        });
+    } else {
+      return r_data;
+    }
   }
 
   private setFavoritesToLocalStorage():void{

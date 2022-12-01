@@ -26,21 +26,6 @@ export class LoginPageComponent {
     return this.loginForm.controls;
   }
 
-  onGoogle(){
-    let url = "http://localhost:3000/user/auth/google";
-    let request = new Request(url, {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    });
-
-    fetch(request)
-    .then((response) => {
-      console.log(response);
-    })
-  }
-
   submit(){
     let url = "http://localhost:3000/user/login";
     const fv = this.loginForm.value;
@@ -58,30 +43,22 @@ export class LoginPageComponent {
 
     fetch(request)
     .then((response) => {
-      if (response.ok){
-        response.json()
-        .then(data => {
+      response.json()
+      .then(data => {
+        if (data.success){
           localStorage.setItem('Token',data.token);
           window.location.href="/";
           this.router.navigateByUrl('/');
-        })
-      } else {
-        response.json()
-        .then(data => {
+        } else {
           alert(data.error);
-        })
-      }
+        }
+      })
+      .catch(e=>{
+        alert(e);
+      })
     })
     .catch((e) => {
       throw e;
     });
-
-    // this.isSubmitted = true;
-    // if(this.loginForm.invalid) return;
-
-    // alert(`email: ${this.fc['email'].value} ,
-    // password: ${this.fc['password'].value}`)
   };
-
-
 }

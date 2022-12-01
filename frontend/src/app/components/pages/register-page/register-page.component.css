@@ -56,7 +56,7 @@ input:focus{
 }
 
 button{
-    background-color: #e72929;
+    background-color: #FF1493;
     color: white;
     font-size: 1.3rem;
     width: 12rem;
@@ -72,5 +72,6 @@ button{
 
 button:hover{
     cursor: pointer;
+    background-color: #FFB6C1;
     opacity: 1;
 }

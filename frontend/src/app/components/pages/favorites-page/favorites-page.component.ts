@@ -1,8 +1,6 @@
 import { Component, ɵNG_ELEMENT_ID } from '@angular/core';
-import { string } from 'joi';
 import { FavoritesService } from 'src/app/services/favorites.service';
-import { FavoriteList } from 'src/app/shared/models/favoritelist';
-import { Favorites } from 'src/app/shared/models/favorites';
+import { Music } from 'src/app/shared/models/music';
 import { PlayList } from 'src/app/shared/models/playlist';
 
 @Component({
@@ -11,14 +9,57 @@ import { PlayList } from 'src/app/shared/models/playlist';
   styleUrls: ['./favorites-page.component.css']
 })
 export class FavoritesPageComponent {
-  playlists! :PlayList[];
+  playlists:PlayList[] = [];
+  all_tracks:Music[][] = [];
   constructor(private favoritesService : FavoritesService){
     this.favoritesService.getAllPlaylist()
-    .then(response =>{
+    .then(async response =>{
+      let temp:Music[][] = [];
+      for (const list of response){
+        let tracks = await Promise.all(list.tracks.map(this.getListTracks));
+        temp.push(tracks);
+      };
+      this.all_tracks = temp.slice(0);
       this.playlists = response;
     })
-  }
+  };
 
+  async getListTracks(id:string):Promise<Music>{
+    let temp_music:Music = {
+      track_id:"",
+      track_title:"",
+      track_url:"",
+      track_banner: "",
+      artist_name:""
+    }
+    let url = "http://localhost:3000/track/getbyid/"+id;
+    let request = new Request(url, {
+      method: 'GET'
+    });
+    return await fetch(request)
+    .then(async(response) => {
+      return await response.json()
+      .then((data) =>{
+        let new_music:Music = {
+          track_id:id,
+          track_title:data.track_title,
+          track_url:"",
+          track_banner: "",
+          artist_name:data.artist_name
+        }
+        return new_music;
+      })
+      .catch(err => {
+        alert(err);
+        return temp_music;
+      });
+    })
+    .catch(err=>{
+      alert(err);
+      throw err;
+    })
+  };
+  
   addNewList(new_listname:string, new_description:string){
     this.favoritesService.addNewList(new_listname, new_description);
   };

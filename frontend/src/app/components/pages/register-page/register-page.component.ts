@@ -47,33 +47,23 @@ export class RegisterPageComponent {
       },
       body: JSON.stringify(user)
     });
-
     fetch(request)
     .then((response) => {
-      if (response.ok){
-        alert('Registration success!');
-        this.router.navigateByUrl('/login');
-      } else {
-        response.json()
-        .then(data => {
+      response.json()
+      .then(data => {
+        if (data.success){
+          alert('Registration success!');
+          this.router.navigateByUrl('/login');
+        } else {
           alert(data.error);
-        })
-      }
+        }
+      })
+      .catch(e=>{
+        alert(e)
+      });
     })
     .catch((e) => {
       throw e;
     });
   };
-  //   this.isSubmitted = true;
-  //   if(this.registerForm.invalid) return;
-  //   const user:IUserRegister = {
-  //     username:fv.username,
-  //     email:fv.email,
-  //     password:fv.password
-  //   };
-
-  //   this.userService.register(user).subscribe(_=>{
-  //     this.router.navigateByUrl(this.returnUrl);
-  //   })
-  // }
 }

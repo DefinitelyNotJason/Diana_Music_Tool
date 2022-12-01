@@ -22,6 +22,25 @@ export class MusicService {
       if (response.ok){
         return response.json()
         .then(data => {
+          for (const elem of data){
+            const tracks = elem.tracks;
+            if (tracks.length < 1){
+              elem.banner_url = '../img/default.jpg'
+            } else {
+              const trackid = tracks[0];
+              let track_url = "http://localhost:3000/track/getbyid/"+trackid;
+              let req = new Request(track_url, {
+                method: 'GET'
+              });
+              fetch(req)
+              .then(rsp => {
+                rsp.json()
+                .then((data) =>{
+                  console.log(data)
+                })
+              })
+            };
+          };
           r_data = data;
           return r_data;
         })

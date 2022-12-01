@@ -79,13 +79,13 @@ export class FavoritesService {
     this.setFavoritesToLocalStorage();
   }
 
-  editDescription(music:PlayList):void{
-    const b = document.getElementById('editDescription') as HTMLInputElement | null;
-    let inputDescription !: string;
-    if (b != null) {
-      inputDescription = b.value;
-      }
-      console.log(inputDescription);
+  editDescription(music:PlayList, edit: string):void{
+    // const b = document.getElementById('editDescription') as HTMLInputElement | null;
+    // let inputDescription !: string;
+    // if (b != null) {
+      let inputDescription = edit;
+      // }
+      console.log(edit);
     let favoritelist = this.favorites.artists.find(i => i.music.name === music.name);
     //console.log(favoritelist);
     //console.log(favoritelist?.music.description);
@@ -97,6 +97,21 @@ export class FavoritesService {
     this.setFavoritesToLocalStorage();
     }
   }
+
+  publicOrNot(music:PlayList, TorF: string):void{
+    let result = TorF;
+    console.log(TorF);
+
+
+
+  }
+  deleteTrack(music:PlayList):void{
+
+  }
+
+
+
+
   // changeQuantity(artist_name:string, quantity:number){
   //   let favoriteartist = this.favorites.artists.find(i => i.music.artist_name === artist_name);
   //   if(!favoriteartist) return;

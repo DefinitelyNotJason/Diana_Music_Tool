@@ -48,6 +48,8 @@
       <input type="text" id="listName" placeholder="input the list name" title="input the list name">
       <input type="text" id="Description" placeholder="add description" title="add description">
       <button class="addFavoritesList" (click) = "addNewList()">AddNewList</button>
+
+
       <ul>
         <li *ngFor="let item of favorites.artists">
             <a routerLink = "/artist/{{item.music.name}}">
@@ -82,25 +84,64 @@
                     <div class="description">
                       description : {{item.music.description}}
                   </div>
+
+
+                  <!-- <div class="input-container">
+                    <input #edit type="text"  placeholder="edit description" title="edit description">
+                    <button class="remove-button" (click) = "editDescription(item, edit.value)">edit description</button>
+                  </div>
+                  <div>
+                    <label for="lang">public or not</label>
+                      <select #TorF name="languages" id="lang">
+                        <option value="TRUE">TRUE</option>
+                        <option value="FALSE">FALSE</option>
+                      </select>
+                      <input class="remove-button" type="submit" value="Submit" (click) = "publicOrNot(item, TorF.value)"/> -->
+                     <!-- <button class="remove-button" (click) = "removeFromFavorites(item)">public or not</button> -->
+                  <!-- </div> -->
                 </div>
             </a>
 
+
+
+
+
+            <a routerLink = "/artist/{{item.music.name}}">
+                <div class="tracks">
+                  tracks : {{item.music.tracks}}
+                </div>
+
+                <!-- create table -->
+              </a>
+
+
+
+
+
+            <ul>
+              <li>
             <div>
                 <button class="remove-button" (click) = "removeFromFavorites(item)">Remove</button>
             </div>
             <div class="input-container">
-              <input type="text" id="editDescription" placeholder="edit description" title="edit description">
-              <button class="remove-button" (click) = "editDescription(item)">edit description</button>
+              <input #edit type="text"  placeholder="edit description" title="edit description">
+              <button class="remove-button" (click) = "editDescription(item, edit.value)">edit description</button>
             </div>
             <div>
-               <button class="remove-button" (click) = "removeFromFavorites(item)">public or not</button>
+              <label for="lang">public or not</label>
+                <select #TorF name="languages" id="lang">
+                  <option value="TRUE">TRUE</option>
+                  <option value="FALSE">FALSE</option>
+                </select>
+                <input class="remove-button" type="submit" value="Submit" (click) = "publicOrNot(item, TorF.value)"/>
+               <!-- <button class="remove-button" (click) = "removeFromFavorites(item)">public or not</button> -->
             </div>
             <div>
-              <button class="remove-button" (click) = "removeFromFavorites(item)">delete track</button>
+              <button class="remove-button" (click) = "deleteTrack(item)">delete track</button>
             </div>
-            <div>
-              <button class="remove-button" (click) = "removeFromFavorites(item)">delete playlist</button>
-            </div>
+
+            </li>
+            </ul>
              </li>
              </ul>
 

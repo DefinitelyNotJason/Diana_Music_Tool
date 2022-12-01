@@ -255,8 +255,6 @@ export class FavoritesService {
 
   }
 
-
-
   // changeQuantity(artist_name:string, quantity:number){
   //   let favoriteartist = this.favorites.artists.find(i => i.music.artist_name === artist_name);
   //   if(!favoriteartist) return;
@@ -269,10 +267,6 @@ export class FavoritesService {
   //   this.favorites = new Favorites();
   //   this.setFavoritesToLocalStorage();
   // }
-
-  getFavoritesObservable():Observable<Favorites>{
-    return this.favoritesSubject.asObservable();
-  }
 
   getAllPlaylist():Promise<PlayList[]>{
     let r_data:PlayList[] = [];

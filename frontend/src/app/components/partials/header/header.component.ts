@@ -17,9 +17,10 @@ export class HeaderComponent {
   isActive !: boolean;
   constructor(activatedRoute :ActivatedRoute ,favoritesService:FavoritesService){
    //localStorage.removeItem("Token");
-    favoritesService.getFavoritesObservable().subscribe((newFavorites) => {
-      this.favoritesQuantity = newFavorites.totalCount;
-    });
+    favoritesService.getAllPlaylist()
+    .then(response=>{
+      this.favoritesQuantity = response.length;
+    })
     console.log(localStorage.getItem('Token'));
     if(localStorage.getItem('Token')){
       const token = localStorage.getItem('Token');

@@ -52,3 +52,58 @@ li .remove-button:hover{
     cursor: pointer;
 }
 
+.create{
+    display:block; 
+    position:relative; 
+    height:250px; 
+    width:700px; 
+    margin: 0 auto;
+}
+
+.name-box{
+    display:block; 
+    height: 50px; 
+    width: 700px; 
+    margin-bottom: 30px; 
+    border-radius: 5%; 
+    border: solid 2px; 
+    border-color: gray;
+}
+
+.des-box{
+    display:block; 
+    height: 100px; 
+    width: 700px; 
+    border-radius: 3%; 
+    margin-bottom: 20px; 
+    border: solid 2px; 
+    border-color: gray;
+}
+
+.btn{
+    margin-bottom: 50px;
+}
+
+.but1{
+    color:#FF69B4; 
+    float:left; 
+    display:block; 
+    width:75px; 
+    height:25px; 
+    border:solid 2px; 
+    border-color:black; 
+    border-radius:10%; 
+    margin-right:30px;
+}
+
+.but2{
+    color:#FF69B4; 
+    float:left; 
+    display:block; 
+    width:113px; 
+    height:25px; 
+    border:solid 2px; 
+    border-color:black; 
+    border-radius:10%;
+    margin-right:30px;
+}

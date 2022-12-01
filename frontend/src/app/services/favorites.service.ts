@@ -25,39 +25,71 @@ export class FavoritesService {
   //   }
   // }
 
-  addNewList():void{
-    let inputName !: string;
-    let inputDescription !: string;
-    const a = document.getElementById('listName') as HTMLInputElement | null;
-    const b = document.getElementById('Description') as HTMLInputElement | null;
-    if (a != null) {
-      inputName = a.value;
-      }
-     if(inputName.length == 0){
-        alert("list name cannot be null");
-        return;
-      }
-    if (b != null) {
-      inputDescription = b.value;
-      }
+  addNewList(new_listname:string, new_description:string){
+    if (new_description == ""){
+      new_description = " ";
+    }
+    let url = "http://localhost:3000/playlist/savelist";
+    let token = localStorage.getItem('Token');
+    let data = {
+      "name":new_listname,
+      "description":new_description
+    }
+    let request = new Request(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+token
+      },
+      body: JSON.stringify(data)
+    });
+    fetch(request)
+    .then(response => {
+      response.json()
+      .then(data=>{
+        if (data.success){
+          alert('Playlist create success!');
+          window.location.reload();
+        } else {
+          alert(data.error);
+        }
+      })
+    })
+    .catch(err =>{
+      alert(err);
+    })
+  };
 
-    //console.log(inputName);
-    //console.log(inputDecription);
-
-
-      if(this.favorites.artists.length < 20){
-        let newList = new FavoriteList(new PlayList());
-        newList.music.name = inputName;
-        newList.music.description = inputDescription;
-        console.log(newList);
-        this.favorites.artists.push(newList);
-        this.setFavoritesToLocalStorage();
-      }
-
-  }
-
-
-
+  deleteList(listname:string) {
+    let url = "http://localhost:3000/playlist/deletelist";
+    let token = localStorage.getItem('Token');
+    let data = {
+      "name":listname,
+    }
+    let request = new Request(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+token
+      },
+      body: JSON.stringify(data)
+    });
+    fetch(request)
+    .then(response => {
+      response.json()
+      .then(data=>{
+        if (data.success){
+          alert('Playlist delete success!');
+          window.location.reload();
+        } else {
+          alert(data.error);
+        }
+      })
+    })
+    .catch(err =>{
+      alert(err);
+    })
+  };
 
   addMusicToList(music:Music,list:number):void{
     // if(!this.favorites.artists[list-1].music.tracks.find(index => index === music.tracks))
@@ -120,13 +152,38 @@ export class FavoritesService {
   //   this.setFavoritesToLocalStorage();
   // }
 
-  clearFavorites(){
-    this.favorites = new Favorites();
-    this.setFavoritesToLocalStorage();
-  }
+  // clearFavorites(){
+  //   this.favorites = new Favorites();
+  //   this.setFavoritesToLocalStorage();
+  // }
 
   getFavoritesObservable():Observable<Favorites>{
     return this.favoritesSubject.asObservable();
+  }
+
+  getAllPlaylist():Promise<PlayList[]>{
+    let r_data:PlayList[] = [];
+    let url = "http://localhost:3000/playlist/getallplaylists";
+    let token = localStorage.getItem('Token');
+    let request = new Request(url, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+token
+      }
+    });
+    return fetch(request)
+    .then(response => {
+      if (response.ok){
+        return response.json()
+        .then(data => {
+          r_data = data;
+          return r_data;
+        })
+      } else {
+        return r_data;
+      }
+    })
   }
 
   private setFavoritesToLocalStorage():void{

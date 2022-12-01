@@ -13,10 +13,5 @@ export class GoogleTokenComponentComponent {
       window.location.href="/";
       this.router.navigateByUrl('/');
     })
-  }
-  // ngOnInit(): void{
-  //   activatedRoute
-  //   this.token = activatedRoute.params.get('token');
-  //   console.log(this.token);
-  // }
-}
+  };
+};

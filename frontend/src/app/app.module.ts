@@ -16,6 +16,7 @@ import { PlayPageComponent } from './components/pages/play-page/play-page.compon
 import { AdminPageComponent } from './components/pages/admin-page/admin-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 import { GoogleTokenComponentComponent } from './components/pages/google-token.component/google-token.component.component';
+import { PasswordComponent } from './components/pages/password/password.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { GoogleTokenComponentComponent } from './components/pages/google-token.c
     PlayPageComponent,
     AdminPageComponent,
     RegisterPageComponent,
-    GoogleTokenComponentComponent
+    GoogleTokenComponentComponent,
+    PasswordComponent
   ],
   imports: [
     BrowserModule,

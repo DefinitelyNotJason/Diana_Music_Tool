@@ -44,7 +44,7 @@ export class HeaderComponent {
               this.isLogin = true;
             }else{
               localStorage.removeItem("Token");
-              alert("Sorry, your acount is not active now.")
+              alert("Sorry, your acount is not active now. Please contact Admin")
             }
           })
         } else {

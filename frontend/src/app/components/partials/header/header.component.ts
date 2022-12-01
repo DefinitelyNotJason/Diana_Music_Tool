@@ -15,7 +15,7 @@ export class HeaderComponent {
   isLogin = false;
   isAdmin = true;
   constructor(activatedRoute :ActivatedRoute ,favoritesService:FavoritesService){
-   // localStorage.removeItem("Token");
+   //localStorage.removeItem("Token");
     favoritesService.getFavoritesObservable().subscribe((newFavorites) => {
       this.favoritesQuantity = newFavorites.totalCount;
     });

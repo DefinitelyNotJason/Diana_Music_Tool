@@ -7,10 +7,12 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { PlayPageComponent } from './components/pages/play-page/play-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
+import { GoogleTokenComponentComponent } from './components/pages/google-token.component/google-token.component.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
   // {path:'/:username',component:HomeComponent},
+  {path:'google/:token', component:GoogleTokenComponentComponent},
   {path:'search/:search',component:PlayPageComponent},
   {path:'artist/:artist',component:ArtistPageComponent},
   {path:'favorites-page',component:FavoritesPageComponent},

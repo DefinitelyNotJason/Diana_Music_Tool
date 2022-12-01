@@ -4,7 +4,7 @@
         <li *ngFor="let item of music">
             <div class="musicName">
                 {{item.track_title}}
-                <a href="{{item.track_url}}"><span class="material-symbols-outlined">
+                <a href="{{item.track_url}}" target="_blank"><span class="material-symbols-outlined">
                     play_circle
                     </span></a>
             </div>
@@ -12,6 +12,9 @@
                 <select #listSelect>
                     <option *ngFor="let item of length">{{item}}</option>
                 </select>
+            </div>
+            <div>
+                <a href="{{item.track_url}}" target="_blank"><img src="{{item.track_banner}}"></a>
             </div>
             <div class="add-button">
                 <button (click) = "addToFavorites(item,listSelect.value)">Add to Favorite</button>

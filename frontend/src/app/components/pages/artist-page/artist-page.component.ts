@@ -4,6 +4,7 @@ import { FavoritesService } from 'src/app/services/favorites.service';
 import { MusicService } from 'src/app/services/music.service';
 import { Music } from 'src/app/shared/models/music';
 import { PlayList } from 'src/app/shared/models/playlist';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-artist-page',

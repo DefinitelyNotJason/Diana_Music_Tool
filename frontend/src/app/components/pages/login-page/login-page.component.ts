@@ -26,6 +26,21 @@ export class LoginPageComponent {
     return this.loginForm.controls;
   }
 
+  onGoogle(){
+    let url = "http://localhost:3000/user/auth/google";
+    let request = new Request(url, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    });
+
+    fetch(request)
+    .then((response) => {
+      console.log(response);
+    })
+  }
+
   submit(){
     let url = "http://localhost:3000/user/login";
     const fv = this.loginForm.value;
@@ -66,5 +81,7 @@ export class LoginPageComponent {
 
     // alert(`email: ${this.fc['email'].value} ,
     // password: ${this.fc['password'].value}`)
-  }
+  };
+
+
 }

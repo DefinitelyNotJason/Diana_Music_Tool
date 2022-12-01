@@ -213,7 +213,7 @@ router.get('/auth/google/callback',
         const token = generateAccessToken(req.user);
         console.log('Google login success!');
         // Successful authentication, redirect home.
-        res.send(token);
+        res.redirect('http://localhost:4200/google/'+token);
     });
 
 //function that generate access token

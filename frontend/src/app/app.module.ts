@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PlayPageComponent } from './components/pages/play-page/play-page.component';
 import { AdminPageComponent } from './components/pages/admin-page/admin-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
+import { GoogleTokenComponentComponent } from './components/pages/google-token.component/google-token.component.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { RegisterPageComponent } from './components/pages/register-page/register
     LoginPageComponent,
     PlayPageComponent,
     AdminPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    GoogleTokenComponentComponent
   ],
   imports: [
     BrowserModule,

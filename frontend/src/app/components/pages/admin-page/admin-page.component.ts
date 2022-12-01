@@ -18,4 +18,184 @@ export class AdminPageComponent {
     userservice.getUserReview()
     .then(response=>{this.getReview = response});
   }
+
+  disableActive(email: string){
+    let url = "http://localhost:3000/admin/deactivateuser";
+    const token = localStorage.getItem('Token');
+
+    let email_data = { 'email': email }
+
+    let request = new Request(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+ token
+      },
+      body: JSON.stringify(email_data)
+    });
+    fetch(request)
+    .then((response) => {
+      if (response.ok){
+        alert('disable success!');
+        window.location.reload();
+
+      } else {
+        response.json()
+        .then(data => {
+          alert(data.error);
+        })
+      }
+    })
+    .catch((e) => {
+      throw e;
+    });
+  };
+
+
+
+  enableActive(email:string){
+    let url = "http://localhost:3000/admin/activateuser";
+    const token = localStorage.getItem('Token');
+
+    let email_data = { 'email': email }
+
+    let request = new Request(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+ token
+      },
+      body: JSON.stringify(email_data)
+    });
+
+    fetch(request)
+    .then((response) => {
+      if (response.ok){
+        alert('enable success!');
+        window.location.reload();
+
+      } else {
+        response.json()
+        .then(data => {
+          alert(data.error);
+        })
+      }
+    })
+    .catch((e) => {
+      throw e;
+    });
+
+
+
+  };
+
+
+
+
+
+  enableAdmin(email:string){
+    let url = "http://localhost:3000/admin/grantadmin";
+    const token = localStorage.getItem('Token');
+
+    let email_data = { 'email': email }
+
+    let request = new Request(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+ token
+      },
+      body: JSON.stringify(email_data)
+    });
+    fetch(request)
+    .then((response) => {
+      if (response.ok){
+        alert('enable admin success!');
+        window.location.reload();
+
+      } else {
+        response.json()
+        .then(data => {
+          alert(data.error);
+        })
+      }
+    })
+    .catch((e) => {
+      throw e;
+    });
+
+
+  }
+
+
+
+  disableReview(_id: string){
+    let url = "http://localhost:3000/admin/hiddenreview";
+    const token = localStorage.getItem('Token');
+
+    let review_id = { 'id': _id }
+
+    let request = new Request(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+ token
+      },
+      body: JSON.stringify(review_id)
+    });
+    console.log(_id);
+
+    fetch(request)
+    .then((response) => {
+      if (response.ok){
+        alert('disable review success!');
+        window.location.reload();
+
+      } else {
+        response.json()
+        .then(data => {
+          alert(data.error);
+        })
+      }
+    })
+    .catch((e) => {
+      throw e;
+    });
+  }
+
+
+  enableReview(_id:string){
+    let url = "http://localhost:3000/admin/publicreview";
+    const token = localStorage.getItem('Token');
+
+    let review_id = { 'id': _id }
+
+    let request = new Request(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+ token
+      },
+      body: JSON.stringify(review_id)
+    });
+
+    fetch(request)
+    .then((response) => {
+      if (response.ok){
+        alert('enable review success!');
+        window.location.reload();
+
+      } else {
+        response.json()
+        .then(data => {
+          alert(data.error);
+        })
+      }
+    })
+    .catch((e) => {
+      throw e;
+    });
+  }
+
+
 }

@@ -7,9 +7,9 @@
     </tr>
     <tr *ngFor="let item of getUser">
       <td>{{item.username}}</td>
-      <td *ngIf="item.isActive == true"><button>Disabled</button></td>
-      <td *ngIf="item.isActive == false"><button>Enable</button></td>
-      <td *ngIf="item.isAdmin == false"><button>Permissions</button></td>
+      <td *ngIf="item.isActive == true"><button (click) = "disableActive(item.email)">Disabled</button></td>
+      <td *ngIf="item.isActive == false"><button (click) = "enableActive(item.email)">Enable</button></td>
+      <td *ngIf="item.isAdmin == false"><button (click) = "enableAdmin(item.email)">Permissions</button></td>
     </tr>
   </table>
 <h1>Review</h1>
@@ -22,6 +22,7 @@
     <tr *ngFor="let item of getReview">
       <td>{{item.creator}}</td>
       <td>{{item.content}}</td>
-      <td><button>Enable</button></td>
+      <td *ngIf="item.public == true"><button (click) = "disableReview(item._id)">Disable</button></td>
+      <td *ngIf="item.public == false"><button (click) = "enableReview(item._id)">Enable</button></td>
     </tr>
   </table>

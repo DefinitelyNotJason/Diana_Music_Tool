@@ -8,6 +8,7 @@ import { LoginPageComponent } from './components/pages/login-page/login-page.com
 import { PlayPageComponent } from './components/pages/play-page/play-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 import { GoogleTokenComponentComponent } from './components/pages/google-token.component/google-token.component.component';
+import { PasswordComponent } from './components/pages/password/password.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path:'artist/:artist',component:ArtistPageComponent},
   {path:'favorites-page',component:FavoritesPageComponent},
   {path:'login',component:LoginPageComponent},
+  {path:'password',component:PasswordComponent},
   {path:'admin',component:AdminPageComponent},
   {path:'register',component:RegisterPageComponent}
 ];

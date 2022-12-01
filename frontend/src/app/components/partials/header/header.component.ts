@@ -13,7 +13,8 @@ export class HeaderComponent {
   favoritesQuantity = 0;
   userName:String = "";
   isLogin = false;
-  isAdmin = true;
+  isAdmin !: boolean;
+  isActive !: boolean;
   constructor(activatedRoute :ActivatedRoute ,favoritesService:FavoritesService){
    //localStorage.removeItem("Token");
     favoritesService.getFavoritesObservable().subscribe((newFavorites) => {
@@ -37,8 +38,14 @@ export class HeaderComponent {
           response.json()
           .then(data => {
             console.log(data);
-            this.userName = data.username;
-            console.log(data.username);
+            if(data.isActive){
+              this.userName = data.username;
+              this.isAdmin = data.isAdmin;
+              this.isLogin = true;
+            }else{
+              localStorage.removeItem("Token");
+              alert("Sorry, your acount is not active now. Please contact Admin")
+            }
           })
         } else {
           response.json()
@@ -52,7 +59,6 @@ export class HeaderComponent {
       .catch((e) => {
         throw e;
       });
-      this.isLogin = true;
     }
   }
   logout():void{

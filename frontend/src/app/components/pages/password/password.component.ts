@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PasswordComponent {
 
   constructor(private activatedRoute: ActivatedRoute,private router:Router){}
+
   changePassword(password: string){
     let url = "http://localhost:3000/user/password-change";
     const token = localStorage.getItem('Token');
@@ -25,21 +26,25 @@ export class PasswordComponent {
     });
     fetch(request)
     .then((response) => {
-      if (response.ok){
-        console.log(response);
-        localStorage.removeItem('Token');
-        alert('password change success!');
-        //window.location.reload();
-        this.router.navigateByUrl('');
-      } else {
-        response.json()
-        .then(data => {
-          alert(data.error);
-        })
-      }
+      response.json()
+      .then(data=>{
+        console.log(data);
+        if (data.success){
+          console.log(response);
+          console.log('hello');
+          localStorage.removeItem('Token');
+          alert('password change success!');
+          //window.location.reload();
+          window.location.href="/";
+        } else {
+            alert(data.error);
+        }
+      })
+
     })
     .catch((e) => {
       throw e;
     });
+
   }
 }

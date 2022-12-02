@@ -66,7 +66,9 @@ export class MusicService {
         return  response.json()
       .then(data => {
           // alert(data);
-
+          if (data.length ==0){
+            alert("no result");
+          }
           return data;
       })
     } else {

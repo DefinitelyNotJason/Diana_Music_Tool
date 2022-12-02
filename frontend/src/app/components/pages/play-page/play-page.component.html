@@ -6,7 +6,7 @@
             <div class="musicName">
                 {{item.track_title}}
                 <select class="addlist" #listSelect>
-                    <option *ngFor="let item of length">{{item}}</option>
+                    <option *ngFor="let item of favName">{{item}}</option>
                 </select>
             </div>
             <div class="musicName">
@@ -16,12 +16,12 @@
                     </span>
                 </a>
                 <div class="add-button">
-                    <button (click) = "addToFavorites(item,listSelect.value)">Add to Favorite</button>
+                    <button (click) = "addToFav(item,listSelect.value)">Add to Favorite</button>
                 </div>
             </div>
             <div class="banner-sec">
                 <a class="banner" href="{{item.track_url}}" target="_blank"><img src="{{item.track_banner}}"></a>
             </div>
         </li>
-    </ul>  
+    </ul>
 </div>

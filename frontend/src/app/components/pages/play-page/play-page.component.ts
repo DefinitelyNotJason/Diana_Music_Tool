@@ -14,7 +14,7 @@ export class PlayPageComponent {
   music!: Music[];
   length!:Number[];
   favName:string[] = [];
-  allfav: fav[]=[];
+
 
 
   constructor(activatedRoute:ActivatedRoute, musicService:MusicService
@@ -75,17 +75,8 @@ export class PlayPageComponent {
         response.json()
         .then(data => {
           //console.log(data);
-          data.forEach((element: { name: string,  _id:string ,tracks: string}) => {
+          data.forEach((element: { name: string}) => {
             this.favName.push(element.name);
-
-            const singlelist:fav = {
-              name : element.name,
-              tracks: element.tracks
-            }
-
-
-            this.allfav.push(singlelist);
-            //console.log(element.tracks);
         });
        // console.log(this.allfav);
       })
@@ -110,40 +101,53 @@ export class PlayPageComponent {
   }
 
 
-  addToFav(music:Music, favName:string):void{
-    // let addtracks:string[] = [];
-    // let list = '';
-    // this.allfav.forEach(element => {
-    //   if (element.name == favName){
-    //   list = element.tracks;
-    //   }
-    // });
-    // addtracks.push(music.track_id);
-    // addtracks.push(list);
-    // console.log("list is: "+list);
-    // console.log("input is ："+addtracks);
+  addToFav(track_id:string, favName:string):void{
+    //console.log(music.track_id);
     const token = localStorage.getItem('Token');
-    let url = "http://localhost:3000/playlist/updatelist";
-
-    let addlist = {
-      'name': favName,
-      'list': [music.track_id]
-    }
-
-    let request = new Request(url, {
-      method: 'POST',
+    let urlget = "http://localhost:3000/playlist/searchlist/"+favName;
+    let requestget = new Request(urlget, {
+      method: 'GET',
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer '+ token
       },
-      body: JSON.stringify(addlist)
     });
-      fetch(request)
+
+    fetch(requestget)
       .then((response) => {
         response.json()
         .then(data => {
-          //alert("add successful");
-          console.log(data);
+        let list = data.tracks;
+
+        list.push(track_id);
+        console.log(list);
+        let url = "http://localhost:3000/playlist/updatelist";
+        let addlist = {
+          'name': favName,
+          'list': list
+        }
+        let request = new Request(url, {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer '+ token
+          },
+          body: JSON.stringify(addlist)
+        });
+        fetch(request)
+        .then((response) => {
+        response.json()
+        .then(data => {
+            alert("add successful");
+            console.log(data);
+          })
+        .catch(e=>{
+            alert(e);
+          })
+        })
+        .catch((e) => {
+          throw e;
+        });
       })
       .catch(e=>{
         alert(e);
@@ -152,18 +156,6 @@ export class PlayPageComponent {
     .catch((e) => {
       throw e;
     });
-
   };
-
-
-
 }
-
-export class fav{
-
-  name!: string;
-  tracks!:string;
-}
-
-
 

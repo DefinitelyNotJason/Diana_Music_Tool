@@ -74,11 +74,9 @@ export class PlayPageComponent {
       .then((response) => {
         response.json()
         .then(data => {
-          //console.log(data);
           data.forEach((element: { name: string}) => {
             this.favName.push(element.name);
         });
-       // console.log(this.allfav);
       })
       .catch(e=>{
         alert(e);
@@ -91,15 +89,10 @@ export class PlayPageComponent {
     })
   }
 
-
-
   addToFavorites(music:Music,list:string):void{
     this.favoritesService.addMusicToList(music,Number(list));
     console.log(music);
-    // console.log(this.favoritesService);
-     //console.log (localStorage.getItem('Favorites'));
   }
-
 
   addToFav(track_id:string, favName:string):void{
     //console.log(music.track_id);

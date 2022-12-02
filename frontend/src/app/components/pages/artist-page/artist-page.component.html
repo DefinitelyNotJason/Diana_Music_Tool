@@ -21,15 +21,11 @@
                     <option *ngFor="let index of length">{{index}}</option>
                 </select>
             </div>
-            <div class="add-button">
-                <button (click) = "addMusicToList(item,listSelect.value)">Add to Favorite</button>
-            </div>
             <div>
                 <a href="{{item.track_url}}" target="_blank"><img src="{{item.track_banner}}"></a>
             </div>
         </li>
     </ul>
-    <button (click) = "addToFavorites()">Add whole to favorite</button>
     <div class="review">
         <star-rating
         #stars

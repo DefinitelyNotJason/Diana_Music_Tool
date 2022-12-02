@@ -63,4 +63,30 @@ export class UserService {
       }
     })
   }
+
+  getListReview(list:string){
+    let getListReview:Review[] = [];
+
+    const token = localStorage.getItem('Token');
+    let url = "http://localhost:3000/playlist/getreview/" + list;
+    let request = new Request(url, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+ token
+      }
+    });
+    return fetch(request)
+    .then(response => {
+      if (response.ok){
+        return response.json()
+        .then(data => {
+          getListReview = data;
+          return getListReview;
+        })
+      } else {
+        return getListReview;
+      }
+    })
+  }
 }

@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { response } from 'express';
 import { FavoritesService } from 'src/app/services/favorites.service';
 import { MusicService } from 'src/app/services/music.service';
+import { UserService } from 'src/app/services/user.service';
 import { Music } from 'src/app/shared/models/music';
 import { PlayList } from 'src/app/shared/models/playlist';
+import { Review } from 'src/app/shared/models/review';
 import { User } from 'src/app/shared/models/user';
 
 @Component({
@@ -17,12 +20,17 @@ export class ArtistPageComponent {
   music!: Music[];
   length!:Number[];
   rating:number = 0;
+  getListReview:Review[] = [];
+  listName!:string;
   constructor(activatedRoute:ActivatedRoute, musicService:MusicService,
-    private favoritesService:FavoritesService, private router: Router){
+    private favoritesService:FavoritesService, private router: Router,userservice : UserService){
       this.music = [];
       this.length = Array(favoritesService.getFavoritesLen()).fill(1).map((x,i)=>i+1);
     activatedRoute.params.subscribe(async (params)=>{
       if(params['artist']) {
+        this.listName = params['artist'];
+        userservice.getListReview(this.listName)
+        .then(response=>{this.getListReview = response});
         await musicService.getArtistByName(params['artist'])
         .then(async response => {
           this.playlist = response;
@@ -63,6 +71,34 @@ export class ArtistPageComponent {
   }
 
   onSubmit(stars: Number, review: string){
-    console.log(stars,review);
+    let url = "http://localhost:3000/playlist/addreview";
+    const token = localStorage.getItem('Token');
+
+    let review_data = { 'list_name': this.listName, 'rating':stars, 'content':review};
+
+    let request = new Request(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer '+ token
+      },
+      body: JSON.stringify(review_data)
+    });
+    fetch(request)
+    .then((response) => {
+      if (response.ok){
+        alert('Review has submit!');
+        window.location.reload();
+
+      } else {
+        response.json()
+        .then(data => {
+          alert(data.error);
+        })
+      }
+    })
+    .catch((e) => {
+      throw e;
+    });
   }
 }

@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FavoritesService } from 'src/app/services/favorites.service';
 import { MusicService } from 'src/app/services/music.service';
 import { Music } from 'src/app/shared/models/music';
-import { PlayList } from 'src/app/shared/models/playlist';
 
 @Component({
   selector: 'app-play-page',
@@ -20,17 +19,17 @@ export class PlayPageComponent {
 
   constructor(activatedRoute:ActivatedRoute, musicService:MusicService
     ,private favoritesService : FavoritesService){
-      this.length = Array(favoritesService.getFavoritesLen()).fill(1).map((x,i)=>i+1);
+    this.length = Array(favoritesService.getFavoritesLen()).fill(1).map((x,i)=>i+1);
     activatedRoute.params.subscribe((params)=>{
       if(params['search']) {
-       musicService.searchByMusicName(params['search'])
-       .then(async response =>{
-        const login = localStorage.getItem('Token');
-        if(login){
-          this.isLogin = true;
-        }else{
-          this.isLogin=false;
-        }
+        musicService.searchByMusicName(params['search'])
+        .then(async response =>{
+          const login = localStorage.getItem('Token');
+          if(login){
+            this.isLogin = true;
+          }else{
+            this.isLogin=false;
+          }
           //console.log(response);
           //console.log(response[0].track_id, response[0].track_title, response[0].license_url);
           const a: Music[] =[];
@@ -65,41 +64,38 @@ export class PlayPageComponent {
             //console.log(element);
           });
           this.music = a;
-       });
-
-      /// fetch get the favorlist
-      const token = localStorage.getItem('Token');
-      let url = "http://localhost:3000/playlist/getlist";
-      let request = new Request(url, {
-      method: 'GET',
-      headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer '+ token
-        }
-      });
-      fetch(request)
-      .then((response) => {
-        response.json()
-        .then(data => {
-          data.forEach((element: { name: string}) => {
-            this.favName.push(element.name);
         });
-      })
-      .catch(e=>{
-        alert(e);
-      })
-    })
-    .catch((e) => {
-      throw e;
-    });
-      }
-    })
-  }
 
-  addToFavorites(music:Music,list:string):void{
-    this.favoritesService.addMusicToList(music,Number(list));
-    console.log(music);
-  }
+        // fetch get the favorlist
+        const token = localStorage.getItem('Token');
+        if (token){
+          let url = "http://localhost:3000/playlist/getallplaylists/";
+          let request = new Request(url, {
+            method: 'GET',
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8',
+              'Authorization': 'Bearer '+ token
+            }
+          });
+          fetch(request)
+          .then((response) => {
+            response.json()
+            .then(data => {
+              data.forEach((element: { name: string}) => {
+                this.favName.push(element.name);
+              });
+            })
+            .catch(e=>{
+              alert(e);
+            });
+          })
+          .catch((e) => {
+            throw e;
+          });
+        };
+      };
+    });
+  };
 
   addToFav(track_id:string, favName:string):void{
     //console.log(music.track_id);
@@ -108,9 +104,8 @@ export class PlayPageComponent {
     let requestget = new Request(urlget, {
       method: 'GET',
       headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer '+ token
-      },
+        'Content-type': 'application/json; charset=UTF-8'
+      }
     });
 
     fetch(requestget)
@@ -138,7 +133,7 @@ export class PlayPageComponent {
         .then((response) => {
         response.json()
         .then(data => {
-            alert("add successful");
+            alert("Add track to playlist success!");
             console.log(data);
           })
         .catch(e=>{
@@ -157,5 +152,4 @@ export class PlayPageComponent {
       throw e;
     });
   };
-}
-
+};

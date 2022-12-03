@@ -158,7 +158,7 @@ router.post('/login', async function(req, res){
                 console.log('Email needs to be varified! Varification email send again!');
                 //send the varification email again
                 sendEmail(req.headers.host, user);
-                return res.status(401).send({error: 'Please verify your email!'});
+                return res.status(401).send({error: 'A new verify email has been send to your email box, please verify your email!'});
             }
             console.log('Login Success!');
             const token = generateAccessToken(user);

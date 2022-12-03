@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { response } from 'express';
 import { FavoritesService } from 'src/app/services/favorites.service';
 import { MusicService } from 'src/app/services/music.service';
 import { UserService } from 'src/app/services/user.service';
 import { Music } from 'src/app/shared/models/music';
 import { PlayList } from 'src/app/shared/models/playlist';
 import { Review } from 'src/app/shared/models/review';
-import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-artist-page',
@@ -33,8 +31,12 @@ export class ArtistPageComponent {
   rating:number = 0;
   getListReview:Review[] = [];
   listName!:string;
+  isLogin:Boolean = false;
   constructor(activatedRoute:ActivatedRoute, musicService:MusicService,
     private favoritesService:FavoritesService, private router: Router,userservice : UserService){
+    if (localStorage.getItem('Token')){
+      this.isLogin = true;
+    };
     this.music = [];
     this.length = Array(favoritesService.getFavoritesLen()).fill(1).map((x,i)=>i+1);
     activatedRoute.params.subscribe(async (params)=>{
@@ -73,9 +75,9 @@ export class ArtistPageComponent {
     })
   };
 
-    addMusicToList(music: Music, index:string){
-      this.favoritesService.addMusicToList(music,Number(index));
-    };
+  addMusicToList(music: Music, index:string){
+    this.favoritesService.addMusicToList(music,Number(index));
+  };
 
   onSubmit(stars: Number, review: string){
     let url = "http://localhost:3000/playlist/addreview";
@@ -96,7 +98,6 @@ export class ArtistPageComponent {
       if (response.ok){
         alert('Review has submit!');
         window.location.reload();
-
       } else {
         response.json()
         .then(data => {

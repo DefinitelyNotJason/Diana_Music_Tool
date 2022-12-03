@@ -53,9 +53,11 @@ export class RegisterPageComponent {
       .then(data => {
         if (data.success){
           alert('Registration success!');
-          this.router.navigateByUrl('/login');
+          if (window.confirm("A confirm email was send to your email box, please confirm that!")){
+            this.router.navigateByUrl('/login');
+          };
         } else {
-          alert(data.error);
+          alert('Username/Email already exists!');
         }
       })
       .catch(e=>{

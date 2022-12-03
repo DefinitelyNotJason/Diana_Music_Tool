@@ -73,3 +73,34 @@ button{
     margin: 0.5rem auto;
     opacity: 0.8;
 }
+
+.menu-musicName{
+    position: relative;
+    transition-duration: 0.5s;
+}
+.menu{
+    position: absolute;
+    z-index: 1;
+    background: whitesmoke;
+    /* display: none; */
+    visibility: hidden;
+    /* opacity: 0.6; */
+    /* transition-duration: 0.5s; */
+    transition: visibility 0s;
+    border: black solid 1px;
+    border-radius: 10%;
+    font-size: medium;
+}
+
+.menu-musicName:hover .menu{
+    /* display: block; */
+    visibility: visible;
+    /* opacity: 1; */
+    /* transition-duration: 0.5s; */
+    cursor: pointer;
+}
+
+.menu p{
+    width: 100%;
+    min-width: 8rem;
+}

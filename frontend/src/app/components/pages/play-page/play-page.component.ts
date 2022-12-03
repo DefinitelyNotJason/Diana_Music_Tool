@@ -28,9 +28,20 @@ export class PlayPageComponent {
             this.isLogin = true;
           };
           const a: Music[] =[];
-          await response.forEach(async (element: { artist_name: string; _id: string; track_title: string; }) => {
+          await response.forEach(async (element: 
+            { track_date_created : string;
+              track_duration: string; 
+              album_title: string ;
+              artist_name: string; 
+              _id: string; 
+              track_title: string;
+              track_date_recorded:string }) => {
             const singlemusic:Music = {
               track_id: element._id,
+              track_date_recorded: element.track_date_recorded,
+              track_date_created: element.track_date_created,
+              track_duration: element.track_duration,
+              album_title: element.album_title,
               track_title: element.track_title,
               track_url: "",
               artist_name: element.artist_name,

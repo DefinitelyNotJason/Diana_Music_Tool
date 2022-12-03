@@ -3,8 +3,19 @@
 <div class="container">
     <ul>
         <li *ngFor="let item of music">
-            <div  class="musicName">
+            <!-- <div  class="musicName">
+                {{item.track_title}} -->
+
+            <div class="menu-musicName">
                 {{item.track_title}}
+                <div class="menu">
+                    <p>Album: {{item.album_title}}</p>
+                    <p>Artist: {{item.artist_name}}</p>
+                    <p>Created: {{item.track_date_created}}</p>
+                    <p>Recorded: {{item.track_date_recorded}}</p>
+                    <p>Duration: {{item.track_duration}}</p>
+                    <p>Title: {{item.track_title}}</p>
+                </div>
             <div *ngIf="isLogin == true">
               <div class="add-button">
                 <button (click) = "addToFav(item.track_id,listSelect.value)">Add to Favorite</button>

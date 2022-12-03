@@ -64,7 +64,6 @@ export class MusicService {
     } else {
       url = "http://localhost:3000/track/search/"+input_arr[0]+"/"+input_arr[1]+"/"+input_arr[2];
     };
-    console.log(url);
     let request = new Request(url, {
       method: 'GET',
     });

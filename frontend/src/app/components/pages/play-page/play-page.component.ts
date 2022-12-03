@@ -73,8 +73,6 @@ export class PlayPageComponent {
   };
 
   youtubePlay(track_title:string, artist_name:string){
-    console.log(track_title);
-    console.log(artist_name);
     let youtube_url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyAb8LRIi4ekaTBTRHNIX5hi3oRUu--VKWw&type=video&part=snippet&maxResults=1&q=${track_title.replace(/\s/g, "")}%${artist_name.replace(/\s/g, "")}`;
     let req = new Request(youtube_url, {
       method: 'GET',

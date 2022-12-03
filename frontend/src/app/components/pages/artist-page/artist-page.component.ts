@@ -15,7 +15,18 @@ import { User } from 'src/app/shared/models/user';
   styleUrls: ['./artist-page.component.css']
 })
 export class ArtistPageComponent {
-  playlist!: PlayList;
+  playlist:PlayList = {
+    name:"",
+    creator:"",
+    number_tracks:0,
+    tracks:[],
+    playtime:'0',
+    total_review_rating:0,
+    total_review_time:0,
+    review_rating:0,
+    public:true,
+    edit_date:''
+  };
   tracks!: string[];
   music!: Music[];
   length!:Number[];
@@ -24,8 +35,8 @@ export class ArtistPageComponent {
   listName!:string;
   constructor(activatedRoute:ActivatedRoute, musicService:MusicService,
     private favoritesService:FavoritesService, private router: Router,userservice : UserService){
-      this.music = [];
-      this.length = Array(favoritesService.getFavoritesLen()).fill(1).map((x,i)=>i+1);
+    this.music = [];
+    this.length = Array(favoritesService.getFavoritesLen()).fill(1).map((x,i)=>i+1);
     activatedRoute.params.subscribe(async (params)=>{
       if(params['artist']) {
         this.listName = params['artist'];
@@ -50,7 +61,6 @@ export class ArtistPageComponent {
               .then(async response2 => {
                 await response2.json()
                 .then(data=>{
-                  console.log(data);
                   response1.track_url = "https://www.youtube.com/embed/"+data.items[0].id.videoId;
                   response1.track_banner = data.items[0].snippet.thumbnails.high.url;
                   this.music.push(response1);
@@ -61,14 +71,11 @@ export class ArtistPageComponent {
         }
       }
     })
-  }
-  addMusicToList(music: Music, index:string){
-    this.favoritesService.addMusicToList(music,Number(index));
-  }
-  addToFavorites(){
-    this.favoritesService.addToFavorites(this.playlist);
-    this.router.navigateByUrl('/favorites-page');
-  }
+  };
+
+    addMusicToList(music: Music, index:string){
+      this.favoritesService.addMusicToList(music,Number(index));
+    };
 
   onSubmit(stars: Number, review: string){
     let url = "http://localhost:3000/playlist/addreview";

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,8 +11,6 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginPageComponent {
   loginForm!:FormGroup;
   isSubmitted = false;
-  // static token: string;
-
   constructor(private formBuilder:FormBuilder,private router:Router,userService:UserService){}
 
   ngOnInit(): void{
@@ -20,11 +18,11 @@ export class LoginPageComponent {
       email:['',[Validators.required,Validators.email]],
       password:['',Validators.required]
     });
-  }
+  };
 
   get fc(){
     return this.loginForm.controls;
-  }
+  };
 
   submit(){
     let url = "http://localhost:3000/user/login";
@@ -40,7 +38,6 @@ export class LoginPageComponent {
       },
       body: JSON.stringify(user)
     });
-
     fetch(request)
     .then((response) => {
       response.json()
@@ -51,14 +48,14 @@ export class LoginPageComponent {
           this.router.navigateByUrl('/');
         } else {
           alert(data.error);
-        }
+        };
       })
       .catch(e=>{
         alert(e);
-      })
+      });
     })
     .catch((e) => {
       throw e;
     });
   };
-}
+};

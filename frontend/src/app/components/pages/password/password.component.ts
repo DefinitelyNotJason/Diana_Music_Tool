@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-password',
@@ -8,14 +7,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PasswordComponent {
 
-  constructor(private activatedRoute: ActivatedRoute,private router:Router){}
+  constructor(){}
 
-  changePassword(password: string){
+  changePassword(password: string, e:Event){
+    e.preventDefault();
     let url = "http://localhost:3000/user/password-change";
     const token = localStorage.getItem('Token');
-
-    let new_pass = { 'newpassword': password }
-
+    let new_pass = { 'newpassword': password };
     let request = new Request(url, {
       method: 'POST',
       headers: {
@@ -28,23 +26,17 @@ export class PasswordComponent {
     .then((response) => {
       response.json()
       .then(data=>{
-        console.log(data);
         if (data.success){
-          console.log(response);
-          console.log('hello');
           localStorage.removeItem('Token');
-          alert('password change success!');
-          //window.location.reload();
+          alert('Password update success!');
           window.location.href="/";
         } else {
-            alert(data.error);
-        }
-      })
-
+          alert(data.error);
+        };
+      });
     })
     .catch((e) => {
-      throw e;
+      alert(e);
     });
-
-  }
-}
+  };
+};

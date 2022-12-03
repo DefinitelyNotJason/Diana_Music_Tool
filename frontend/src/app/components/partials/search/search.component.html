@@ -1,7 +1,11 @@
 <div>
-    <input #s type="text" placeholder="Search Music" 
+    <input #s type="text" placeholder="Music+Artist+Album" 
     (keyup.enter) = "searchterm(s.value)" 
     [value] = "search" 
     onfocus="this.value=''"/>
     <button (click) = "searchterm(s.value)">Search</button>
+</div>
+<div class="menu">
+    <p class="menu1">Enter single word to search for music/artist/genre/album.</p>
+    <p class="menu1">Enter "music+artist+album" for advanced search.</p>
 </div>

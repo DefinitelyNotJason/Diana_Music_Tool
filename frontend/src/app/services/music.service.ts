@@ -55,35 +55,43 @@ export class MusicService {
   }
 
   searchByMusicName(search:string){
-  let url = "http://localhost:3000/track/search/"+ search;
-  let request = new Request(url, {
-    method: 'GET',
-  });
-  return fetch(request)
-  .then(response => {
-    if (response.ok){
-        //alert('search success!');
-        return  response.json()
-      .then(data => {
-          // alert(data);
-          if (data.length ==0){
-            alert("no result");
-          }
-          return data;
-      })
+    const input_arr = search.split('+');
+    let url = "";
+    if (input_arr.length == 1){
+      url = "http://localhost:3000/track/search/"+input_arr[0]+"/all/all";
+    } else if (input_arr.length == 2){
+      url = "http://localhost:3000/track/search/"+input_arr[0]+"/"+input_arr[1]+"/all";
     } else {
-      return response.json()
-      .then(data => {
-        alert(data.error);
-        return data.error;
-      })
-    }
-  })
-  .catch((e) => {
-    throw e;
-  });
-    //return this.getMusic().filter(music=>music.name.toLowerCase().includes(search.toLowerCase()));
-  }
+      url = "http://localhost:3000/track/search/"+input_arr[0]+"/"+input_arr[1]+"/"+input_arr[2];
+    };
+    console.log(url);
+    let request = new Request(url, {
+      method: 'GET',
+    });
+    return fetch(request)
+    .then(response => {
+      if (response.ok){
+          //alert('search success!');
+          return  response.json()
+        .then(data => {
+            // alert(data);
+            if (data.length ==0){
+              alert("Sorry! There is no match result in our database :(");
+            }
+            return data;
+        })
+      } else {
+        return response.json()
+        .then(data => {
+          alert(data.error);
+          return data.error;
+        })
+      }
+    })
+    .catch((e) => {
+      throw e;
+    });
+  };
 
   async getArtistByName(ArtName:string):Promise<PlayList>{
     let url = "http://localhost:3000/playlist/searchlist/"+ArtName;
@@ -108,7 +116,7 @@ export class MusicService {
     .catch((e) => {
       throw e;
     });
-  }
+  };
 
   async getPlaylistByTracksId(trackid:string):Promise<Music>{
     let url = "http://localhost:3000/track/getbyid/"+trackid;
@@ -133,5 +141,5 @@ export class MusicService {
     .catch((e) => {
       throw e;
     });
-  }
-}
+  };
+};

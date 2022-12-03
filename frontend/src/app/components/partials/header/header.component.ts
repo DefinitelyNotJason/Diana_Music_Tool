@@ -67,5 +67,9 @@ export class HeaderComponent {
   logout():void{
     localStorage.removeItem("Token");
     window.location.href="/";
-  }
-}
+  };
+
+  homeRefresh(){
+    window.location.href="/";
+  };
+};

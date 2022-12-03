@@ -10,22 +10,16 @@
                 <button (click) = "addToFav(item.track_id,listSelect.value)">Add to Favorite</button>
             </div>
                 <select class="addlist" #listSelect >
-                    <option  *ngFor="let item of favName">{{item}}</option>
+                    <option  *ngFor="let listname of favName">{{listname}}</option>
                 </select>
               </div>
             </div>
             <div class="musicName">
-                <a id="try-play" href="{{item.track_url}}" target="_blank">
+                <a id="try-play" (click)="youtubePlay(item.track_title, item.artist_name)">
                     <span class="material-symbols-outlined">
                         play_circle
                     </span>
                 </a>
-                <!-- <div *ngIf="isLogin == true" class="add-button">
-                    <button (click) = "addToFav(item.track_id,listSelect.value)">Add to Favorite</button>
-                </div> -->
-            </div>
-            <div class="banner-sec">
-                <a class="banner" href="{{item.track_url}}" target="_blank"><img src="{{item.track_banner}}"></a>
             </div>
         </li>
     </ul>

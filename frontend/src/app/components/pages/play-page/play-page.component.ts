@@ -11,11 +11,12 @@ import { PlayList } from 'src/app/shared/models/playlist';
   styleUrls: ['./play-page.component.css']
 })
 export class PlayPageComponent {
+[x: string]: any;
   music!: Music[];
   length!:Number[];
   favName:string[] = [];
 
-
+  isLogin = false;
 
   constructor(activatedRoute:ActivatedRoute, musicService:MusicService
     ,private favoritesService : FavoritesService){
@@ -24,6 +25,12 @@ export class PlayPageComponent {
       if(params['search']) {
        musicService.searchByMusicName(params['search'])
        .then(async response =>{
+        const login = localStorage.getItem('Token');
+        if(login){
+          this.isLogin = true;
+        }else{
+          this.isLogin=false;
+        }
           //console.log(response);
           //console.log(response[0].track_id, response[0].track_title, response[0].license_url);
           const a: Music[] =[];

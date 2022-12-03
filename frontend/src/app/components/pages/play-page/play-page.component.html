@@ -3,11 +3,16 @@
 <div class="container">
     <ul>
         <li *ngFor="let item of music">
-            <div class="musicName">
+            <div  class="musicName">
                 {{item.track_title}}
-                <select class="addlist" #listSelect>
-                    <option *ngFor="let item of favName">{{item}}</option>
+            <div *ngIf="isLogin == true">
+              <div class="add-button">
+                <button (click) = "addToFav(item.track_id,listSelect.value)">Add to Favorite</button>
+            </div>
+                <select class="addlist" #listSelect >
+                    <option  *ngFor="let item of favName">{{item}}</option>
                 </select>
+              </div>
             </div>
             <div class="musicName">
                 <a id="try-play" href="{{item.track_url}}" target="_blank">
@@ -15,9 +20,9 @@
                         play_circle
                     </span>
                 </a>
-                <div class="add-button">
+                <!-- <div *ngIf="isLogin == true" class="add-button">
                     <button (click) = "addToFav(item.track_id,listSelect.value)">Add to Favorite</button>
-                </div>
+                </div> -->
             </div>
             <div class="banner-sec">
                 <a class="banner" href="{{item.track_url}}" target="_blank"><img src="{{item.track_banner}}"></a>

@@ -25,6 +25,7 @@ span{
 }
 
 ul{
+    position: relative;
     margin: 0 auto;
     width: 1200px;
 }
@@ -74,33 +75,33 @@ button{
     opacity: 0.8;
 }
 
-.menu-musicName{
-    position: relative;
-    transition-duration: 0.5s;
-}
 .menu{
     position: absolute;
     z-index: 1;
-    background: whitesmoke;
-    /* display: none; */
-    visibility: hidden;
-    /* opacity: 0.6; */
-    /* transition-duration: 0.5s; */
-    transition: visibility 0s;
-    border: black solid 1px;
-    border-radius: 10%;
+    background: white;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    height: 0;
+    left:12px;
+    width: 101%;
+    z-index: 1;
+    transition: height 0.2s;
+    border: #FFB6C1 solid 1px;
     font-size: medium;
 }
 
-.menu-musicName:hover .menu{
-    /* display: block; */
-    visibility: visible;
-    /* opacity: 1; */
-    /* transition-duration: 0.5s; */
+#try-play {
+    z-index: 0;
+}
+
+li:hover .menu{
+    z-index: 9999;
+    height: 230px;
     cursor: pointer;
 }
 
 .menu p{
+    margin-left: 22px;
     width: 100%;
     min-width: 8rem;
 }

@@ -57,7 +57,7 @@ export class RegisterPageComponent {
             this.router.navigateByUrl('/login');
           };
         } else {
-          alert('Username/Email already exists!');
+          alert(data.error);
         }
       })
       .catch(e=>{

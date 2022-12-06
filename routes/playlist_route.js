@@ -55,6 +55,10 @@ router.post('/savelist', authenticateToken, async function(req, res){
             if (lists.length >= 20){
                 return res.status(403).send({error: 'Already created 20 playlists!'});
             }
+            const if_list = await Playlist.find({ name:name });
+            if (if_list){
+                return res.status(403).send({error: 'Playlist name already exists!'});
+            }
             const playlist = new Playlist({
                 name,
                 creator,

@@ -10,6 +10,7 @@ import { RegisterPageComponent } from './components/pages/register-page/register
 import { GoogleTokenComponentComponent } from './components/pages/google-token.component/google-token.component.component';
 import { PasswordComponent } from './components/pages/password/password.component';
 import { PolicyPageComponent } from './components/pages/policy-page/policy-page.component';
+import { AdminPolicyComponent } from './components/pages/admin-policy/admin-policy.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -22,7 +23,8 @@ const routes: Routes = [
   {path:'password',component:PasswordComponent},
   {path:'admin',component:AdminPageComponent},
   {path:'register',component:RegisterPageComponent},
-  {path:'policy',component:PolicyPageComponent}
+  {path:'policy',component:PolicyPageComponent},
+  {path:'admin_policy',component:AdminPolicyComponent}
 ];
 
 @NgModule({

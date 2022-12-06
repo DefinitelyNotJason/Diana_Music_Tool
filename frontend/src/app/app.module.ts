@@ -18,6 +18,7 @@ import { RegisterPageComponent } from './components/pages/register-page/register
 import { GoogleTokenComponentComponent } from './components/pages/google-token.component/google-token.component.component';
 import { PasswordComponent } from './components/pages/password/password.component';
 import { PolicyPageComponent } from './components/pages/policy-page/policy-page.component';
+import { AdminPolicyComponent } from './components/pages/admin-policy/admin-policy.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PolicyPageComponent } from './components/pages/policy-page/policy-page.
     RegisterPageComponent,
     GoogleTokenComponentComponent,
     PasswordComponent,
-    PolicyPageComponent
+    PolicyPageComponent,
+    AdminPolicyComponent
   ],
   imports: [
     BrowserModule,

@@ -22,7 +22,6 @@ export class SearchComponent {
       window.location.href = 'https://www.bilibili.com/video/BV1FX4y1g7u8/?spm_id_from=333.337.search-card.all.click&vd_source=c31bdd700c6bc2753581069ba3c20513';
     }
     else if(term) {
-      window.location.reload();
       this.router.navigateByUrl('/search/' + term);
     }
     else this.router.navigateByUrl('/');

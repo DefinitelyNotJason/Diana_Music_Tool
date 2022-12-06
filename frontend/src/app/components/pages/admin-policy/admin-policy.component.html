@@ -1,1 +1,11 @@
-<p>admin-policy works!</p>
+
+<textarea #sec class="security_policy" id="security_policy"></textarea>
+<button (click)="sec_submit(sec.value)">submit</button>
+
+
+<textarea #aup class="aup_policy" id="aup_policy"></textarea>
+<button (click)="aup_submit(aup.value)">submit</button>
+
+
+<textarea #dmca class="dmca_policy" id="dmca_policy"></textarea>
+<button (click)="dmca_submit(dmca.value)">submit</button>

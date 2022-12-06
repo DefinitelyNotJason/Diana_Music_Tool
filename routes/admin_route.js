@@ -162,7 +162,7 @@ router.post('/activateuser', authenticateToken, async function(req, res){
 
 //check policy input
 const policyCheck = Joi.object({
-    content: Joi.string().min(1).max(5000).required(),
+    content: Joi.string().min(1).max(50000).required(),
     type: Joi.string().min(1).max(10).required()
 });
 //create policy

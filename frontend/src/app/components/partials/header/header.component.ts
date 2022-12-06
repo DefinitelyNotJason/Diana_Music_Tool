@@ -1,9 +1,8 @@
-import { Token } from '@angular/compiler';
-import { Component } from '@angular/core';
+import { Component, enableProdMode } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FavoritesService } from 'src/app/services/favorites.service';
-import { LoginPageComponent } from '../../pages/login-page/login-page.component';
 
+enableProdMode();
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

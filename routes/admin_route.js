@@ -195,12 +195,12 @@ router.post('/createpolicy', authenticateToken, async function(req, res){
 });
 
 //get policy
-router.get('/getpolicy', authenticateToken, async function(req, res){
+router.get('/getpolicy/:type', async function(req, res){
     const type = req.params.type;
     try {
         const policy = await Policy.findOne({ type: type });
         console.log("Policy get success!");
-        return res.send(policy);
+        return res.json({success: true, data: policy.content});
     } catch(error){
         console.log(error.message);
         return res.json({success: false, error: error.message});
@@ -218,9 +218,18 @@ router.post('/updatepolicy', authenticateToken, async function(req, res){
         const type = value.type;
         try {
             const policy = await Policy.findOne({ type: type });
-            policy.content = content;
-            await policy.save();
-            console.log("Update policy success!");
+            if (!policy){
+                const policy = new Policy({
+                    content: content,
+                    type: type
+                });
+                await policy.save();
+                console.log("Create policy success!");
+            } else {
+                policy.content = content;
+                await policy.save();
+                console.log("Update policy success!");
+            };
             return res.json({success: true});
         } catch(error){
             console.log(error.message);

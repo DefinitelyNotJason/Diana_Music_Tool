@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<div class="content">
+    <div class="display">
+        <p>Playlist Name: {{playlist.name}}</p>
+        <p>Creator: {{playlist.creator}}</p>
+        <p>Description: {{playlist.description}}</p>
+        <p>Number of Tracks: {{playlist.number_tracks}}</p>
+        <p>Rating: {{playlist.review_rating}}</p>
+        <p>Total Play Time: {{playlist.playtime}}</p>
+    </div>
+    <ul>
+        <li *ngFor="let item of music">
+            <div class="musicName">
+                {{item.track_title}}
+                <a href="{{item.track_url}}" target="_blank"><span class="material-symbols-outlined">
+                    play_circle
+                    </span>
+                </a>
+            </div>
+            <div>
+                <a href="{{item.track_url}}" target="_blank"><img src="{{item.track_banner}}"></a>
+            </div>
+        </li>
+    </ul>
+    <h1>Reviews</h1>
+    <table class="review">
+        <tr>
+        <th>Creator</th>
+        <th>Create_Date</th>
+        <th>Content</th>
+        <th>Rating</th>
+        </tr>
+        <tr *ngFor="let item of getListReview">
+        <td>{{item.creator}}</td>
+        <td>{{item.create_date}}</td>
+        <td>{{item.content}}</td>
+        <td>{{item.rating}}</td>
+        </tr>
+    </table>
+    <div *ngIf="isLogin==true">
+        <div class="review">
+            <star-rating
+            #stars
+            [value]=rating
+            [totalstars] = "5"
+            checkedcolor = "red"
+            uncheckedcolor = "black"
+            size="22px">
+        </star-rating>
+        </div>
+        <div class="review">
+            <textarea #review matInput rows="10" cols="80" ng-model="review" placeholder="Write review ..."></textarea>
+            <button (click) = "onSubmit(stars.value,review.value)">Submit</button>
+        </div>
+        <a href="/#playlists" style="border: solid 2px gray; border-radius: 5%; margin-top:50px;margin-left:30px;">BACK</a>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+div{
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+input{
+    border-radius: 10rem 0 0 10rem;
+    border: none;
+    height: 3rem;
+    width: 20rem;
+    background-color: whitesmoke;
+    padding: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    outline: none;
+}
+
+div button{
+    color: grey;
+    height: 3rem;
+    width: 5rem;
+    font-size: 1rem;
+    border-radius: 0 10rem 10rem 0;
+    border: none;
+    background-color: #FF1493;
+    color: white;
+    opacity: 0.8;
+    outline: none;
+}
+
+div button:hover{
+    cursor: pointer;
+    background-color: #FF69B4;
+    opacity: 1;
+}
+
+p {
+    color:#FF69B4;
+    font-family: Comic Sans MS, Comic Sans, cursive;
+}
+
+.menu {
+    display: block;
+    width: 600px;
+    margin:0 auto;
+    text-align: center;
+}
+
+.menu1 {
+    visibility: hidden;
+}
+
+.menu:hover > .menu1{
+    visibility: visible;
+}

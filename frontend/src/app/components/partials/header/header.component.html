@@ -1,0 +1,27 @@
+
+<header>
+    <div class="container">
+        <a (click)="homeRefresh()" class="logo"> DIANA MUSIC TOOL</a>
+        <img src="assets/Images/diana.jpg" style="width:60px; height:100%;">
+        <nav>
+            <ul>
+                <li>
+                    <a routerLink="/login" *ngIf="isLogin == false">Login</a>
+                </li>
+                <li class="menu-container">
+                    <a routerLink="/" *ngIf="userName">{{userName}}</a>
+                    <div class="menu">
+                        <a routerLink="/password">Password</a>
+                        <a routerLink="/admin" *ngIf="isAdmin">Admin</a>
+                        <a routerLink="/" (click) = "logout()">LogOut</a>
+                    </div>
+                </li>
+                <li>
+                    <a routerLink="/favorites-page" *ngIf="isLogin == true">
+                        My Playlists <span *ngIf="favoritesQuantity">{{favoritesQuantity}}</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

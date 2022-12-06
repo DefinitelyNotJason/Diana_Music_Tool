@@ -1,0 +1,32 @@
+<h1>Users</h1>
+<table class="admin">
+    <tr>
+      <th>UserName</th>
+      <th>Active</th>
+      <th>Permissions</th>
+    </tr>
+    <tr *ngFor="let item of getUser">
+      <td>{{item.username}}</td>
+      <td *ngIf="item.isActive == true"><button (click) = "disableActive(item.email)">Disabled</button></td>
+      <td *ngIf="item.isActive == false"><button (click) = "enableActive(item.email)">Enable</button></td>
+      <td *ngIf="item.isAdmin == false"><button (click) = "enableAdmin(item.email)">Permissions</button></td>
+    </tr>
+  </table>
+<h1>Review</h1>
+  <table class="review">
+    <tr>
+      <th>Creator</th>
+      <th>Content</th>
+      <th>Enable</th>
+    </tr>
+    <tr *ngFor="let item of getReview">
+      <td>{{item.creator}}</td>
+      <td>{{item.content}}</td>
+      <td *ngIf="item.public == true"><button (click) = "disableReview(item._id)">Disable</button></td>
+      <td *ngIf="item.public == false"><button (click) = "enableReview(item._id)">Enable</button></td>
+    </tr>
+  </table>
+
+  <div class="policyedit">
+    <a href="/admin_policy"><button>Edit Policy</button></a>
+  </div>

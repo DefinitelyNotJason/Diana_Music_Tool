@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="details">
+        <app-title title="Register"></app-title>
+        <form [formGroup]="registerForm" (ngSubmit) = "submit()">
+            <div class="input-container">
+                <label>UserName</label>
+                <div>
+                    <input type="text" placeholder="UserName" formControlName="username"/>
+                </div>
+            </div>
+            <div class="input-container">
+                <label>Email</label>
+                <div>
+                    <input type="email" placeholder="Email" formControlName="email"/>
+                </div>
+            </div>
+            <div class="input-container">
+                <label>Password</label>
+                <div>
+                    <input type="password" placeholder="PassWord" formControlName="password"/>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit">Register</button>
+            </div>
+            <div class="login">
+                Already a user? &nbsp;
+                <a [routerLink]="['/login']" [queryParams] = "{returnUrl: returnUrl}" >
+                    Login Here!
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<app-title title="My Playlists" margin="1.5rem 0 0 2,5rem"></app-title>
+
+    <div class="input-container">
+      <div class="create">
+        <input #new_listname type="text" class="name-box" id="listName" placeholder="Enter playlist name" title="input the list name">
+        <input #new_description type="text" class="des-box" id="Description" placeholder="Add description" title="add description">
+        <button class="addFavoritesList" class="btn" (click) = "addNewList(new_listname.value, new_description.value)">Create New PlayList</button>
+      </div>
+      <ul>
+        <li *ngFor="let item of playlists; let i = index" style="margin-top: 20px; align-items: flex-start;">
+            <div class="content">
+                <div class="name">
+                    Playlist Name : {{item.name}}
+                </div>
+                <div class="creator">
+                    Creator : {{item.creator}}
+                </div>
+                <div class="number_tracks">
+                    Number of Tracks : {{item.number_tracks}}
+                </div>
+                <div class="playtime">
+                    Total Playtime : {{item.playtime}}
+                </div>
+                <div class="review_score">
+                    Rating : {{item.review_rating}}
+                </div>
+                <div class="edit_date">
+                    Edit Date : {{item.edit_date}}
+                </div>
+                <div class="input-container">
+                    <div>Description:</div>
+                    <textarea #description style="height: 100px; width: 400px;"#edit type="text" placeholder={{item.description}} title="edit description"></textarea>
+                </div>
+                <div>
+                    Public:
+                    <select #public_selection>
+                        <option>true</option>
+                        <option>false</option>
+                    </select>
+                </div>
+                <div style="width:auto; height:50px; margin-top:20px;">
+                    <div>
+                        <a class="but1" routerLink = "/artist/{{item.name}}">Details</a>
+                        <a class="but1" (click)="updateList(item.name, public_selection.value, description.value)">Update</a>
+                        <a class="but2" (click)="deleteList(item.name)">Delete List</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height:390px; width:500px; max-height:400px;">
+                Tracks
+                <style>
+                    table {
+                      font-family: arial, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                      min-width: 500px;
+                    }
+                    
+                    td, th {
+                      border: 1px solid #dddddd;
+                      text-align: left;
+                      padding: 8px;
+                      font-weight: 200;
+                      max-width:500px;
+                    }
+
+                    th {
+                        max-width: 100px;
+                        overflow: auto;
+                    }
+                    
+                    tr:nth-child(even) {
+                      background-color: #dddddd;
+                    }
+                </style>
+                <table style="overflow:auto;">
+                    <tr>
+                        <th>Track ID</th>
+                        <th>Track Name</th>
+                        <th>Artist Name</th>
+                        <th>Delete</th>
+                      </tr>
+                    <tr *ngFor="let music of all_tracks[i]">
+                        <th>{{music.track_id}}</th>
+                        <th>{{music.track_title}}</th>
+                        <th>{{music.artist_name}}</th>
+                        <th><button style="margin-left: 20px;" (click)="deleteTrack(item.name, item.tracks, music.track_id)">Delete Track</button></th>
+                    </tr>
+                </table>
+            </div>
+        </li>
+    </ul>
+</div>

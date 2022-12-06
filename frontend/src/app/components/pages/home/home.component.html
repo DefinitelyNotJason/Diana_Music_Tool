@@ -1,0 +1,43 @@
+<app-search></app-search>
+<section id="intro" class="down">
+    <div class="desc">
+        <p>Diana Music Tool is a powerful and versatile lightweight music search software. You can try fill in your favorite singer or song name in the search bar, and Diana Music Tool will takes the rest job and list all the results that match your search keywords to you. What's even better is that you can also click on "Register" button upper right corner to register an account and save your favorite songs in the form of a playlist. As a producer, we adhere to the tenet of user first and make the software design close to the daily habits of most people. Now click on the upper right corner to register to experience more!</p>
+        <a id="down_button" href="#playlists" class="scroll-down" address="true">
+            <a class="word1">Discover Diana Music Tool</a>
+        </a>
+    </div>
+</section>
+<section id="playlists">
+    <a id="up_button" href="/" class="scroll-up">
+        <a class="word2">To Top</a>
+    </a>
+    <ul>
+        <li *ngFor="let m of playlist">
+            <a routerLink = "/artist/{{m.name}}">
+                <div class="content">
+                    <div class="name">
+                        {{m.name}}
+                    </div>
+                    <div class="review_score">
+                        Creator : {{m.creator}}
+                    </div>
+                    <div class="review_score">
+                        Tracks : {{m.number_tracks}}
+                    </div>
+                    <div class="review_score">
+                        Playtime : {{m.playtime}}
+                    </div>
+                    <div class="review_score">
+                        Rating : {{m.review_rating}}
+                    </div>
+                    <div>
+                        <img style="width:50%; height:50%; margin-top:10px;" src="assets/Images/default.jpg">
+                    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
+</section>
+<div class="policy">
+    <a href="/policy">This is the link to policy</a>
+</div>

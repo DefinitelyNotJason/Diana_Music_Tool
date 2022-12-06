@@ -1,0 +1,57 @@
+ul{
+    list-style-type: none;
+    padding: 0;
+    margin-left: 1rem;
+}
+
+li{
+    margin-top: 0.5rem;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 700,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  
+  span{
+      font-size: 1.8rem;
+  }
+  .musicName{
+      font-size: 1.2rem;
+      position: relative;
+      justify-content: center;
+      flex-direction: row;
+  }
+
+  .container{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 100%;
+    margin-top: 2.5rem;
+}
+
+.review{
+    margin-left: 10rem;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 70%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }

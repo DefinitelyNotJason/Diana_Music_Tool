@@ -98,7 +98,6 @@ export class PlayPageComponent {
   };
 
   addToFav(track_id:string, favName:string):void{
-    //console.log(music.track_id);
     const token = localStorage.getItem('Token');
     let urlget = "http://localhost:3000/playlist/searchlist/"+favName;
     let requestget = new Request(urlget, {
@@ -107,15 +106,13 @@ export class PlayPageComponent {
         'Content-type': 'application/json; charset=UTF-8'
       }
     });
-
-    fetch(requestget)
+    if (favName){
+      fetch(requestget)
       .then((response) => {
         response.json()
         .then(data => {
         let list = data.tracks;
-
         list.push(track_id);
-        console.log(list);
         let url = "http://localhost:3000/playlist/updatelist";
         let addlist = {
           'name': favName,
@@ -131,24 +128,22 @@ export class PlayPageComponent {
         });
         fetch(request)
         .then((response) => {
-        response.json()
-        .then(data => {
-            alert("Add track to playlist success!");
-          })
-        .catch(e=>{
-            alert(e);
+          response.json()
+          .then(data => {
+              alert("Add track to playlist success!");
+            })
+          .catch(e=>{
+              alert(e);
+            })
           })
         })
-        .catch((e) => {
-          throw e;
-        });
+        .catch(e=>{
+          alert(e);
+        })
       })
-      .catch(e=>{
-        alert(e);
-      })
-    })
-    .catch((e) => {
-      throw e;
-    });
+      .catch((e) => {
+        throw e;
+      });
+    };
   };
 };

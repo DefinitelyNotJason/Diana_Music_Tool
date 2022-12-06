@@ -92,7 +92,6 @@ export class AdminPolicyComponent {
     .then((response) => {
       response.json()
       .then(data => {
-        console.log(data);
         alert("Change saved!");
       })
       .catch(e=>{

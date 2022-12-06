@@ -82,14 +82,7 @@ export class AdminPageComponent {
     .catch((e) => {
       throw e;
     });
-
-
-
   };
-
-
-
-
 
   enableAdmin(email:string){
     let url = "http://localhost:3000/admin/grantadmin";
@@ -121,11 +114,7 @@ export class AdminPageComponent {
     .catch((e) => {
       throw e;
     });
-
-
-  }
-
-
+  };
 
   disableReview(_id: string){
     let url = "http://localhost:3000/admin/hiddenreview";
@@ -141,7 +130,6 @@ export class AdminPageComponent {
       },
       body: JSON.stringify(review_id)
     });
-    console.log(_id);
 
     fetch(request)
     .then((response) => {
@@ -159,8 +147,7 @@ export class AdminPageComponent {
     .catch((e) => {
       throw e;
     });
-  }
-
+  };
 
   enableReview(_id:string){
     let url = "http://localhost:3000/admin/publicreview";
@@ -193,7 +180,5 @@ export class AdminPageComponent {
     .catch((e) => {
       throw e;
     });
-  }
-
-
-}
+  };
+};

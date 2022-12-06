@@ -25,7 +25,6 @@ export class HeaderComponent {
    };
     if(localStorage.getItem('Token')){
       const token = localStorage.getItem('Token');
-      console.log(token);
       let url = "http://localhost:3000/user/getuser";
       let request = new Request(url, {
         method: 'GET',
@@ -39,7 +38,6 @@ export class HeaderComponent {
         if (response.ok){
           response.json()
           .then(data => {
-            console.log(data);
             if(data.isActive){
               this.userName = data.username;
               this.isAdmin = data.isAdmin;

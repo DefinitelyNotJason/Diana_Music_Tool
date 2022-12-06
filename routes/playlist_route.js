@@ -56,7 +56,7 @@ router.post('/savelist', authenticateToken, async function(req, res){
                 return res.status(403).send({error: 'Already created 20 playlists!'});
             }
             const if_list = await Playlist.find({ name:name });
-            if (if_list){
+            if (if_list == []){
                 return res.status(403).send({error: 'Playlist name already exists!'});
             }
             const playlist = new Playlist({
@@ -205,6 +205,7 @@ router.post('/deletelist', authenticateToken, async function(req, res){
             if (playlist.creator != creator){
                 return res.status(403).send({error: 'No access to this playlist!'});
             }
+            await Review.remove({ list_name: name });
             await playlist.remove();
             console.log('Playlist deleted success!');
             return res.json({success: true}); 

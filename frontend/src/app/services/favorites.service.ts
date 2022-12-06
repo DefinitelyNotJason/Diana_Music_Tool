@@ -187,36 +187,21 @@ export class FavoritesService {
   }
 
   editDescription(music:PlayList, edit: string):void{
-    // const b = document.getElementById('editDescription') as HTMLInputElement | null;
-    // let inputDescription !: string;
-    // if (b != null) {
-      let inputDescription = edit;
-      // }
-      console.log(edit);
+    let inputDescription = edit;
     let favoritelist = this.favorites.artists.find(i => i.music.name === music.name);
-    //console.log(favoritelist);
-    //console.log(favoritelist?.music.description);
-    //console.log(inputDescription);
     if(favoritelist){
     favoritelist.music.description = inputDescription;
-  //  console.log(favoritelist);
-     // let a =favoritelist.music.name;
     this.setFavoritesToLocalStorage();
     }
   }
 
   publicOrNot(music:PlayList, TorF: string):void{
     let result = TorF;
-    console.log(TorF);
     const token = localStorage.getItem('Token');
 
     let favoritelist = this.favorites.artists.find(i => i.music.name === music.name);
     if(favoritelist){
     let url = "http://localhost:3000/playlist/updateplaylist";
-
-    console.log(favoritelist.music.name);
-    console.log(favoritelist.music.description);
-    console.log(result);
     const user = {
       name:favoritelist.music.name,
       description:favoritelist.music.description,

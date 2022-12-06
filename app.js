@@ -35,9 +35,5 @@ app.use('/playlist', playlist_route);
 app.use('/admin', admin_route)
 
 app.get('/', function(req, res){
-    let token = req.query.token;
-    // if (token){
-    //     console.log(token);
-    // }
     res.send("Hello World!");
 });

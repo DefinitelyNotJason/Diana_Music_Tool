@@ -44,7 +44,7 @@ export class HeaderComponent {
               this.isLogin = true;
             }else{
               localStorage.removeItem("Token");
-              alert("Sorry, your acount is deactive now. Please contact Admin: admin@admin.com");
+              alert("Sorry, your acount is deactive now. Please contact Admin: wdtjx95@gmail.com");
             }
           })
         } else {

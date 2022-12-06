@@ -10,7 +10,7 @@ export class MusicService {
 
   async getAll():Promise<PlayList[]>{
     let r_data:PlayList[] = [];
-    let url = "http://ec2-54-198-180-46.compute-1.amazonaws.com:3000/playlist/getlist";
+    let url = "http://localhost:3000/playlist/getlist";
     let request = new Request(url, {
       method: 'GET',
     });

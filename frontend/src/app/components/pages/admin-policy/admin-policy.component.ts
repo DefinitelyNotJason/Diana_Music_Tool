@@ -93,7 +93,7 @@ export class AdminPolicyComponent {
       response.json()
       .then(data => {
         console.log(data);
-       alert("change saved");
+        alert("Change saved!");
       })
       .catch(e=>{
         alert(e);
@@ -102,8 +102,7 @@ export class AdminPolicyComponent {
     .catch((e) => {
       throw e;
     });
-
-  }
+  };
 
   aup_submit(aup:string){
     let url = "http://localhost:3000/admin/updatepolicy";
@@ -121,7 +120,7 @@ export class AdminPolicyComponent {
     .then((response) => {
       response.json()
       .then(data => {
-       alert("change saved");
+       alert("Change saved!");
       })
       .catch(e=>{
         alert(e);
@@ -130,9 +129,7 @@ export class AdminPolicyComponent {
     .catch((e) => {
       throw e;
     });
-
-
-  }
+  };
 
   dmca_submit(dmca:string){
     let url = "http://localhost:3000/admin/updatepolicy";
@@ -150,7 +147,7 @@ export class AdminPolicyComponent {
     .then((response) => {
       response.json()
       .then(data => {
-       alert("change saved");
+        alert("Change saved!");
       })
       .catch(e=>{
         alert(e);
@@ -159,8 +156,5 @@ export class AdminPolicyComponent {
     .catch((e) => {
       throw e;
     });
-
-
-  }
-
-}
+  };
+};

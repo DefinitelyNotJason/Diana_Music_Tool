@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { find } from 'rxjs';
-import { sample_music } from 'src/data';
 import { Music } from '../shared/models/music';
 import { PlayList } from '../shared/models/playlist';
 
@@ -12,7 +10,7 @@ export class MusicService {
 
   async getAll():Promise<PlayList[]>{
     let r_data:PlayList[] = [];
-    let url = "http://localhost:3000/playlist/getlist";
+    let url = "http://ec2-54-198-180-46.compute-1.amazonaws.com:3000/playlist/getlist";
     let request = new Request(url, {
       method: 'GET',
     });
@@ -31,10 +29,6 @@ export class MusicService {
         return r_data;
       }
     })
-  };
-
-  getMusic():Music[]{
-    return sample_music;
   };
 
   searchByMusicName(search:string){

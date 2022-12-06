@@ -33,7 +33,7 @@ export class RegisterPageComponent {
   }
 
   submit(){
-    let url = "http://localhost:3000/user/register";
+    let url = localStorage.getItem('localpwd') + "/user/register";
     const fv = this.registerForm.value;
     const user:IUserRegister = {
       username:fv.username,

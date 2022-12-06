@@ -77,7 +77,7 @@ export class AdminPolicyComponent {
   };
 
   sec_submit(sec:string){
-    let url = "http://localhost:3000/admin/updatepolicy";
+    let url = localStorage.getItem('localpwd') + "/admin/updatepolicy";
     const token = localStorage.getItem("Token");
     let sec_p = { 'content': sec , 'type': 'security'};
     let request = new Request(url, {
@@ -104,7 +104,7 @@ export class AdminPolicyComponent {
   };
 
   aup_submit(aup:string){
-    let url = "http://localhost:3000/admin/updatepolicy";
+    let url = localStorage.getItem('localpwd') + "/admin/updatepolicy";
     let token = localStorage.getItem("Token");
     let aup_p = { 'content': aup , 'type': 'AUP'};
     let request = new Request(url, {
@@ -131,7 +131,7 @@ export class AdminPolicyComponent {
   };
 
   dmca_submit(dmca:string){
-    let url = "http://localhost:3000/admin/updatepolicy";
+    let url = localStorage.getItem('localpwd') + "/admin/updatepolicy";
     let token = localStorage.getItem("Token");
     let dmca_p = { 'content': dmca , 'type': 'DMCA'};
     let request = new Request(url, {

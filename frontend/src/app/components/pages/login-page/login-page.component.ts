@@ -11,6 +11,8 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginPageComponent {
   loginForm!:FormGroup;
   isSubmitted = false;
+  pwd = localStorage.getItem('localpwd');
+  local= this.pwd+'/user/auth/google';
   constructor(private formBuilder:FormBuilder,private router:Router,userService:UserService){}
 
   ngOnInit(): void{
@@ -25,7 +27,7 @@ export class LoginPageComponent {
   };
 
   submit(){
-    let url = "http://localhost:3000/user/login";
+    let url = localStorage.getItem('localpwd') + "/user/login";
     const fv = this.loginForm.value;
     const user = {
       email:fv.email,

@@ -9,14 +9,14 @@ import { User } from '../shared/models/user';
 export class UserService {
   private userSubject = new BehaviorSubject<User>(new User());
   public userObservable:Observable<User>;
-  constructor() { 
+  constructor() {
     this.userObservable = this.userSubject.asObservable();
   }
 
   getUserInAdmin(){
     let allUser:User[] = [];
     const token = localStorage.getItem('Token');
-    let url = "http://localhost:3000/admin/getallusers";
+    let url = localStorage.getItem('localpwd') + "/admin/getallusers";
     let request = new Request(url, {
       method: 'GET',
       headers: {
@@ -42,7 +42,7 @@ export class UserService {
     let getReview:Review[] = [];
 
     const token = localStorage.getItem('Token');
-    let url = "http://localhost:3000/admin/getallreview";
+    let url = localStorage.getItem('localpwd') + "/admin/getallreview";
     let request = new Request(url, {
       method: 'GET',
       headers: {
@@ -68,7 +68,7 @@ export class UserService {
     let getListReview:Review[] = [];
 
     const token = localStorage.getItem('Token');
-    let url = "http://localhost:3000/playlist/getreview/" + list;
+    let url = localStorage.getItem('localpwd') + "/playlist/getreview/" + list;
     let request = new Request(url, {
       method: 'GET',
       headers: {

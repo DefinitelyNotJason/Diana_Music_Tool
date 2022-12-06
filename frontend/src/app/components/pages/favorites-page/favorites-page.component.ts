@@ -32,7 +32,7 @@ export class FavoritesPageComponent {
       track_banner: "",
       artist_name:""
     }
-    let url = "http://localhost:3000/track/getbyid/"+id;
+    let url = localStorage.getItem('localpwd') + "/track/getbyid/"+id;
     let request = new Request(url, {
       method: 'GET'
     });
@@ -59,7 +59,7 @@ export class FavoritesPageComponent {
       throw err;
     })
   };
-  
+
   addNewList(new_listname:string, new_description:string){
     this.favoritesService.addNewList(new_listname, new_description);
   };

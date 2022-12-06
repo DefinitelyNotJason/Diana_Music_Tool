@@ -29,7 +29,7 @@ export class FavoritesService {
     if (new_description == ""){
       new_description = " ";
     }
-    let url = "http://localhost:3000/playlist/savelist";
+    let url = localStorage.getItem('localpwd') + "/playlist/savelist";
     let token = localStorage.getItem('Token');
     let data = {
       "name":new_listname,
@@ -61,7 +61,7 @@ export class FavoritesService {
   };
 
   deleteList(listname:string) {
-    let url = "http://localhost:3000/playlist/deletelist";
+    let url = localStorage.getItem('localpwd') + "/playlist/deletelist";
     let token = localStorage.getItem('Token');
     let data = {
       "name":listname,
@@ -95,7 +95,7 @@ export class FavoritesService {
     if (description == ""){
       description = " ";
     }
-    let url = "http://localhost:3000/playlist/updateplaylist";
+    let url = localStorage.getItem('localpwd') + "/playlist/updateplaylist";
     let token = localStorage.getItem('Token');
     let data = {
       "name":playlist_name,
@@ -132,7 +132,7 @@ export class FavoritesService {
 
   deleteTrack(listname:string, tracks:string[], track_select:string){
     tracks = tracks.filter(e => e !== track_select);
-    let url = "http://localhost:3000/playlist/updatelist";
+    let url = localStorage.getItem('localpwd') + "/playlist/updatelist";
     let token = localStorage.getItem('Token');
     let data = {
       "name":listname,
@@ -201,7 +201,7 @@ export class FavoritesService {
 
     let favoritelist = this.favorites.artists.find(i => i.music.name === music.name);
     if(favoritelist){
-    let url = "http://localhost:3000/playlist/updateplaylist";
+    let url = localStorage.getItem('localpwd') + "/playlist/updateplaylist";
     const user = {
       name:favoritelist.music.name,
       description:favoritelist.music.description,
@@ -255,7 +255,7 @@ export class FavoritesService {
 
   async getAllPlaylist():Promise<PlayList[]>{
     let r_data:PlayList[] = [];
-    let url = "http://localhost:3000/playlist/getallplaylists";
+    let url = localStorage.getItem('localpwd') + "/playlist/getallplaylists";
     let token = localStorage.getItem('Token');
     let request = new Request(url, {
       method: 'GET',

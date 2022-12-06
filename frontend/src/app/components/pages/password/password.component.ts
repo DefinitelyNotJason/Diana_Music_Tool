@@ -11,7 +11,7 @@ export class PasswordComponent {
 
   changePassword(password: string, e:Event){
     e.preventDefault();
-    let url = "http://localhost:3000/user/password-change";
+    let url = localStorage.getItem('localpwd') + "/user/password-change";
     const token = localStorage.getItem('Token');
     let new_pass = { 'newpassword': password };
     let request = new Request(url, {

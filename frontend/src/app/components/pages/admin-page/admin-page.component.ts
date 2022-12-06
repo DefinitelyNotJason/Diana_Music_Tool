@@ -20,7 +20,7 @@ export class AdminPageComponent {
   }
 
   disableActive(email: string){
-    let url = "http://localhost:3000/admin/deactivateuser";
+    let url = localStorage.getItem('localpwd') + "/admin/deactivateuser";
     const token = localStorage.getItem('Token');
 
     let email_data = { 'email': email }
@@ -52,7 +52,7 @@ export class AdminPageComponent {
   };
 
   enableActive(email:string){
-    let url = "http://localhost:3000/admin/activateuser";
+    let url = localStorage.getItem('localpwd') + "/admin/activateuser";
     const token = localStorage.getItem('Token');
 
     let email_data = { 'email': email }
@@ -85,7 +85,7 @@ export class AdminPageComponent {
   };
 
   enableAdmin(email:string){
-    let url = "http://localhost:3000/admin/grantadmin";
+    let url = localStorage.getItem('localpwd') + "/admin/grantadmin";
     const token = localStorage.getItem('Token');
 
     let email_data = { 'email': email }
@@ -117,7 +117,7 @@ export class AdminPageComponent {
   };
 
   disableReview(_id: string){
-    let url = "http://localhost:3000/admin/hiddenreview";
+    let url = localStorage.getItem('localpwd') + "/admin/hiddenreview";
     const token = localStorage.getItem('Token');
 
     let review_id = { 'id': _id }
@@ -150,7 +150,7 @@ export class AdminPageComponent {
   };
 
   enableReview(_id:string){
-    let url = "http://localhost:3000/admin/publicreview";
+    let url = localStorage.getItem('localpwd') + "/admin/publicreview";
     const token = localStorage.getItem('Token');
 
     let review_id = { 'id': _id }

@@ -10,7 +10,7 @@ export class MusicService {
 
   async getAll():Promise<PlayList[]>{
     let r_data:PlayList[] = [];
-    let url = "http://localhost:3000/playlist/getlist";
+    let url = localStorage.getItem('localpwd') + "/playlist/getlist";
     let request = new Request(url, {
       method: 'GET',
     });
@@ -35,11 +35,11 @@ export class MusicService {
     const input_arr = search.split('+');
     let url = "";
     if (input_arr.length == 1){
-      url = "http://localhost:3000/track/search/"+input_arr[0]+"/all/all";
+      url = localStorage.getItem('localpwd') + "/track/search/"+input_arr[0]+"/all/all";
     } else if (input_arr.length == 2){
-      url = "http://localhost:3000/track/search/"+input_arr[0]+"/"+input_arr[1]+"/all";
+      url = localStorage.getItem('localpwd') + "/track/search/"+input_arr[0]+"/"+input_arr[1]+"/all";
     } else {
-      url = "http://localhost:3000/track/search/"+input_arr[0]+"/"+input_arr[1]+"/"+input_arr[2];
+      url = localStorage.getItem('localpwd') + "/track/search/"+input_arr[0]+"/"+input_arr[1]+"/"+input_arr[2];
     };
     let request = new Request(url, {
       method: 'GET',
@@ -70,7 +70,7 @@ export class MusicService {
   };
 
   async getArtistByName(ArtName:string):Promise<PlayList>{
-    let url = "http://localhost:3000/playlist/searchlist/"+ArtName;
+    let url = localStorage.getItem('localpwd') + "/playlist/searchlist/"+ArtName;
     let request = new Request(url, {
       method: 'GET',
     });
@@ -95,7 +95,7 @@ export class MusicService {
   };
 
   async getPlaylistByTracksId(trackid:string):Promise<Music>{
-    let url = "http://localhost:3000/track/getbyid/"+trackid;
+    let url = localStorage.getItem('localpwd') + "/track/getbyid/"+trackid;
     let request = new Request(url, {
       method: 'GET',
     });

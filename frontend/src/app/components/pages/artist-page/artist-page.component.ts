@@ -80,7 +80,7 @@ export class ArtistPageComponent {
   };
 
   onSubmit(stars: Number, review: string){
-    let url = "http://localhost:3000/playlist/addreview";
+    let url = localStorage.getItem('localpwd') + "/playlist/addreview";
     const token = localStorage.getItem('Token');
 
     let review_data = { 'list_name': this.listName, 'rating':stars, 'content':review};

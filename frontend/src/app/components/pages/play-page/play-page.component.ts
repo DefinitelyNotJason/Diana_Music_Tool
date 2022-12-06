@@ -28,12 +28,12 @@ export class PlayPageComponent {
             this.isLogin = true;
           };
           const a: Music[] =[];
-          await response.forEach(async (element: 
+          await response.forEach(async (element:
             { track_date_created : string;
-              track_duration: string; 
+              track_duration: string;
               album_title: string ;
-              artist_name: string; 
-              _id: string; 
+              artist_name: string;
+              _id: string;
               track_title: string;
               track_date_recorded:string }) => {
             const singlemusic:Music = {
@@ -55,7 +55,7 @@ export class PlayPageComponent {
         // fetch get the favorlist
         const token = localStorage.getItem('Token');
         if (token){
-          let url = "http://localhost:3000/playlist/getallplaylists/";
+          let url = localStorage.getItem('localpwd') + "/playlist/getallplaylists/";
           let request = new Request(url, {
             method: 'GET',
             headers: {
@@ -99,7 +99,7 @@ export class PlayPageComponent {
 
   addToFav(track_id:string, favName:string):void{
     const token = localStorage.getItem('Token');
-    let urlget = "http://localhost:3000/playlist/searchlist/"+favName;
+    let urlget = localStorage.getItem('localpwd') + "/playlist/searchlist/"+favName;
     let requestget = new Request(urlget, {
       method: 'GET',
       headers: {
@@ -113,7 +113,7 @@ export class PlayPageComponent {
         .then(data => {
         let list = data.tracks;
         list.push(track_id);
-        let url = "http://localhost:3000/playlist/updatelist";
+        let url = localStorage.getItem('localpwd') + "/playlist/updatelist";
         let addlist = {
           'name': favName,
           'list': list

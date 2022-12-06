@@ -1,8 +1,9 @@
-import { Component, enableProdMode } from '@angular/core';
+import { Token } from '@angular/compiler';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FavoritesService } from 'src/app/services/favorites.service';
+import { LoginPageComponent } from '../../pages/login-page/login-page.component';
 
-enableProdMode();
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,6 +17,7 @@ export class HeaderComponent {
   isActive !: boolean;
   constructor(activatedRoute :ActivatedRoute ,favoritesService:FavoritesService){
    //localStorage.removeItem("Token");
+   localStorage.setItem('localpwd', 'http://localhost:3000');
    if (localStorage.getItem('Token')){
     favoritesService.getAllPlaylist()
     .then(response=>{
@@ -24,7 +26,7 @@ export class HeaderComponent {
    };
     if(localStorage.getItem('Token')){
       const token = localStorage.getItem('Token');
-      let url = "http://localhost:3000/user/getuser";
+      let url = localStorage.getItem('localpwd') +"/user/getuser";
       let request = new Request(url, {
         method: 'GET',
         headers: {

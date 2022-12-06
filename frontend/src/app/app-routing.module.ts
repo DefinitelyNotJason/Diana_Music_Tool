@@ -9,6 +9,7 @@ import { PlayPageComponent } from './components/pages/play-page/play-page.compon
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 import { GoogleTokenComponentComponent } from './components/pages/google-token.component/google-token.component.component';
 import { PasswordComponent } from './components/pages/password/password.component';
+import { PolicyPageComponent } from './components/pages/policy-page/policy-page.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path:'login',component:LoginPageComponent},
   {path:'password',component:PasswordComponent},
   {path:'admin',component:AdminPageComponent},
-  {path:'register',component:RegisterPageComponent}
+  {path:'register',component:RegisterPageComponent},
+  {path:'policy',component:PolicyPageComponent}
 ];
 
 @NgModule({

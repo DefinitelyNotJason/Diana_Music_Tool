@@ -174,3 +174,13 @@ h1{
         transform: translateY(-5px);
     }
 }
+
+.policy{
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+.policy a{
+    display: flex;
+    justify-content: center;
+}

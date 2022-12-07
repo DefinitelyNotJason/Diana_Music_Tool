@@ -53,7 +53,6 @@ export class ArtistPageComponent {
           this.tracks.forEach(async trackid => {
             await musicService.getPlaylistByTracksId(trackid)
             .then(async response1 =>{
-              // this.music.push(response1);
               //add youtube link
               let youtube_url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCMhH3hryk87Faxajj641IOhGovJwIrY2A&type=video&part=snippet&maxResults=1&q=${response1.track_title.replace(/\s/g, "")}%${response1.artist_name.replace(/\s/g, "")}`;
               let req = new Request(youtube_url, {

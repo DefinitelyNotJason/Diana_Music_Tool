@@ -18,13 +18,6 @@ export class FavoritesService {
     return this.favorites.artists.length;
   }
 
-  // addEmptyList():void{
-  //   if(this.favorites.artists.length < 20){
-  //     this.favorites.artists.push(new FavoriteList(new PlayList()));
-  //     this.setFavoritesToLocalStorage();
-  //   }
-  // }
-
   addNewList(new_listname:string, new_description:string){
     if (new_description == ""){
       new_description = " ";
@@ -239,19 +232,6 @@ export class FavoritesService {
   }
 
   }
-
-  // changeQuantity(artist_name:string, quantity:number){
-  //   let favoriteartist = this.favorites.artists.find(i => i.music.artist_name === artist_name);
-  //   if(!favoriteartist) return;
-
-  //   favoriteartist.quantity = quantity;
-  //   this.setFavoritesToLocalStorage();
-  // }
-
-  // clearFavorites(){
-  //   this.favorites = new Favorites();
-  //   this.setFavoritesToLocalStorage();
-  // }
 
   async getAllPlaylist():Promise<PlayList[]>{
     let r_data:PlayList[] = [];

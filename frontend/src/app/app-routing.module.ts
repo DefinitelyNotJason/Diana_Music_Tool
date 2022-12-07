@@ -14,7 +14,6 @@ import { AdminPolicyComponent } from './components/pages/admin-policy/admin-poli
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
-  // {path:'/:username',component:HomeComponent},
   {path:'google/:token', component:GoogleTokenComponentComponent},
   {path:'search/:search',component:PlayPageComponent},
   {path:'artist/:artist',component:ArtistPageComponent},
@@ -31,4 +30,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

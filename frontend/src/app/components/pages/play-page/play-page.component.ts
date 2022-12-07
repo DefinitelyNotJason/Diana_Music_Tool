@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FavoritesService } from 'src/app/services/favorites.service';
 import { MusicService } from 'src/app/services/music.service';
 import { Music } from 'src/app/shared/models/music';

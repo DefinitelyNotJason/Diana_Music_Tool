@@ -12,16 +12,11 @@ export class HomeComponent {
   playlist:PlayList[] = [];
 
   constructor(private musicService:MusicService , activatedRoute:ActivatedRoute){
-    activatedRoute.params.subscribe((params)=>{
-      // if(params['search']){
-      //   this.playlist = musicService.getAllByArtistName(params['search']);
-      // }else{
-        musicService.getAll()
-        .then(response =>{
-          this.playlist = response;
-        })
-      // }
-    })
-  }
-
-}
+    activatedRoute.params.subscribe(()=>{
+      musicService.getAll()
+      .then(response =>{
+        this.playlist = response;
+      });
+    });
+  };
+};

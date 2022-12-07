@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RatingModule} from 'ng-starrating';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/partials/header/header.component';
@@ -21,30 +20,12 @@ import { PolicyPageComponent } from './components/pages/policy-page/policy-page.
 import { AdminPolicyComponent } from './components/pages/admin-policy/admin-policy.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    HomeComponent,
-    SearchComponent,
-    ArtistPageComponent,
-    FavoritesPageComponent,
-    TitleComponent,
-    LoginPageComponent,
-    PlayPageComponent,
-    AdminPageComponent,
-    RegisterPageComponent,
-    GoogleTokenComponentComponent,
-    PasswordComponent,
-    PolicyPageComponent,
-    AdminPolicyComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    RatingModule
-  ],
+  declarations: [AppComponent,HeaderComponent,HomeComponent,SearchComponent,ArtistPageComponent,
+    FavoritesPageComponent,TitleComponent,LoginPageComponent,PlayPageComponent,AdminPageComponent,
+    RegisterPageComponent,GoogleTokenComponentComponent,PasswordComponent,PolicyPageComponent,
+    AdminPolicyComponent],
+  imports: [BrowserModule,AppRoutingModule,ReactiveFormsModule,RatingModule],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

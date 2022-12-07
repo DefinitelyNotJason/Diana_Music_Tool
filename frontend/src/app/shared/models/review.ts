@@ -1,4 +1,4 @@
-export class Review{
+export class Review {
     _id!:string;
     list_name!:string;
     creator!:string;
@@ -6,4 +6,4 @@ export class Review{
     content!:string;
     public!:boolean;
     create_date!:string;
-}
+};

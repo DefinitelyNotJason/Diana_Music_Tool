@@ -1,4 +1,4 @@
-export class Music{
+export class Music {
     track_id!:string;
     track_url!:string;
     album_id?:string;
@@ -14,4 +14,4 @@ export class Music{
     track_number?:string;
     track_title!:string;
     track_banner!:string;
-}
+};

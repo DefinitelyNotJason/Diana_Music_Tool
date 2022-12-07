@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FavoritesService } from 'src/app/services/favorites.service';
 import { MusicService } from 'src/app/services/music.service';
 import { Music } from 'src/app/shared/models/music';
 
@@ -12,13 +11,10 @@ import { Music } from 'src/app/shared/models/music';
 export class PlayPageComponent {
 [x: string]: any;
   music!: Music[];
-  length!:Number[];
   favName:string[] = [];
   isLogin = false;
 
-  constructor(activatedRoute:ActivatedRoute, musicService:MusicService
-    ,private favoritesService : FavoritesService){
-    this.length = Array(favoritesService.getFavoritesLen()).fill(1).map((x,i)=>i+1);
+  constructor(activatedRoute:ActivatedRoute, musicService:MusicService){
     activatedRoute.params.subscribe((params)=>{
       if(params['search']) {
         musicService.searchByMusicName(params['search'])

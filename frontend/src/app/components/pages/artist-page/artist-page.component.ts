@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FavoritesService } from 'src/app/services/favorites.service';
+import { ActivatedRoute } from '@angular/router';
 import { MusicService } from 'src/app/services/music.service';
 import { UserService } from 'src/app/services/user.service';
 import { Music } from 'src/app/shared/models/music';
@@ -27,18 +26,15 @@ export class ArtistPageComponent {
   };
   tracks!: string[];
   music!: Music[];
-  length!:Number[];
   rating:number = 0;
   getListReview:Review[] = [];
   listName!:string;
   isLogin:Boolean = false;
-  constructor(activatedRoute:ActivatedRoute, musicService:MusicService,
-    private favoritesService:FavoritesService, private router: Router,userservice : UserService){
+  constructor(activatedRoute:ActivatedRoute, musicService:MusicService, userservice:UserService){
     if (localStorage.getItem('Token')){
       this.isLogin = true;
     };
     this.music = [];
-    this.length = Array(favoritesService.getFavoritesLen()).fill(1).map((x,i)=>i+1);
     activatedRoute.params.subscribe(async (params)=>{
       if(params['artist']) {
         this.listName = params['artist'];
@@ -62,8 +58,19 @@ export class ArtistPageComponent {
               .then(async response2 => {
                 await response2.json()
                 .then(data=>{
-                  response1.track_url = "https://www.youtube.com/embed/"+data.items[0].id.videoId;
-                  response1.track_banner = data.items[0].snippet.thumbnails.high.url;
+                  if (data.items.length < 1){
+                    response1.track_url = " ";
+                    response1.track_banner = " ";
+                    this.music.push(response1);
+                  } else {
+                    response1.track_url = "https://www.youtube.com/embed/"+data.items[0].id.videoId;
+                    response1.track_banner = data.items[0].snippet.thumbnails.high.url;
+                    this.music.push(response1);
+                  };
+                })
+                .catch(e=>{
+                  response1.track_url = " ";
+                  response1.track_banner = " ";
                   this.music.push(response1);
                 })
               })
@@ -72,10 +79,6 @@ export class ArtistPageComponent {
         }
       }
     })
-  };
-
-  addMusicToList(music: Music, index:string){
-    this.favoritesService.addMusicToList(music,Number(index));
   };
 
   onSubmit(stars: Number, review: string){
@@ -107,5 +110,5 @@ export class ArtistPageComponent {
     .catch((e) => {
       throw e;
     });
-  }
-}
+  };
+};

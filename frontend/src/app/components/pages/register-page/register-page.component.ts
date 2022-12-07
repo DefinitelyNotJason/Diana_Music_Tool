@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IUserRegister } from 'src/app/shared/interfaces/IUserRegister';
 
 @Component({
   selector: 'app-register-page',
@@ -15,24 +14,15 @@ export class RegisterPageComponent {
   constructor(private formBuilder: FormBuilder, private router:Router){}
 
   ngOnInit():void{
-    this.registerForm = this.formBuilder.group({
-      username:['',[Validators.required, Validators.minLength(5)]],
-      email:['',[Validators.required, Validators.email]],
-      password:['',[Validators.required, Validators.minLength(5)]]
-    });
-  }
-
-  get fc(){
-    return this.registerForm.controls;
-  }
+    this.registerForm = this.formBuilder.group({username:[''], email:[''],password:['']});
+  };
 
   submit(){
     let url = localStorage.getItem('localpwd') + "/user/register";
-    const fv = this.registerForm.value;
-    const user:IUserRegister = {
-      username:fv.username,
-      email:fv.email,
-      password:fv.password
+    const user = {
+      username: this.registerForm.value.username,
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password
     };
     let request = new Request(url, {
       method: 'POST',
@@ -62,4 +52,4 @@ export class RegisterPageComponent {
       throw e;
     });
   };
-}
+};

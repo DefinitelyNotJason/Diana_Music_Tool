@@ -31,7 +31,7 @@ export class MusicService {
     })
   };
 
-  searchByMusicName(search:string){
+  async searchByMusicName(search:string){
     const input_arr = search.split('+');
     let url = "";
     if (input_arr.length == 1){

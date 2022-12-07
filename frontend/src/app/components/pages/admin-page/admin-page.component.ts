@@ -21,9 +21,7 @@ export class AdminPageComponent {
   disableActive(email: string){
     let url = localStorage.getItem('localpwd') + "/admin/deactivateuser";
     const token = localStorage.getItem('Token');
-
-    let email_data = { 'email': email }
-
+    let email_data = { 'email': email };
     let request = new Request(url, {
       method: 'POST',
       headers: {
@@ -53,9 +51,7 @@ export class AdminPageComponent {
   enableActive(email:string){
     let url = localStorage.getItem('localpwd') + "/admin/activateuser";
     const token = localStorage.getItem('Token');
-
-    let email_data = { 'email': email }
-
+    let email_data = { 'email': email };
     let request = new Request(url, {
       method: 'POST',
       headers: {

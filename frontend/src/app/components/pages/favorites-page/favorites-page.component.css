@@ -6,6 +6,10 @@
     margin-top: 0.5rem;
 }
 
+h1{
+    color: #FF69B4;
+}
+
 ul{
     display: flex;
     flex-direction: column;
@@ -112,19 +116,19 @@ background-color: #dddddd;
     color:#FF69B4; 
     float:left; 
     display:block; 
-    width:75px; 
+    width:65px; 
     height:25px; 
     border:solid 2px; 
     border-color:black; 
     border-radius:10%; 
-    margin-right:30px;
+    margin-right:50px;
 }
 
 .but2{
     color:#FF69B4; 
     float:left; 
     display:block; 
-    width:113px; 
+    width:91px; 
     height:25px; 
     border:solid 2px; 
     border-color:black; 

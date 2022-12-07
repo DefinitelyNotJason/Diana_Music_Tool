@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login-page',
@@ -13,25 +12,20 @@ export class LoginPageComponent {
   isSubmitted = false;
   pwd = localStorage.getItem('localpwd');
   local= this.pwd+'/user/auth/google';
-  constructor(private formBuilder:FormBuilder,private router:Router,userService:UserService){}
+  constructor(private formBuilder:FormBuilder,private router:Router){}
 
   ngOnInit(): void{
     this.loginForm = this.formBuilder.group({
-      email:['',[Validators.required,Validators.email]],
-      password:['',Validators.required]
+      email:[''],
+      password:['']
     });
-  };
-
-  get fc(){
-    return this.loginForm.controls;
   };
 
   submit(){
     let url = localStorage.getItem('localpwd') + "/user/login";
-    const fv = this.loginForm.value;
     const user = {
-      email:fv.email,
-      password:fv.password
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password
     };
     let request = new Request(url, {
       method: 'POST',

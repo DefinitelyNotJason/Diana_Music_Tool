@@ -13,7 +13,7 @@ export class UserService {
     this.userObservable = this.userSubject.asObservable();
   }
 
-  getUserInAdmin(){
+  async getUserInAdmin(){
     let allUser:User[] = [];
     const token = localStorage.getItem('Token');
     let url = localStorage.getItem('localpwd') + "/admin/getallusers";
@@ -34,11 +34,11 @@ export class UserService {
         })
       } else {
         return allUser;
-      }
-    })
-  }
+      };
+    });
+  };
 
-  getUserReview(){
+  async getUserReview(){
     let getReview:Review[] = [];
 
     const token = localStorage.getItem('Token');
@@ -60,11 +60,11 @@ export class UserService {
         })
       } else {
         return getReview;
-      }
-    })
-  }
+      };
+    });
+  };
 
-  getListReview(list:string){
+  async getListReview(list:string){
     let getListReview:Review[] = [];
 
     const token = localStorage.getItem('Token');
@@ -87,6 +87,6 @@ export class UserService {
       } else {
         return getListReview;
       }
-    })
-  }
-}
+    });
+  };
+};

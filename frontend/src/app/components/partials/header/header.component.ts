@@ -1,8 +1,5 @@
-import { Token } from '@angular/compiler';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { FavoritesService } from 'src/app/services/favorites.service';
-import { LoginPageComponent } from '../../pages/login-page/login-page.component';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +12,7 @@ export class HeaderComponent {
   isLogin = false;
   isAdmin !: boolean;
   isActive !: boolean;
-  constructor(activatedRoute :ActivatedRoute ,favoritesService:FavoritesService){
+  constructor(favoritesService:FavoritesService){
    //localStorage.removeItem("Token");
    localStorage.setItem('localpwd', 'http://localhost:3000');
    if (localStorage.getItem('Token')){

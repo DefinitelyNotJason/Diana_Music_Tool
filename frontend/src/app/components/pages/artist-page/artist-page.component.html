@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <div class="content">
+    <h1>Playlist</h1>
     <div class="display">
         <p>Playlist Name: {{playlist.name}}</p>
         <p>Creator: {{playlist.creator}}</p>
@@ -8,16 +9,21 @@
         <p>Rating: {{playlist.review_rating}}</p>
         <p>Total Play Time: {{playlist.playtime}}</p>
     </div>
+    <h1>Tracks</h1>
     <ul>
         <li *ngFor="let item of music">
             <div class="musicName">
-                {{item.track_title}}
-                <a href="{{item.track_url}}" target="_blank"><span class="material-symbols-outlined">
-                    play_circle
-                    </span>
+                <p>Name: {{item.track_title}}</p>
+                <p>Artist: {{item.artist_name}}</p>
+                <p>Album: {{item.album_title}}</p>
+                <p>Play Length: {{item.track_duration}}</p>
+                <p>Created Date: {{item.track_date_created}}</p>
+                <p>Recorded Date: {{item.track_date_recorded}}</p>
+                <a href="{{item.track_url}}" target="_blank">
+                    <span class="material-symbols-outlined">play_circle</span>
                 </a>
             </div>
-            <div>
+            <div class="banner">
                 <a href="{{item.track_url}}" target="_blank"><img src="{{item.track_banner}}"></a>
             </div>
         </li>
@@ -52,6 +58,6 @@
             <textarea #review matInput rows="10" cols="80" ng-model="review" placeholder="Write review ..."></textarea>
             <button (click) = "onSubmit(stars.value,review.value)">Submit</button>
         </div>
-        <a href="/#playlists" style="border: solid 2px gray; border-radius: 5%; margin-top:50px;margin-left:30px;">BACK</a>
     </div>
+    <a href="/#playlists" class="backbtn">BACK</a>
 </div>

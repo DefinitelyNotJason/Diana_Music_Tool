@@ -1,3 +1,14 @@
+/* The part of this frontend project is citing from:
+Youtube course: "The Ultimate Angular and Nodejs Tutorial For Beginners 2022"
+Youtube link: https://www.youtube.com/watch?v=NFh9WEH0Zi4
+Source code: https://github.com/nasirjd/foodmine-course
+Author: nasirjd
+Date: 2022
+Code version: N/A
+
+Citing parts include: Following the video, mocking the way the course builds an Angular frontend,
+part of login page/register page CSS (form part), the structure of routing model */
+
 .container{
     display: flex;
     justify-content: center;
@@ -23,7 +34,7 @@ label{
     font-size: 1.1rem;
 }
 
-p{
+h1{
     color: #FF69B4;
 }
 

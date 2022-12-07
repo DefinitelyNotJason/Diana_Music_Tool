@@ -1,4 +1,4 @@
-export class PlayList{
+export class PlayList {
     name!:string;
     creator!:string;
     description?:string;
@@ -11,4 +11,4 @@ export class PlayList{
     public!:boolean;
     edit_date!:string;
     banner_url?:string;
-}
+};

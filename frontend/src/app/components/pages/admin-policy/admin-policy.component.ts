@@ -35,7 +35,7 @@ export class AdminPolicyComponent {
   };
 
   async getSecurity():Promise<String>{
-    let url = 'http://localhost:3000/admin/getpolicy/security';
+    let url = localStorage.getItem('localpwd') + '/admin/getpolicy/security';
     let req = new Request(url, {
       method: 'GET',
     });
@@ -49,7 +49,7 @@ export class AdminPolicyComponent {
   };
 
   async getAUP():Promise<String>{
-    let url = 'http://localhost:3000/admin/getpolicy/AUP';
+    let url = localStorage.getItem('localpwd') + '/admin/getpolicy/AUP';
     let req = new Request(url, {
       method: 'GET',
     });
@@ -63,7 +63,7 @@ export class AdminPolicyComponent {
   };
 
   async getDMCA():Promise<String>{
-    let url = 'http://localhost:3000/admin/getpolicy/DMCA';
+    let url = localStorage.getItem('localpwd') + '/admin/getpolicy/DMCA';
     let req = new Request(url, {
       method: 'GET',
     });
